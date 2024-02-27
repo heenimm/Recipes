@@ -93,8 +93,8 @@ final class AuthViewController: UIViewController {
         return loginButton
     }()
     var presenter: AuthPresenter?
-    private var keyboardIsShown = false
-    private var keyboardHeight: CGFloat = 0.0
+    var keyboardIsShown = false
+    var keyboardHeight: CGFloat = 0.0
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
@@ -156,26 +156,27 @@ final class AuthViewController: UIViewController {
             loginButton.heightAnchor.constraint(equalToConstant: 48)
         ])
     }
-    @objc func keyboardWillShow(_ notification: Notification) {
-        if keyboardIsShown { return }
-        let userInfo = notification.userInfo
-        if let keyboardSize = (userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            keyboardHeight = keyboardSize.height
-            UIView.animate(withDuration: 0.3) {
-                self.view.frame.origin.y -= self.keyboardHeight
-//                self.view.heightAnchor.constraint(equalToConstant: 400).isActive = true
-            }
-            keyboardIsShown = true
-        }
-    }
     @objc func keyboardWillHide(_ notification: Notification) {
-        if !keyboardIsShown { return }
-        UIView.animate(withDuration: 0.3) {
-            self.view.frame.origin.y += self.keyboardHeight
-        }
-        keyboardIsShown = false
+        self.presenter?.downKeyboard(notification)
+    }
+    
+    @objc func keyboardWillShow(_ notification: Notification) {
+        self.presenter?.upKeyboard(notification)
     }
     @objc func hideKeyboard() {
         view.endEditing(true)
+    }
+}
+
+extension AuthViewController: AuthView {
+    func upView(_ keyboardHeight: CGFloat) {
+        UIView.animate(withDuration: 0.3) {
+            self.view.frame.origin.y -= keyboardHeight
+        }
+    }
+    func downView(_ keyboardHeight: CGFloat) {
+        UIView.animate(withDuration: 0.3) {
+            self.view.frame.origin.y += keyboardHeight
+        }
     }
 }
