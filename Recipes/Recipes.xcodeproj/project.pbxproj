@@ -9,21 +9,41 @@
 /* Begin PBXBuildFile section */
 		7B42E4AC2B8DD7180095C019 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B42E4AB2B8DD7180095C019 /* AppDelegate.swift */; };
 		7B42E4AE2B8DD7180095C019 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B42E4AD2B8DD7180095C019 /* SceneDelegate.swift */; };
-		7B42E4B02B8DD7180095C019 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B42E4AF2B8DD7180095C019 /* ViewController.swift */; };
 		7B42E4B32B8DD7180095C019 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B42E4B12B8DD7180095C019 /* Main.storyboard */; };
 		7B42E4B52B8DD7190095C019 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7B42E4B42B8DD7190095C019 /* Assets.xcassets */; };
 		7B42E4B82B8DD7190095C019 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B42E4B62B8DD7190095C019 /* LaunchScreen.storyboard */; };
+		7B42E4C22B8DF55C0095C019 /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B42E4C12B8DF55C0095C019 /* MainTabBarViewController.swift */; };
+		7B42E4C42B8DF56E0095C019 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B42E4C32B8DF56E0095C019 /* ProfileViewController.swift */; };
+		7B42E4C62B8DF6000095C019 /* ProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B42E4C52B8DF6000095C019 /* ProfilePresenter.swift */; };
+		7B42E4C92B8DF6210095C019 /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B42E4C82B8DF6210095C019 /* ProfileModel.swift */; };
+		7B42E4CC2B8E04D60095C019 /* BaseCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B42E4CB2B8E04D60095C019 /* BaseCoordinator.swift */; };
+		7B42E4CE2B8E06D10095C019 /* AppBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B42E4CD2B8E06D10095C019 /* AppBuilder.swift */; };
+		7B42E4D02B8E09AE0095C019 /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B42E4CF2B8E09AE0095C019 /* AuthCoordinator.swift */; };
+		7B42E4D22B8E09C10095C019 /* ProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B42E4D12B8E09C10095C019 /* ProfileCoordinator.swift */; };
+		7B42E4D52B8E0AF60095C019 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B42E4D42B8E0AF60095C019 /* AuthViewController.swift */; };
+		7B42E4D72B8E0B060095C019 /* AuthPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B42E4D62B8E0B060095C019 /* AuthPresenter.swift */; };
+		7B42E4D92B8E0D530095C019 /* AuthModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B42E4D82B8E0D530095C019 /* AuthModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		7B42E4A82B8DD7180095C019 /* Recipes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Recipes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B42E4AB2B8DD7180095C019 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7B42E4AD2B8DD7180095C019 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		7B42E4AF2B8DD7180095C019 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		7B42E4B22B8DD7180095C019 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7B42E4B42B8DD7190095C019 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7B42E4B72B8DD7190095C019 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7B42E4B92B8DD7190095C019 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7B42E4C12B8DF55C0095C019 /* MainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
+		7B42E4C32B8DF56E0095C019 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		7B42E4C52B8DF6000095C019 /* ProfilePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePresenter.swift; sourceTree = "<group>"; };
+		7B42E4C82B8DF6210095C019 /* ProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
+		7B42E4CB2B8E04D60095C019 /* BaseCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCoordinator.swift; sourceTree = "<group>"; };
+		7B42E4CD2B8E06D10095C019 /* AppBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppBuilder.swift; sourceTree = "<group>"; };
+		7B42E4CF2B8E09AE0095C019 /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
+		7B42E4D12B8E09C10095C019 /* ProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinator.swift; sourceTree = "<group>"; };
+		7B42E4D42B8E0AF60095C019 /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
+		7B42E4D62B8E0B060095C019 /* AuthPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthPresenter.swift; sourceTree = "<group>"; };
+		7B42E4D82B8E0D530095C019 /* AuthModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,15 +76,49 @@
 		7B42E4AA2B8DD7180095C019 /* Recipes */ = {
 			isa = PBXGroup;
 			children = (
+				7B42E4D32B8E0ADB0095C019 /* AuthProfile */,
+				7B42E4CA2B8E04B70095C019 /* Coordinators */,
+				7B42E4C72B8DF6050095C019 /* ProfileModule */,
 				7B42E4AB2B8DD7180095C019 /* AppDelegate.swift */,
 				7B42E4AD2B8DD7180095C019 /* SceneDelegate.swift */,
-				7B42E4AF2B8DD7180095C019 /* ViewController.swift */,
 				7B42E4B12B8DD7180095C019 /* Main.storyboard */,
 				7B42E4B42B8DD7190095C019 /* Assets.xcassets */,
 				7B42E4B62B8DD7190095C019 /* LaunchScreen.storyboard */,
 				7B42E4B92B8DD7190095C019 /* Info.plist */,
+				7B42E4C12B8DF55C0095C019 /* MainTabBarViewController.swift */,
 			);
 			path = Recipes;
+			sourceTree = "<group>";
+		};
+		7B42E4C72B8DF6050095C019 /* ProfileModule */ = {
+			isa = PBXGroup;
+			children = (
+				7B42E4C52B8DF6000095C019 /* ProfilePresenter.swift */,
+				7B42E4C32B8DF56E0095C019 /* ProfileViewController.swift */,
+				7B42E4C82B8DF6210095C019 /* ProfileModel.swift */,
+			);
+			path = ProfileModule;
+			sourceTree = "<group>";
+		};
+		7B42E4CA2B8E04B70095C019 /* Coordinators */ = {
+			isa = PBXGroup;
+			children = (
+				7B42E4CB2B8E04D60095C019 /* BaseCoordinator.swift */,
+				7B42E4CD2B8E06D10095C019 /* AppBuilder.swift */,
+				7B42E4CF2B8E09AE0095C019 /* AuthCoordinator.swift */,
+				7B42E4D12B8E09C10095C019 /* ProfileCoordinator.swift */,
+			);
+			path = Coordinators;
+			sourceTree = "<group>";
+		};
+		7B42E4D32B8E0ADB0095C019 /* AuthProfile */ = {
+			isa = PBXGroup;
+			children = (
+				7B42E4D42B8E0AF60095C019 /* AuthViewController.swift */,
+				7B42E4D62B8E0B060095C019 /* AuthPresenter.swift */,
+				7B42E4D82B8E0D530095C019 /* AuthModel.swift */,
+			);
+			path = AuthProfile;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -74,9 +128,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7B42E4BC2B8DD7190095C019 /* Build configuration list for PBXNativeTarget "Recipes" */;
 			buildPhases = (
+				7B42E4A42B8DD7180095C019 /* Sources */,
 				7B42E4C02B8DD9E40095C019 /* Swift Format */,
 				7B42E4BF2B8DD9C10095C019 /* Swift Lint */,
-				7B42E4A42B8DD7180095C019 /* Sources */,
 				7B42E4A52B8DD7180095C019 /* Frameworks */,
 				7B42E4A62B8DD7180095C019 /* Resources */,
 			);
@@ -138,6 +192,7 @@
 /* Begin PBXShellScriptBuildPhase section */
 		7B42E4BF2B8DD9C10095C019 /* Swift Lint */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -153,9 +208,11 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if [[ \"$(uname -m)\" == arm64 ]]; then\n    export PATH=\"/opt/homebrew/bin:$PATH\"\nfi\n\nif which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n\n";
+			showEnvVarsInLog = 0;
 		};
 		7B42E4C02B8DD9E40095C019 /* Swift Format */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -171,6 +228,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if which swiftformat >/dev/null; then\n  swiftformat .\nelse\n  echo \"warning: SwiftFormat not installed, download from https://github.com/nicklockwood/SwiftFormat\"\nfi\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -179,8 +237,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7B42E4B02B8DD7180095C019 /* ViewController.swift in Sources */,
+				7B42E4D52B8E0AF60095C019 /* AuthViewController.swift in Sources */,
+				7B42E4C22B8DF55C0095C019 /* MainTabBarViewController.swift in Sources */,
 				7B42E4AC2B8DD7180095C019 /* AppDelegate.swift in Sources */,
+				7B42E4D92B8E0D530095C019 /* AuthModel.swift in Sources */,
+				7B42E4C42B8DF56E0095C019 /* ProfileViewController.swift in Sources */,
+				7B42E4D72B8E0B060095C019 /* AuthPresenter.swift in Sources */,
+				7B42E4CE2B8E06D10095C019 /* AppBuilder.swift in Sources */,
+				7B42E4C92B8DF6210095C019 /* ProfileModel.swift in Sources */,
+				7B42E4CC2B8E04D60095C019 /* BaseCoordinator.swift in Sources */,
+				7B42E4C62B8DF6000095C019 /* ProfilePresenter.swift in Sources */,
+				7B42E4D02B8E09AE0095C019 /* AuthCoordinator.swift in Sources */,
+				7B42E4D22B8E09C10095C019 /* ProfileCoordinator.swift in Sources */,
 				7B42E4AE2B8DD7180095C019 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -244,7 +312,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -307,7 +375,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
