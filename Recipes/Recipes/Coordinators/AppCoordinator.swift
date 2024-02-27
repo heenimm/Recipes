@@ -1,4 +1,4 @@
-// AppBuilder.swift
+// AppCoordinator.swift
 // Copyright © RoadMap. All rights reserved.
 
 import UIKit
@@ -9,7 +9,7 @@ class AppBuilder {
         let view = ProfileViewController()
         let profilePresenter = ProfilePresenter(view: view)
         view.presenter = profilePresenter
-        view.tabBarItem = UITabBarItem(title: "Recipe", image: UIImage(systemName: "homekit"), tag: 0)
+        view.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "homekit"), tag: 0)
         return view
     }
 }
@@ -29,6 +29,20 @@ final class AppCoordinator: BaseCoordinator {
 
     private func toMain() {
         tabBarViewController = MainTabBarViewController()
+        /// Set profile
+        let profileView = appBuilder.makeProfileModule()
+        let profileCoordinator = ProfileCoordinator(rootController: profileView)
+        profileView.presenter?.profileCoordinator = profileCoordinator
+        add(coordinator: profileCoordinator)
+
+        profileCoordinator.onFinishFlow = { [weak self] in
+            self?.remove(coordinator: profileCoordinator)
+            self?.tabBarViewController = nil
+            self?.toAuth()
+        }
+
+        tabBarViewController?.setViewControllers([profileCoordinator.rootController], animated: false)
+        setAsRoot(_: tabBarViewController!)
     }
 
     private func toAuth() {
