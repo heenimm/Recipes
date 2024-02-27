@@ -5,7 +5,6 @@ import UIKit
 
 /// Окно авторизации в приложении
 final class AuthViewController: UIViewController {
-    
     enum Constants {
         static let authorisationTitle = "Login"
         static let emailTitle = "Email Address"
@@ -25,14 +24,6 @@ final class AuthViewController: UIViewController {
         static let visiblePassword = UIImage(named: "visiblePassword")
         static let invisiblePassword = UIImage(named: "invisiblePassword")
     }
-    
-    //    private let authorisationView: UIView = {
-    //        let view = UIView()
-    //        view.backgroundColor = .white
-    //        view.translatesAutoresizingMaskIntoConstraints = false
-    //        view.layer.cornerRadius = 20
-    //        return view
-    //    }()
     private let passwordVisibleButton: UIButton = {
         let button = UIButton()
         button.alpha = 1
@@ -74,7 +65,8 @@ final class AuthViewController: UIViewController {
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.layer.borderWidth = 1
         textField.layer.cornerRadius = 12
-        //            textField.addTarget(nil, action: #selector(textDidChange(_:)), for: .editingChanged)
+        textField.textColor = .black
+//        textField.addTarget(nil, action: #selector(textDidChange), for: .valueChanged)
         return textField
     }()
     private let passwordTextField: UITextField = {
@@ -84,7 +76,8 @@ final class AuthViewController: UIViewController {
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.layer.borderWidth = 1
         textField.layer.cornerRadius = 12
-        //            textField.addTarget(nil, action: #selector(textDidChange(_:)), for: .editingChanged)
+        textField.textColor = .black
+//        textField.addTarget(nil, action: #selector(textDidChange), for: .valueChanged)
         return textField
     }()
     private let loginButton: UIButton = {
@@ -99,19 +92,23 @@ final class AuthViewController: UIViewController {
         loginButton.isEnabled = true
         return loginButton
     }()
-    
     var presenter: AuthPresenter?
+    private var keyboardIsShown = false
+    private var keyboardHeight: CGFloat = 0.0
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        view.addGestureRecognizer(tapGesture)
     }
-    
     private func setLabels() {
         view.addSubview(authorisationLabel)
         view.addSubview(emailLabel)
         view.addSubview(passwordLabel)
         NSLayoutConstraint.activate([
-            authorisationLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 82),
+            authorisationLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 202),
             authorisationLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             authorisationLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             authorisationLabel.heightAnchor.constraint(equalToConstant: 34),
@@ -141,7 +138,7 @@ final class AuthViewController: UIViewController {
     }
     private func addGradientToView() {
         let gradientLayer = CAGradientLayer()
-        gradientLayer.colors = [UIColor.white.cgColor, UIColor.appBottomGradient.cgColor]
+        gradientLayer.colors = [UIColor.white.cgColor, UIColor.lightGray.cgColor]
         gradientLayer.startPoint = CGPoint(x: 0, y: 0)
         gradientLayer.endPoint = CGPoint(x: 0, y: 1)
         gradientLayer.frame = view.bounds
@@ -158,5 +155,27 @@ final class AuthViewController: UIViewController {
             loginButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             loginButton.heightAnchor.constraint(equalToConstant: 48)
         ])
+    }
+    @objc func keyboardWillShow(_ notification: Notification) {
+        if keyboardIsShown { return }
+        let userInfo = notification.userInfo
+        if let keyboardSize = (userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            keyboardHeight = keyboardSize.height
+            UIView.animate(withDuration: 0.3) {
+                self.view.frame.origin.y -= self.keyboardHeight
+//                self.view.heightAnchor.constraint(equalToConstant: 400).isActive = true
+            }
+            keyboardIsShown = true
+        }
+    }
+    @objc func keyboardWillHide(_ notification: Notification) {
+        if !keyboardIsShown { return }
+        UIView.animate(withDuration: 0.3) {
+            self.view.frame.origin.y += self.keyboardHeight
+        }
+        keyboardIsShown = false
+    }
+    @objc func hideKeyboard() {
+        view.endEditing(true)
     }
 }
