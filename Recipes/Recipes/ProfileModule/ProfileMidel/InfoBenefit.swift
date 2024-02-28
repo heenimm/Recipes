@@ -1,7 +1,7 @@
 // InfoBenefit.swift
 // Copyright © RoadMap. All rights reserved.
 
-///Отражаем логику ячейки бонусов
+/// Отражаем логику ячейки бонусов
 struct InfoBenefit {
     let menuImage: String
     let menuTitle: String

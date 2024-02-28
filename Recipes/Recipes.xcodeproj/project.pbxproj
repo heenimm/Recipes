@@ -28,6 +28,7 @@
 		7B42E4E22B8E4EAD0095C019 /* InfoPersonal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B42E4E12B8E4EAD0095C019 /* InfoPersonal.swift */; };
 		7B42E4E72B8E94C90095C019 /* TermsUseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B42E4E62B8E94C90095C019 /* TermsUseViewController.swift */; };
 		7B42E4E92B8EA1530095C019 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7B42E4E82B8EA1530095C019 /* Localizable.strings */; };
+		7B42E4EB2B8F366F0095C019 /* BonusesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B42E4EA2B8F366F0095C019 /* BonusesViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +55,7 @@
 		7B42E4E12B8E4EAD0095C019 /* InfoPersonal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoPersonal.swift; sourceTree = "<group>"; };
 		7B42E4E62B8E94C90095C019 /* TermsUseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsUseViewController.swift; sourceTree = "<group>"; };
 		7B42E4E82B8EA1530095C019 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		7B42E4EA2B8F366F0095C019 /* BonusesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BonusesViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,7 +106,7 @@
 		7B42E4C72B8DF6050095C019 /* ProfileModule */ = {
 			isa = PBXGroup;
 			children = (
-				7B42E4E52B8E94B80095C019 /* Views */,
+				7B42E4E52B8E94B80095C019 /* ViewControllers */,
 				7B42E4DA2B8E4C550095C019 /* Cells */,
 				7B42E4C52B8DF6000095C019 /* ProfilePresenter.swift */,
 				7B42E4C32B8DF56E0095C019 /* ProfileViewController.swift */,
@@ -152,12 +154,13 @@
 			path = ProfileMidel;
 			sourceTree = "<group>";
 		};
-		7B42E4E52B8E94B80095C019 /* Views */ = {
+		7B42E4E52B8E94B80095C019 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
 				7B42E4E62B8E94C90095C019 /* TermsUseViewController.swift */,
+				7B42E4EA2B8F366F0095C019 /* BonusesViewController.swift */,
 			);
-			path = Views;
+			path = ViewControllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -279,6 +282,7 @@
 			files = (
 				7B42E4D52B8E0AF60095C019 /* AuthViewController.swift in Sources */,
 				7B42E4C22B8DF55C0095C019 /* MainTabBarViewController.swift in Sources */,
+				7B42E4EB2B8F366F0095C019 /* BonusesViewController.swift in Sources */,
 				7B42E4E72B8E94C90095C019 /* TermsUseViewController.swift in Sources */,
 				7B42E4AC2B8DD7180095C019 /* AppDelegate.swift in Sources */,
 				7B42E4D92B8E0D530095C019 /* AuthModel.swift in Sources */,

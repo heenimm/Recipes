@@ -76,17 +76,30 @@ final class ProfileViewController: UIViewController {
         ])
     }
 
-    func termsActionSheet() {
+    func termsBottom() {
         let termsVC = TermsUseViewController()
-        if let actionSheet = termsVC.sheetPresentationController {
-            actionSheet.detents = [.medium(), .large()]
-            actionSheet.prefersScrollingExpandsWhenScrolledToEdge = false
-            actionSheet.prefersGrabberVisible = true
-            actionSheet.largestUndimmedDetentIdentifier = .medium
-            actionSheet.prefersEdgeAttachedInCompactHeight = true
-            actionSheet.preferredCornerRadius = 30
+        if let termsUseSheet = termsVC.sheetPresentationController {
+            termsUseSheet.detents = [.medium(), .large()]
+            termsUseSheet.prefersScrollingExpandsWhenScrolledToEdge = false
+            termsUseSheet.prefersGrabberVisible = true
+            termsUseSheet.largestUndimmedDetentIdentifier = .medium
+            termsUseSheet.prefersEdgeAttachedInCompactHeight = true
+            termsUseSheet.preferredCornerRadius = 30
         }
         present(termsVC, animated: true)
+    }
+
+    func bonusesBottom() {
+        let bonusesVC = BonusesViewController()
+        if let bonusUseSheet = bonusesVC.sheetPresentationController {
+            bonusUseSheet.detents = [.medium(), .large()]
+            bonusUseSheet.prefersScrollingExpandsWhenScrolledToEdge = false
+            bonusUseSheet.prefersGrabberVisible = true
+            bonusUseSheet.largestUndimmedDetentIdentifier = .medium
+            bonusUseSheet.prefersEdgeAttachedInCompactHeight = true
+            bonusUseSheet.preferredCornerRadius = 30
+        }
+        present(bonusesVC, animated: true)
     }
 }
 

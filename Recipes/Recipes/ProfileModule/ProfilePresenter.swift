@@ -23,10 +23,11 @@ final class ProfilePresenter {
     }
 
     // MARK: - Public Methods
+
     func didSelectCell(at indexPath: IndexPath) {
         switch indexPath.row {
-        case 0: print(0)
-        case 1: view?.termsActionSheet()
+        case 0: view?.bonusesBottom()
+        case 1: view?.termsBottom()
         case 2: print(2)
         default:
             break
