@@ -9,7 +9,7 @@ private enum Constants {
     static let bonusesImage = "bonusesImage"
     static let xmarkImage = "xmark"
     static let yourBonusesText = "Your bonuses"
-
+    static let countBonusText = "⭐️ 100"
     static let leftInset = UIScreen.main.bounds.width / 2 - 80
     static let termsTitleText = "Terms of Use"
     static let termsKeyText = "terms_use"
@@ -29,18 +29,27 @@ final class BonusesViewController: UIViewController {
         return imageView
     }()
 
-    private let closeButton: UIButton = {
+    let closeButton: UIButton = {
         let button = UIButton()
         button.contentMode = .center
         button.setImage(UIImage(systemName: Constants.xmarkImage), for: .normal)
-        button.addTarget(BonusesViewController.self, action: #selector(dismissBottom), for: .touchUpInside)
+        button.addTarget(self, action: #selector(dismissBottom), for: .touchUpInside)
         return button
     }()
 
     private let titleLabel: UILabel = {
         let label = UILabel()
+        label.textAlignment = .center
         label.text = Constants.yourBonusesText
         label.font = UIFont(name: Constants.fontVerdanaBold, size: 20)
+        return label
+    }()
+
+    private let countBonusLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .center
+        label.text = Constants.countBonusText
+        label.font = UIFont(name: Constants.fontVerdanaBold, size: 30)
         return label
     }()
 
@@ -50,7 +59,8 @@ final class BonusesViewController: UIViewController {
         setupSubviews()
         setupTitleLabelConstraints()
         setupCloseButtonConstraints()
-        setupTermsUseTextLabelConstraints()
+        setupBonusImageViewConstraints()
+        setupCountBonusLabelConstraints()
     }
 
     // MARK: - Private Methods
@@ -60,10 +70,7 @@ final class BonusesViewController: UIViewController {
         view.addSubview(titleLabel)
         view.addSubview(closeButton)
         view.addSubview(bonusImageView)
-    }
-
-    @objc func dismissBottom() {
-        dismiss(animated: true)
+        view.addSubview(countBonusLabel)
     }
 
     private func setupTitleLabelConstraints() {
@@ -75,7 +82,7 @@ final class BonusesViewController: UIViewController {
                 constant: 20
             ),
             titleLabel.heightAnchor.constraint(equalToConstant: 24),
-            titleLabel.widthAnchor.constraint(equalToConstant: 350)
+            titleLabel.widthAnchor.constraint(equalToConstant: 300)
 
         ])
     }
@@ -97,19 +104,37 @@ final class BonusesViewController: UIViewController {
         ])
     }
 
-    private func setupTermsUseTextLabelConstraints() {
+    private func setupBonusImageViewConstraints() {
         bonusImageView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             bonusImageView.topAnchor.constraint(
-                equalTo: view.topAnchor,
-                constant: 83
+                equalTo: titleLabel.bottomAnchor,
+                constant: 13
             ),
             bonusImageView.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor,
                 constant: 120
             ),
             bonusImageView.heightAnchor.constraint(equalToConstant: 136),
-            titleLabel.widthAnchor.constraint(equalToConstant: 150)
+            bonusImageView.widthAnchor.constraint(equalToConstant: 150)
         ])
+    }
+
+    private func setupCountBonusLabelConstraints() {
+        countBonusLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            countBonusLabel.topAnchor.constraint(equalTo: bonusImageView.bottomAnchor, constant: 12),
+            countBonusLabel.leadingAnchor.constraint(
+                equalTo: view.leadingAnchor,
+                constant: 130
+            ),
+            countBonusLabel.heightAnchor.constraint(equalToConstant: 24),
+            countBonusLabel.widthAnchor.constraint(equalToConstant: 216)
+
+        ])
+    }
+
+    @objc func dismissBottom() {
+        dismiss(animated: true, completion: nil)
     }
 }

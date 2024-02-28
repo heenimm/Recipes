@@ -31,6 +31,7 @@ final class TermsUseViewController: UIViewController {
         let button = UIButton()
         button.contentMode = .center
         button.setImage(UIImage(systemName: Constants.xmarkImage), for: .normal)
+        button.addTarget(self, action: #selector(dismissBottom), for: .touchUpInside)
         return button
     }()
 
@@ -108,5 +109,9 @@ final class TermsUseViewController: UIViewController {
             termsTextView.heightAnchor.constraint(equalToConstant: 625),
             titleLabel.widthAnchor.constraint(equalToConstant: 340)
         ])
+    }
+
+    @objc func dismissBottom() {
+        dismiss(animated: true, completion: nil)
     }
 }
