@@ -16,6 +16,7 @@ private enum Constants {
 final class TermsUseViewController: UIViewController {
     // MARK: - Static Constant
 
+    typealias EmptyClosure = () -> Void
     static let reuseID = String(describing: PersonalInfoCell.self)
 
     // MARK: - Visual Components
