@@ -5,10 +5,14 @@ import UIKit
 
 // Главный координатор
 class BaseCoordinator {
+    enum Constants {
+        static let childText = "child must be"
+    }
+
     var childCoordinators: [BaseCoordinator] = []
 
     func start() {
-        fatalError("child must be")
+        fatalError(Constants.childText)
     }
 
     func add(coordinator: BaseCoordinator) {

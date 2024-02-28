@@ -15,14 +15,20 @@
 		7B42E4C22B8DF55C0095C019 /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B42E4C12B8DF55C0095C019 /* MainTabBarViewController.swift */; };
 		7B42E4C42B8DF56E0095C019 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B42E4C32B8DF56E0095C019 /* ProfileViewController.swift */; };
 		7B42E4C62B8DF6000095C019 /* ProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B42E4C52B8DF6000095C019 /* ProfilePresenter.swift */; };
-		7B42E4C92B8DF6210095C019 /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B42E4C82B8DF6210095C019 /* ProfileModel.swift */; };
+		7B42E4C92B8DF6210095C019 /* InfoBenefit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B42E4C82B8DF6210095C019 /* InfoBenefit.swift */; };
 		7B42E4CC2B8E04D60095C019 /* BaseCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B42E4CB2B8E04D60095C019 /* BaseCoordinator.swift */; };
 		7B42E4CE2B8E06D10095C019 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B42E4CD2B8E06D10095C019 /* AppCoordinator.swift */; };
 		7B42E4D02B8E09AE0095C019 /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B42E4CF2B8E09AE0095C019 /* AuthCoordinator.swift */; };
 		7B42E4D22B8E09C10095C019 /* ProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B42E4D12B8E09C10095C019 /* ProfileCoordinator.swift */; };
 		7B42E4D52B8E0AF60095C019 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B42E4D42B8E0AF60095C019 /* AuthViewController.swift */; };
 		7B42E4D72B8E0B060095C019 /* AuthPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B42E4D62B8E0B060095C019 /* AuthPresenter.swift */; };
-		7B42E4D92B8E0D530095C019 /* AuthModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B42E4D82B8E0D530095C019 /* AuthModel.swift */; };
+		7B42E4D92B8E0D530095C019 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B42E4D82B8E0D530095C019 /* Auth.swift */; };
+		7B42E4DD2B8E4CF70095C019 /* PersonalInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B42E4DC2B8E4CF70095C019 /* PersonalInfoCell.swift */; };
+		7B42E4DF2B8E4D620095C019 /* BenefitsInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B42E4DE2B8E4D620095C019 /* BenefitsInfoCell.swift */; };
+		7B42E4E22B8E4EAD0095C019 /* InfoPersonal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B42E4E12B8E4EAD0095C019 /* InfoPersonal.swift */; };
+		7B42E4E72B8E94C90095C019 /* TermsUseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B42E4E62B8E94C90095C019 /* TermsUseViewController.swift */; };
+		7B42E4E92B8EA1530095C019 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7B42E4E82B8EA1530095C019 /* Localizable.strings */; };
+		7B42E4EB2B8F366F0095C019 /* BonusesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B42E4EA2B8F366F0095C019 /* BonusesViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,14 +42,20 @@
 		7B42E4C12B8DF55C0095C019 /* MainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
 		7B42E4C32B8DF56E0095C019 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		7B42E4C52B8DF6000095C019 /* ProfilePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePresenter.swift; sourceTree = "<group>"; };
-		7B42E4C82B8DF6210095C019 /* ProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
+		7B42E4C82B8DF6210095C019 /* InfoBenefit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoBenefit.swift; sourceTree = "<group>"; };
 		7B42E4CB2B8E04D60095C019 /* BaseCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCoordinator.swift; sourceTree = "<group>"; };
 		7B42E4CD2B8E06D10095C019 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		7B42E4CF2B8E09AE0095C019 /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
 		7B42E4D12B8E09C10095C019 /* ProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinator.swift; sourceTree = "<group>"; };
 		7B42E4D42B8E0AF60095C019 /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		7B42E4D62B8E0B060095C019 /* AuthPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthPresenter.swift; sourceTree = "<group>"; };
-		7B42E4D82B8E0D530095C019 /* AuthModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthModel.swift; sourceTree = "<group>"; };
+		7B42E4D82B8E0D530095C019 /* Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
+		7B42E4DC2B8E4CF70095C019 /* PersonalInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalInfoCell.swift; sourceTree = "<group>"; };
+		7B42E4DE2B8E4D620095C019 /* BenefitsInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BenefitsInfoCell.swift; sourceTree = "<group>"; };
+		7B42E4E12B8E4EAD0095C019 /* InfoPersonal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoPersonal.swift; sourceTree = "<group>"; };
+		7B42E4E62B8E94C90095C019 /* TermsUseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsUseViewController.swift; sourceTree = "<group>"; };
+		7B42E4E82B8EA1530095C019 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		7B42E4EA2B8F366F0095C019 /* BonusesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BonusesViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +72,7 @@
 		7B42E49F2B8DD7180095C019 = {
 			isa = PBXGroup;
 			children = (
+				7B42E4E82B8EA1530095C019 /* Localizable.strings */,
 				7B42E4AA2B8DD7180095C019 /* Recipes */,
 				7B42E4A92B8DD7180095C019 /* Products */,
 			);
@@ -93,9 +106,11 @@
 		7B42E4C72B8DF6050095C019 /* ProfileModule */ = {
 			isa = PBXGroup;
 			children = (
+				7B42E4E52B8E94B80095C019 /* ViewControllers */,
+				7B42E4DA2B8E4C550095C019 /* Cells */,
 				7B42E4C52B8DF6000095C019 /* ProfilePresenter.swift */,
 				7B42E4C32B8DF56E0095C019 /* ProfileViewController.swift */,
-				7B42E4C82B8DF6210095C019 /* ProfileModel.swift */,
+				7B42E4E02B8E4E900095C019 /* ProfileMidel */,
 			);
 			path = ProfileModule;
 			sourceTree = "<group>";
@@ -116,9 +131,36 @@
 			children = (
 				7B42E4D42B8E0AF60095C019 /* AuthViewController.swift */,
 				7B42E4D62B8E0B060095C019 /* AuthPresenter.swift */,
-				7B42E4D82B8E0D530095C019 /* AuthModel.swift */,
+				7B42E4D82B8E0D530095C019 /* Auth.swift */,
 			);
 			path = AuthProfile;
+			sourceTree = "<group>";
+		};
+		7B42E4DA2B8E4C550095C019 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				7B42E4DC2B8E4CF70095C019 /* PersonalInfoCell.swift */,
+				7B42E4DE2B8E4D620095C019 /* BenefitsInfoCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		7B42E4E02B8E4E900095C019 /* ProfileMidel */ = {
+			isa = PBXGroup;
+			children = (
+				7B42E4C82B8DF6210095C019 /* InfoBenefit.swift */,
+				7B42E4E12B8E4EAD0095C019 /* InfoPersonal.swift */,
+			);
+			path = ProfileMidel;
+			sourceTree = "<group>";
+		};
+		7B42E4E52B8E94B80095C019 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				7B42E4E62B8E94C90095C019 /* TermsUseViewController.swift */,
+				7B42E4EA2B8F366F0095C019 /* BonusesViewController.swift */,
+			);
+			path = ViewControllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -182,6 +224,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7B42E4B82B8DD7190095C019 /* LaunchScreen.storyboard in Resources */,
+				7B42E4E92B8EA1530095C019 /* Localizable.strings in Resources */,
 				7B42E4B52B8DD7190095C019 /* Assets.xcassets in Resources */,
 				7B42E4B32B8DD7180095C019 /* Main.storyboard in Resources */,
 			);
@@ -227,7 +270,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if which swiftformat >/dev/null; then\n  swiftformat .\nelse\n  echo \"warning: SwiftFormat not installed, download from https://github.com/nicklockwood/SwiftFormat\"\nfi\n";
+			shellScript = "if [[ \"$(uname -m)\" == arm64 ]]; then\n    export PATH=\"/opt/homebrew/bin:$PATH\"\nfi\n\nif which swiftformat > /dev/null; then\n  swiftformat .\nelse\n  echo \"warning: SwiftFormat not installed, download from https://github.com/nicklockwood/SwiftFormat\"\nfi\n\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -239,16 +282,21 @@
 			files = (
 				7B42E4D52B8E0AF60095C019 /* AuthViewController.swift in Sources */,
 				7B42E4C22B8DF55C0095C019 /* MainTabBarViewController.swift in Sources */,
+				7B42E4EB2B8F366F0095C019 /* BonusesViewController.swift in Sources */,
+				7B42E4E72B8E94C90095C019 /* TermsUseViewController.swift in Sources */,
 				7B42E4AC2B8DD7180095C019 /* AppDelegate.swift in Sources */,
-				7B42E4D92B8E0D530095C019 /* AuthModel.swift in Sources */,
+				7B42E4D92B8E0D530095C019 /* Auth.swift in Sources */,
 				7B42E4C42B8DF56E0095C019 /* ProfileViewController.swift in Sources */,
 				7B42E4D72B8E0B060095C019 /* AuthPresenter.swift in Sources */,
 				7B42E4CE2B8E06D10095C019 /* AppCoordinator.swift in Sources */,
-				7B42E4C92B8DF6210095C019 /* ProfileModel.swift in Sources */,
+				7B42E4DD2B8E4CF70095C019 /* PersonalInfoCell.swift in Sources */,
+				7B42E4C92B8DF6210095C019 /* InfoBenefit.swift in Sources */,
 				7B42E4CC2B8E04D60095C019 /* BaseCoordinator.swift in Sources */,
 				7B42E4C62B8DF6000095C019 /* ProfilePresenter.swift in Sources */,
 				7B42E4D02B8E09AE0095C019 /* AuthCoordinator.swift in Sources */,
 				7B42E4D22B8E09C10095C019 /* ProfileCoordinator.swift in Sources */,
+				7B42E4E22B8E4EAD0095C019 /* InfoPersonal.swift in Sources */,
+				7B42E4DF2B8E4D620095C019 /* BenefitsInfoCell.swift in Sources */,
 				7B42E4AE2B8DD7180095C019 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

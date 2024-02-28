@@ -26,7 +26,7 @@ final class AuthCoordinator: BaseCoordinator {
         self.rootController = rootController
     }
 
-    func nextVC() {
+    func nextViewController() {
         let authViewController = AuthViewController()
         rootController?.pushViewController(authViewController, animated: true)
     }
