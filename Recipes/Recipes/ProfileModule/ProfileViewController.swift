@@ -3,12 +3,6 @@
 
 import UIKit
 
-private enum Constants {
-    static let fontVerdana = "Verdana"
-    static let fontVerdanaBold = "Verdana-Bold"
-    static let plusBackgroundColor = "plusBackground"
-}
-
 /// Тип ячеек
 private enum TypeCell {
     case infoPersonal // ячейка данных
@@ -17,6 +11,13 @@ private enum TypeCell {
 
 /// Просмотр профиля пользователя
 final class ProfileViewController: UIViewController {
+    
+    private enum Constants {
+        static let fontVerdana = "Verdana"
+        static let fontVerdanaBold = "Verdana-Bold"
+        static let plusBackgroundColor = "plusBackground"
+    }
+    
     // MARK: - Public Properties
 
     var presenter: ProfilePresenter?

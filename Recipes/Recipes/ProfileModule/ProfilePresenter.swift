@@ -28,7 +28,7 @@ final class ProfilePresenter {
         switch indexPath.row {
         case 0: view?.bonusesBottom()
         case 1: view?.termsBottom()
-        case 2: print(2)
+        case 2: profileCoordinator?.logOut()
         default:
             break
         }

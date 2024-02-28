@@ -3,17 +3,17 @@
 
 import UIKit
 
-private enum Constants {
-    static let fontVerdana = "Verdana"
-    static let fontVerdanaBold = "Verdana-Bold"
-    static let pencil = "pencil"
-    static let leftInset = UIScreen.main.bounds.width / 2 - 80
-    static let greenColor = "AppGreen"
-    static let lightGreenColor = "AppLightGreen"
-}
-
 ///
 final class BenefitsInfoCell: UITableViewCell {
+    
+    private enum Constants {
+        static let fontVerdana = "Verdana"
+        static let fontVerdanaBold = "Verdana-Bold"
+        static let pencil = "pencil"
+        static let leftInset = UIScreen.main.bounds.width / 2 - 80
+        static let greenColor = "AppGreen"
+        static let lightGreenColor = "AppLightGreen"
+    }
     // MARK: - Static Constant
 
     static let reuseID = String(describing: BenefitsInfoCell.self)
