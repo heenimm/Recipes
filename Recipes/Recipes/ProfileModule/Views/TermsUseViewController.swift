@@ -12,7 +12,7 @@ private enum Constants {
     static let termsKeyText = "terms_use"
 }
 
-///Информация о пользовательском соглашении
+/// Информация о пользовательском соглашении
 final class TermsUseViewController: UIViewController {
     // MARK: - Static Constant
 

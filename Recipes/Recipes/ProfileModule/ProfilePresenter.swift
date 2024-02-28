@@ -8,20 +8,21 @@ protocol ProfilePresenterDelegate: AnyObject {}
 
 /// Презентер профиля пользователя
 final class ProfilePresenter {
-    // MARK: -
+    // MARK: - Public Properties
 
     weak var profileCoordinator: ProfileCoordinator?
 
-    // MARK: -
+    // MARK: - Private Properties
 
     private weak var view: ProfileViewController?
 
-    // MARK: -
+    // MARK: - Init
 
     init(view: ProfileViewController) {
         self.view = view
     }
 
+    // MARK: - Public Methods
     func didSelectCell(at indexPath: IndexPath) {
         switch indexPath.row {
         case 0: print(0)
