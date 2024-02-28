@@ -3,13 +3,6 @@
 
 import UIKit
 
-private enum Constants {
-    static let fontVerdana = "Verdana"
-    static let fontVerdanaBold = "Verdana-Bold"
-    static let pencil = "pencil"
-    static let leftInset = UIScreen.main.bounds.width / 2 - 80
-}
-
 /// Делегат PersonalInfoCell
 protocol PersonalInfoCellDelegate: AnyObject {
     func didTapChangePersonalInfoButton()
@@ -17,6 +10,13 @@ protocol PersonalInfoCellDelegate: AnyObject {
 
 /// ячейка отображения персональных данных
 final class PersonalInfoCell: UITableViewCell {
+    private enum Constants {
+        static let fontVerdana = "Verdana"
+        static let fontVerdanaBold = "Verdana-Bold"
+        static let pencil = "pencil"
+        static let leftInset = UIScreen.main.bounds.width / 2 - 80
+    }
+
     // MARK: - Static Constant
 
     static let reuseID = String(describing: PersonalInfoCell.self)

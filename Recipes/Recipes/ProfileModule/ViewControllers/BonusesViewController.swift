@@ -3,23 +3,19 @@
 
 import UIKit
 
-private enum Constants {
-    static let fontVerdana = "Verdana"
-    static let fontVerdanaBold = "Verdana-Bold"
-    static let bonusesImage = "bonusesImage"
-    static let xmarkImage = "xmark"
-    static let yourBonusesText = "Your bonuses"
-    static let countBonusText = "⭐️ 100"
-    static let leftInset = UIScreen.main.bounds.width / 2 - 80
-    static let termsTitleText = "Terms of Use"
-    static let termsKeyText = "terms_use"
-}
-
 /// Информация о бонусах
 final class BonusesViewController: UIViewController {
-    // MARK: - Static Constant
-
-    static let reuseID = String(describing: PersonalInfoCell.self)
+    private enum Constants {
+        static let fontVerdana = "Verdana"
+        static let fontVerdanaBold = "Verdana-Bold"
+        static let bonusesImage = "bonusesImage"
+        static let xmarkImage = "xmark"
+        static let yourBonusesText = "Your bonuses"
+        static let countBonusText = "⭐️ 100"
+        static let leftInset = UIScreen.main.bounds.width / 2 - 80
+        static let termsTitleText = "Terms of Use"
+        static let termsKeyText = "terms_use"
+    }
 
     // MARK: - Visual Components
 
