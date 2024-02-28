@@ -10,6 +10,7 @@ private enum Constants {
     static let leftInset = UIScreen.main.bounds.width / 2 - 80
 }
 
+/// Делегат PersonalInfoCell
 protocol PersonalInfoCellDelegate: AnyObject {
     func didTapChangePersonalInfoButton()
 }

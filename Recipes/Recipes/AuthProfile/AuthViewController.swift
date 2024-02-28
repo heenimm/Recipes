@@ -3,7 +3,7 @@
 
 import UIKit
 
-/// Окно авторизации в приложении
+/// Экран авторизации
 final class AuthViewController: UIViewController {
     // MARK: - Constants
 
@@ -36,7 +36,7 @@ final class AuthViewController: UIViewController {
         label.text = Constants.authorisationTitle
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = Constants.verdanaBold28
-        label.textColor = .appLabels
+        label.textColor = .red
         return label
     }()
 
@@ -45,7 +45,7 @@ final class AuthViewController: UIViewController {
         label.text = Constants.emailTitle
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = Constants.verdanaBold18
-        label.textColor = .appLabels
+        label.textColor = .red
         return label
     }()
 
@@ -64,7 +64,7 @@ final class AuthViewController: UIViewController {
         label.text = Constants.passwordTitle
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = Constants.verdanaBold16
-        label.textColor = .appLabels
+        label.textColor = .red
         return label
     }()
 
@@ -270,13 +270,13 @@ final class AuthViewController: UIViewController {
         errorAuthorisationImageView.isHidden = true
         incorrectPasswordLabel.isHidden = true
         errorAuthorisationImageView.isHidden = true
-        passwordLabel.textColor = .appLabels
-        passwordTextField.layer.borderColor = UIColor.appLabels.cgColor
+        passwordLabel.textColor = .red
+        passwordTextField.layer.borderColor = UIColor.red.cgColor
     }
 }
 
 /// Определение функций из протокола AuthView
-extension AuthViewController: AuthView {
+extension AuthViewController: AuthViewProtocol {
     func changePasswordLabels(_ color: UIColor, isIncorrectPasswordHidden: Bool) {
         passwordLabel.textColor = color
         passwordTextField.layer.borderColor = color.cgColor

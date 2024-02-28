@@ -31,7 +31,7 @@ final class ProfileViewController: UIViewController {
 
     // MARK: - Private Properties
 
-    private let contentType: [TypeCell] = [.infoPersonal, .infoBenefit]
+    private let contentTypes: [TypeCell] = [.infoPersonal, .infoBenefit]
     private let storageInfoBenefit = StorageInfoBenefit()
     private var storageInfoPersonal = StorageInfoPersonal()
 
@@ -138,7 +138,7 @@ final class ProfileViewController: UIViewController {
 
 extension ProfileViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        switch contentType[indexPath.section] {
+        switch contentTypes[indexPath.section] {
         case .infoPersonal:
             return 270
         case .infoBenefit:
@@ -158,11 +158,11 @@ extension ProfileViewController: UITableViewDelegate {
 
 extension ProfileViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        contentType.count
+        contentTypes.count
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch contentType[section] {
+        switch contentTypes[section] {
         case .infoPersonal:
             return storageInfoPersonal.infoPersonals.count
         case .infoBenefit:
@@ -171,7 +171,7 @@ extension ProfileViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch contentType[indexPath.section] {
+        switch contentTypes[indexPath.section] {
         case .infoPersonal:
             guard let cell = tableView.dequeueReusableCell(
                 withIdentifier: PersonalInfoCell.reuseID,

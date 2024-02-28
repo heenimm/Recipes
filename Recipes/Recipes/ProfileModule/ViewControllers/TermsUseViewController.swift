@@ -12,11 +12,11 @@ private enum Constants {
     static let termsKeyText = "terms_use"
 }
 
-/// Информация о пользовательском соглашении
+/// Экран информации о пользовательском соглашении
 final class TermsUseViewController: UIViewController {
     // MARK: - Static Constant
 
-    typealias EmptyClosure = () -> Void
+    typealias VoidHandler = () -> Void
     static let reuseID = String(describing: PersonalInfoCell.self)
 
     // MARK: - Visual Components
