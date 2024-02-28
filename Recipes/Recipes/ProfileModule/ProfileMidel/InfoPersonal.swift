@@ -3,12 +3,12 @@
 
 /// Отражаем логику персональных данных
 struct InfoPersonal {
-    let userPhoto: String
-    let userName: String
+    var userPhoto: String
+    var userName: String
 }
 
 struct StorageInfoPersonal {
-    let infoPersonals: [InfoPersonal] = [
+    var infoPersonals: [InfoPersonal] = [
         InfoPersonal(userPhoto: "userImage", userName: "Surname Name")
     ]
 }

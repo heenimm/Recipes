@@ -10,11 +10,17 @@ private enum Constants {
     static let leftInset = UIScreen.main.bounds.width / 2 - 80
 }
 
-///
+protocol PersonalInfoCellDelegate: AnyObject {
+    func didTapChangePersonalInfoButton()
+}
+
+/// ячейка отображения персональных данных
 final class PersonalInfoCell: UITableViewCell {
     // MARK: - Static Constant
 
     static let reuseID = String(describing: PersonalInfoCell.self)
+
+    weak var delegate: PersonalInfoCellDelegate?
 
     // MARK: - Visual Components
 
@@ -26,11 +32,12 @@ final class PersonalInfoCell: UITableViewCell {
         return imageView
     }()
 
-    private let changeNameImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.contentMode = .center
-        imageView.image = UIImage(named: Constants.pencil)
-        return imageView
+    private let changeNameBotton: UIButton = {
+        let button = UIButton()
+        button.contentMode = .center
+        button.setImage(UIImage(named: Constants.pencil), for: .normal)
+        button.addTarget(self, action: #selector(changePersonalInfo), for: .touchUpInside)
+        return button
     }()
 
     private let userNameLabel: UILabel = {
@@ -58,7 +65,7 @@ final class PersonalInfoCell: UITableViewCell {
     private func setupSubviews() {
         contentView.addSubview(userPhotoImageView)
         contentView.addSubview(userNameLabel)
-        contentView.addSubview(changeNameImageView)
+        contentView.addSubview(changeNameBotton)
     }
 
     private func setupUserPhotoImageViewConstraints() {
@@ -76,19 +83,19 @@ final class PersonalInfoCell: UITableViewCell {
     }
 
     private func setupChangeNameImageViewConstraints() {
-        changeNameImageView.translatesAutoresizingMaskIntoConstraints = false
+        changeNameBotton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            changeNameImageView.topAnchor.constraint(
+            changeNameBotton.topAnchor.constraint(
                 equalTo: contentView.topAnchor,
                 constant: 222
             ),
-            changeNameImageView.leadingAnchor.constraint(
+            changeNameBotton.leadingAnchor.constraint(
                 equalTo: userNameLabel.trailingAnchor,
                 constant: 8
 
             ),
-            changeNameImageView.heightAnchor.constraint(equalToConstant: 24),
-            changeNameImageView.widthAnchor.constraint(equalToConstant: 24)
+            changeNameBotton.heightAnchor.constraint(equalToConstant: 24),
+            changeNameBotton.widthAnchor.constraint(equalToConstant: 24)
         ])
     }
 
@@ -106,6 +113,10 @@ final class PersonalInfoCell: UITableViewCell {
             userNameLabel.heightAnchor.constraint(equalToConstant: 30),
             userNameLabel.widthAnchor.constraint(equalToConstant: 256)
         ])
+    }
+
+    @objc private func changePersonalInfo() {
+        delegate?.didTapChangePersonalInfoButton()
     }
 }
 

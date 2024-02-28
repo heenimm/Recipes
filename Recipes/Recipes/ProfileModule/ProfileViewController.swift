@@ -25,7 +25,7 @@ final class ProfileViewController: UIViewController {
 
     private let contentType: [TypeCell] = [.infoPersonal, .infoBenefit]
     private let storageInfoBenefit = StorageInfoBenefit()
-    private let storageInfoPersonal = StorageInfoPersonal()
+    private var storageInfoPersonal = StorageInfoPersonal()
 
     // MARK: - Visual Components
 
@@ -101,6 +101,29 @@ final class ProfileViewController: UIViewController {
         }
         present(bonusesVC, animated: true)
     }
+
+    private func addChangeNameAlert() -> UIAlertController {
+        let alertController = UIAlertController(
+            title: "Change your name and surname",
+            message: "",
+            preferredStyle: .alert
+        )
+        alertController.addTextField { textField in
+            textField.placeholder = "Name Surname"
+        }
+        let actionOK = UIAlertAction(title: "Ok", style: .default) { [weak self] okAction in
+            if let userName = alertController.textFields?.first?.text {
+                self?.storageInfoPersonal.infoPersonals[0].userName = userName
+            }
+            DispatchQueue.main.async {
+                self?.tableView.reloadData()
+            }
+        }
+        let actionCancel = UIAlertAction(title: "Cancel", style: .cancel)
+        alertController.addAction(actionOK)
+        alertController.addAction(actionCancel)
+        return alertController
+    }
 }
 
 // MARK: - Extension ProfileViewController + UITableViewDelegate
@@ -147,6 +170,7 @@ extension ProfileViewController: UITableViewDataSource {
                 for: indexPath
             ) as? PersonalInfoCell else { return UITableViewCell() }
             cell.selectionStyle = .none
+            cell.delegate = self
             cell.configure(storageInfoPersonal.infoPersonals[indexPath.row])
             return cell
         case .infoBenefit:
@@ -158,5 +182,13 @@ extension ProfileViewController: UITableViewDataSource {
             cell.configure(storageInfoBenefit.infoBenefits[indexPath.row])
             return cell
         }
+    }
+}
+
+// MARK: - Extension ProfileViewController + PersonalInfoCellDelegate
+
+extension ProfileViewController: PersonalInfoCellDelegate {
+    func didTapChangePersonalInfoButton() {
+        present(addChangeNameAlert(), animated: true)
     }
 }

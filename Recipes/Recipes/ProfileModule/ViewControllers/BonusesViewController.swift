@@ -47,7 +47,6 @@ final class BonusesViewController: UIViewController {
 
     private let countBonusLabel: UILabel = {
         let label = UILabel()
-        label.textAlignment = .center
         label.text = Constants.countBonusText
         label.font = UIFont(name: Constants.fontVerdanaBold, size: 30)
         return label
@@ -82,7 +81,7 @@ final class BonusesViewController: UIViewController {
                 constant: 20
             ),
             titleLabel.heightAnchor.constraint(equalToConstant: 24),
-            titleLabel.widthAnchor.constraint(equalToConstant: 300)
+            titleLabel.widthAnchor.constraint(equalToConstant: 360)
 
         ])
     }
@@ -113,7 +112,7 @@ final class BonusesViewController: UIViewController {
             ),
             bonusImageView.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor,
-                constant: 120
+                constant: 130
             ),
             bonusImageView.heightAnchor.constraint(equalToConstant: 136),
             bonusImageView.widthAnchor.constraint(equalToConstant: 150)
@@ -126,7 +125,7 @@ final class BonusesViewController: UIViewController {
             countBonusLabel.topAnchor.constraint(equalTo: bonusImageView.bottomAnchor, constant: 12),
             countBonusLabel.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor,
-                constant: 130
+                constant: 120
             ),
             countBonusLabel.heightAnchor.constraint(equalToConstant: 24),
             countBonusLabel.widthAnchor.constraint(equalToConstant: 216)

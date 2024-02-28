@@ -9,7 +9,17 @@ class AppBuilder {
         let view = ProfileViewController()
         let profilePresenter = ProfilePresenter(view: view)
         view.presenter = profilePresenter
-        view.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "homekit"), tag: 0)
+        view.tabBarItem = UITabBarItem(
+            title: "Profile",
+
+            image: UIImage(systemName: "smiley.fill")?.withTintColor(
+                UIColor(
+                    named: "AppGreen"
+                )!,
+                renderingMode: .alwaysOriginal
+            ),
+            tag: 0
+        )
         return view
     }
 }
