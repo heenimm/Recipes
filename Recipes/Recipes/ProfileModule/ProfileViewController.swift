@@ -3,38 +3,28 @@
 
 import UIKit
 
-<<<<<<< HEAD
-=======
-private enum Constants {
-    static let fontVerdana = "Verdana"
-    static let fontVerdanaBold = "Verdana-Bold"
-    static let plusBackgroundColor = "plusBackground"
-    static let headerLabel = "   Profile"
-    static let changeNameAlert = "Change your name and surname"
-    static let emptyText = ""
-    static let nameSurnameText = "Name Surname"
-    static let okText = "Ok"
-    static let cancelText = "Cancel"
-}
-
->>>>>>> 6fc8184454b15b79458afdac08920168d865e42d
-/// Тип ячеек
-private enum TypeCell {
-    /// ячейка данных
-    case infoPersonal
-    /// ячейки дополнительной информации
-    case infoBenefit
-}
-
 /// Просмотр профиля пользователя
 final class ProfileViewController: UIViewController {
-    
     private enum Constants {
         static let fontVerdana = "Verdana"
         static let fontVerdanaBold = "Verdana-Bold"
         static let plusBackgroundColor = "plusBackground"
+        static let headerLabel = "  Profile"
+        static let changeNameAlert = "Change your name and surname"
+        static let emptyText = ""
+        static let nameSurnameText = "Surname Name"
+        static let okText = "Ok"
+        static let cancelText = "Cancel"
     }
-    
+
+    /// Тип ячеек
+    private enum TypeCell {
+        /// ячейка данных
+        case infoPersonal
+        /// ячейки дополнительной информации
+        case infoBenefit
+    }
+
     // MARK: - Public Properties
 
     weak var presenter: ProfilePresenter?

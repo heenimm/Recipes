@@ -3,22 +3,8 @@
 
 import UIKit
 
-<<<<<<< HEAD
-///
-=======
-private enum Constants {
-    static let fontVerdana = "Verdana"
-    static let fontVerdanaBold = "Verdana-Bold"
-    static let pencil = "pencil"
-    static let leftInset = UIScreen.main.bounds.width / 2 - 80
-    static let greenColor = "AppGreen"
-    static let lightGreenColor = "AppLightGreen"
-}
-
 /// Ячейка с преимуществами
->>>>>>> 6fc8184454b15b79458afdac08920168d865e42d
 final class BenefitsInfoCell: UITableViewCell {
-    
     private enum Constants {
         static let fontVerdana = "Verdana"
         static let fontVerdanaBold = "Verdana-Bold"
@@ -27,6 +13,7 @@ final class BenefitsInfoCell: UITableViewCell {
         static let greenColor = "AppGreen"
         static let lightGreenColor = "AppLightGreen"
     }
+
     // MARK: - Static Constant
 
     static let reuseID = String(describing: BenefitsInfoCell.self)

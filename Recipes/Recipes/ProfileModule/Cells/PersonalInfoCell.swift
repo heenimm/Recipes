@@ -3,31 +3,20 @@
 
 import UIKit
 
-<<<<<<< HEAD
-=======
-private enum Constants {
-    static let fontVerdana = "Verdana"
-    static let fontVerdanaBold = "Verdana-Bold"
-    static let pencil = "pencil"
-    static let leftInset = UIScreen.main.bounds.width / 2 - 80
-}
-
 /// Делегат PersonalInfoCell
->>>>>>> 6fc8184454b15b79458afdac08920168d865e42d
 protocol PersonalInfoCellDelegate: AnyObject {
     func didTapChangePersonalInfoButton()
 }
 
 /// ячейка отображения персональных данных
 final class PersonalInfoCell: UITableViewCell {
-    
     private enum Constants {
         static let fontVerdana = "Verdana"
         static let fontVerdanaBold = "Verdana-Bold"
         static let pencil = "pencil"
         static let leftInset = UIScreen.main.bounds.width / 2 - 80
     }
-    
+
     // MARK: - Static Constant
 
     static let reuseID = String(describing: PersonalInfoCell.self)

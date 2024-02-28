@@ -5,7 +5,6 @@ import UIKit
 
 /// Информация о бонусах
 final class BonusesViewController: UIViewController {
-    
     private enum Constants {
         static let fontVerdana = "Verdana"
         static let fontVerdanaBold = "Verdana-Bold"
