@@ -5,6 +5,8 @@ import UIKit
 
 /// Окно авторизации в приложении
 final class AuthViewController: UIViewController {
+    // MARK: - Constants
+
     enum Constants {
         static let authorisationTitle = "Login"
         static let emailTitle = "Email Address"
@@ -15,6 +17,7 @@ final class AuthViewController: UIViewController {
         static let passwordPlaceholder = "Enter Password"
         static let loginButtonText = "Login"
         static let errorImage = "errorAuthorisation"
+        static let spinerText = "spiner"
         static let verdanaBold16 = UIFont(name: "Verdana-Bold", size: 16)
         static let verdanaBold26 = UIFont(name: "Verdana-Bold", size: 26)
         static let verdanaBold24 = UIFont(name: "Verdana-Bold", size: 24)
@@ -29,16 +32,9 @@ final class AuthViewController: UIViewController {
         static let invisiblePassword = UIImage(named: "invisiblePassword")
     }
 
-    private let passwordVisibleButton: UIButton = {
-        let button = UIButton()
-        button.alpha = 1
-        button.setTitle("", for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.titleLabel?.font = Constants.verdanaBold16
-        //        button.backgroundColor = .appButton
-        //            button.addTarget(nil, action: #selector(passwordVisibleButtonTouched), for: .touchUpInside)
-        return button
-    }()
+    // MARK: - IBOutlets
+
+    // MARK: - Visual Components
 
     private let authorisationLabel: UILabel = {
         let label = UILabel()
@@ -96,7 +92,6 @@ final class AuthViewController: UIViewController {
         textField.layer.cornerRadius = 12
         textField.textColor = .black
         textField.tag = 0
-//        textField.addTarget(nil, action: #selector(textDidChange), for: .valueChanged)
         return textField
     }()
 
@@ -133,12 +128,20 @@ final class AuthViewController: UIViewController {
         return imageView
     }()
 
+    // MARK: - Public Properties
+
     var presenter: AuthPresenter?
-    var keyboardIsShown = false
-    var keyboardHeight: CGFloat = 0.0
+
+    // MARK: - Life Cycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
+    }
+
+    // MARK: - Private Methods
+
+    private func addNotification() {
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(keyboardWillShow(_:)),
@@ -151,10 +154,11 @@ final class AuthViewController: UIViewController {
             name: UIResponder.keyboardWillHideNotification,
             object: nil
         )
+    }
+
+    private func addCesture() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         view.addGestureRecognizer(tapGesture)
-
-        loginTextField.delegate = self
     }
 
     private func setLabels() {
@@ -201,10 +205,7 @@ final class AuthViewController: UIViewController {
         view.layer.insertSublayer(gradientLayer, at: 0)
     }
 
-    private func configureUI() {
-        setLabels()
-        setTextFields()
-        addGradientToView()
+    private func addButtons() {
         view.addSubview(loginButton)
         NSLayoutConstraint.activate([
             loginButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -71),
@@ -212,7 +213,9 @@ final class AuthViewController: UIViewController {
             loginButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             loginButton.heightAnchor.constraint(equalToConstant: 48)
         ])
+    }
 
+    private func addCheckingAuthorisationElements() {
         view.addSubview(incorrectEmailLabel)
         view.addSubview(incorrectPasswordLabel)
         view.addSubview(errorAuthorisationImageView)
@@ -234,16 +237,27 @@ final class AuthViewController: UIViewController {
         ])
     }
 
-    @objc func keyboardWillHide(_ notification: Notification) {
-        presenter?.downKeyboard(notification)
+    private func configureUI() {
+        setLabels()
+        setTextFields()
+        addGradientToView()
+        addButtons()
+        addCheckingAuthorisationElements()
+        addNotification()
+        addCesture()
+        loginTextField.delegate = self
     }
 
-    @objc func keyboardWillShow(_ notification: Notification) {
-        presenter?.upKeyboard(notification)
+    @objc private func keyboardWillHide(_ notification: Notification) {
+        presenter?.downKeyboardIfNeeded(notification)
     }
 
-    @objc func loginButtonTapped() {
-        loginButton.setTitle("spiner", for: .normal)
+    @objc private func keyboardWillShow(_ notification: Notification) {
+        presenter?.showKeyboardIfNeeded(notification)
+    }
+
+    @objc private func loginButtonTapped() {
+        loginButton.setTitle(Constants.spinerText, for: .normal)
         loginButton.isEnabled = false
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
@@ -253,7 +267,7 @@ final class AuthViewController: UIViewController {
         }
     }
 
-    @objc func hideKeyboard() {
+    @objc private func hideKeyboard() {
         view.endEditing(true)
     }
 
@@ -266,15 +280,16 @@ final class AuthViewController: UIViewController {
     }
 }
 
+/// Определение функций из протокола AuthView
 extension AuthViewController: AuthView {
-    func changePasswordColor(_ color: UIColor, isIncorrectPasswordHidden: Bool) {
+    func changePasswordLabels(_ color: UIColor, isIncorrectPasswordHidden: Bool) {
         passwordLabel.textColor = color
         passwordTextField.layer.borderColor = color.cgColor
         incorrectPasswordLabel.isHidden = isIncorrectPasswordHidden
         errorAuthorisationImageView.isHidden = isIncorrectPasswordHidden
     }
 
-    func changeEmailColor(_ color: UIColor, isIncorrectEmailHidden: Bool) {
+    func changeEmailLabels(_ color: UIColor, isIncorrectEmailHidden: Bool) {
         emailLabel.textColor = color
         loginTextField.layer.borderColor = color.cgColor
         incorrectEmailLabel.isHidden = isIncorrectEmailHidden
@@ -293,6 +308,7 @@ extension AuthViewController: AuthView {
     }
 }
 
+/// Определение функций из UITextFieldDelegate
 extension AuthViewController: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         presenter?.checkEmail(textField)
