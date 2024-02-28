@@ -32,7 +32,7 @@ final class TermsUseViewController: UIViewController {
         let button = UIButton()
         button.contentMode = .center
         button.setImage(UIImage(systemName: Constants.xmarkImage), for: .normal)
-        button.addTarget(self, action: #selector(dismissBottom), for: .touchUpInside)
+        button.addTarget(nil, action: #selector(dismissBottom), for: .touchUpInside)
         return button
     }()
 

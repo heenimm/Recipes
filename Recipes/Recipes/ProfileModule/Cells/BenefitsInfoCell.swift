@@ -12,7 +12,7 @@ private enum Constants {
     static let lightGreenColor = "AppLightGreen"
 }
 
-///
+/// Ячейка с преимуществами
 final class BenefitsInfoCell: UITableViewCell {
     // MARK: - Static Constant
 

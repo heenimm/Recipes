@@ -27,12 +27,7 @@ final class AuthViewController: UIViewController {
         static let verdana18 = UIFont(name: "Verdana", size: 18)
         static let verdana14 = UIFont(name: "Verdana", size: 14)
         static let verdana16 = UIFont(name: "Verdana", size: 16)
-        static let logoCoffe = UIImage(named: "LogoCoffe")
-        static let visiblePassword = UIImage(named: "visiblePassword")
-        static let invisiblePassword = UIImage(named: "invisiblePassword")
     }
-
-    // MARK: - IBOutlets
 
     // MARK: - Visual Components
 

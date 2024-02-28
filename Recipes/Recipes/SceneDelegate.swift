@@ -3,18 +3,12 @@
 
 import UIKit
 
-class SceneDelegate: UIResponder, UIWindowSceneDelegate {
+final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
     private var appCoordinator: AppCoordinator?
 
     func scene(_ scene: UIScene, willConnectTo _: UISceneSession, options _: UIScene.ConnectionOptions) {
-        guard let windowScene = (scene as? UIWindowScene) else { return }
-        window = UIWindow(windowScene: windowScene)
-        if let window {
-            window.makeKeyAndVisible()
-            appCoordinator = AppCoordinator()
-            appCoordinator?.start()
-        }
+        setScene(scene)
     }
 
     func sceneDidDisconnect(_: UIScene) {
@@ -44,5 +38,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Called as the scene transitions from the foreground to the background.
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
+    }
+
+    private func setScene(_ scene: UIScene) {
+        guard let windowScene = (scene as? UIWindowScene) else { return }
+        window = UIWindow(windowScene: windowScene)
+        if let window {
+            window.makeKeyAndVisible()
+            appCoordinator = AppCoordinator()
+            appCoordinator?.start()
+        }
     }
 }

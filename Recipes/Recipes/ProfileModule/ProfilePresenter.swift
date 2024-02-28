@@ -3,9 +3,6 @@
 
 import UIKit
 
-///
-protocol ProfilePresenterDelegate: AnyObject {}
-
 /// Презентер профиля пользователя
 final class ProfilePresenter {
     // MARK: - Public Properties

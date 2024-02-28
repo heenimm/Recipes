@@ -29,7 +29,7 @@ final class BonusesViewController: UIViewController {
         return imageView
     }()
 
-    let closeButton: UIButton = {
+    private let closeButton: UIButton = {
         let button = UIButton()
         button.contentMode = .center
         button.setImage(UIImage(systemName: Constants.xmarkImage), for: .normal)
@@ -60,6 +60,12 @@ final class BonusesViewController: UIViewController {
         setupCloseButtonConstraints()
         setupBonusImageViewConstraints()
         setupCountBonusLabelConstraints()
+    }
+
+    // MARK: - Public Methods
+
+    @objc func dismissBottom() {
+        dismiss(animated: true, completion: nil)
     }
 
     // MARK: - Private Methods
@@ -131,9 +137,5 @@ final class BonusesViewController: UIViewController {
             countBonusLabel.widthAnchor.constraint(equalToConstant: 216)
 
         ])
-    }
-
-    @objc func dismissBottom() {
-        dismiss(animated: true, completion: nil)
     }
 }

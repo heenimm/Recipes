@@ -3,6 +3,7 @@
 
 import UIKit
 
+/// Главный таббар
 final class MainTabBarViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()

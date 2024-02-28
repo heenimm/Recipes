@@ -7,19 +7,27 @@ private enum Constants {
     static let fontVerdana = "Verdana"
     static let fontVerdanaBold = "Verdana-Bold"
     static let plusBackgroundColor = "plusBackground"
+    static let headerLabel = "   Profile"
+    static let changeNameAlert = "Change your name and surname"
+    static let emptyText = ""
+    static let nameSurnameText = "Name Surname"
+    static let okText = "Ok"
+    static let cancelText = "Cancel"
 }
 
 /// Тип ячеек
 private enum TypeCell {
-    case infoPersonal // ячейка данных
-    case infoBenefit // ячейки дополнительной информации
+    /// ячейка данных
+    case infoPersonal
+    /// ячейки дополнительной информации
+    case infoBenefit
 }
 
 /// Просмотр профиля пользователя
 final class ProfileViewController: UIViewController {
     // MARK: - Public Properties
 
-    var presenter: ProfilePresenter?
+    weak var presenter: ProfilePresenter?
 
     // MARK: - Private Properties
 
@@ -36,7 +44,7 @@ final class ProfileViewController: UIViewController {
             width: view.frame.width,
             height: 50
         ))
-        label.text = "   Profile"
+        label.text = Constants.headerLabel
         label.font = UIFont(name: Constants.fontVerdanaBold, size: 28)
         return label
     }()
@@ -77,8 +85,8 @@ final class ProfileViewController: UIViewController {
     }
 
     func termsBottom() {
-        let termsVC = TermsUseViewController()
-        if let termsUseSheet = termsVC.sheetPresentationController {
+        let termsViewController = TermsUseViewController()
+        if let termsUseSheet = termsViewController.sheetPresentationController {
             termsUseSheet.detents = [.medium(), .large()]
             termsUseSheet.prefersScrollingExpandsWhenScrolledToEdge = false
             termsUseSheet.prefersGrabberVisible = true
@@ -86,12 +94,12 @@ final class ProfileViewController: UIViewController {
             termsUseSheet.prefersEdgeAttachedInCompactHeight = true
             termsUseSheet.preferredCornerRadius = 30
         }
-        present(termsVC, animated: true)
+        present(termsViewController, animated: true)
     }
 
     func bonusesBottom() {
-        let bonusesVC = BonusesViewController()
-        if let bonusUseSheet = bonusesVC.sheetPresentationController {
+        let bonusesViewController = BonusesViewController()
+        if let bonusUseSheet = bonusesViewController.sheetPresentationController {
             bonusUseSheet.detents = [.medium(), .large()]
             bonusUseSheet.prefersScrollingExpandsWhenScrolledToEdge = false
             bonusUseSheet.prefersGrabberVisible = true
@@ -99,19 +107,19 @@ final class ProfileViewController: UIViewController {
             bonusUseSheet.prefersEdgeAttachedInCompactHeight = true
             bonusUseSheet.preferredCornerRadius = 30
         }
-        present(bonusesVC, animated: true)
+        present(bonusesViewController, animated: true)
     }
 
     private func addChangeNameAlert() -> UIAlertController {
         let alertController = UIAlertController(
-            title: "Change your name and surname",
-            message: "",
+            title: Constants.changeNameAlert,
+            message: Constants.emptyText,
             preferredStyle: .alert
         )
         alertController.addTextField { textField in
-            textField.placeholder = "Name Surname"
+            textField.placeholder = Constants.nameSurnameText
         }
-        let actionOK = UIAlertAction(title: "Ok", style: .default) { [weak self] okAction in
+        let actionOK = UIAlertAction(title: Constants.okText, style: .default) { [weak self] okAction in
             if let userName = alertController.textFields?.first?.text {
                 self?.storageInfoPersonal.infoPersonals[0].userName = userName
             }
@@ -119,7 +127,7 @@ final class ProfileViewController: UIViewController {
                 self?.tableView.reloadData()
             }
         }
-        let actionCancel = UIAlertAction(title: "Cancel", style: .cancel)
+        let actionCancel = UIAlertAction(title: Constants.cancelText, style: .cancel)
         alertController.addAction(actionOK)
         alertController.addAction(actionCancel)
         return alertController

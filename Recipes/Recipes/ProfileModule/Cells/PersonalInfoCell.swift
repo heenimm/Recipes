@@ -36,7 +36,7 @@ final class PersonalInfoCell: UITableViewCell {
         let button = UIButton()
         button.contentMode = .center
         button.setImage(UIImage(named: Constants.pencil), for: .normal)
-        button.addTarget(self, action: #selector(changePersonalInfo), for: .touchUpInside)
+        button.addTarget(nil, action: #selector(changePersonalInfo), for: .touchUpInside)
         return button
     }()
 
