@@ -8,15 +8,19 @@ final class AuthViewController: UIViewController {
     enum Constants {
         static let authorisationTitle = "Login"
         static let emailTitle = "Email Address"
+        static let incorrectLabelText = "Incorrect format"
+        static let incorrectPasswordText = "You entered the wrong password"
         static let passwordTitle = "Password"
         static let loginPlaceholder = "Enter Email Address"
         static let passwordPlaceholder = "Enter Password"
         static let loginButtonText = "Login"
+        static let errorImage = "errorAuthorisation"
         static let verdanaBold16 = UIFont(name: "Verdana-Bold", size: 16)
         static let verdanaBold26 = UIFont(name: "Verdana-Bold", size: 26)
         static let verdanaBold24 = UIFont(name: "Verdana-Bold", size: 24)
         static let verdanaBold28 = UIFont(name: "Verdana-Bold", size: 28)
         static let verdanaBold18 = UIFont(name: "Verdana-Bold", size: 18)
+        static let verdanaBold12 = UIFont(name: "Verdana-Bold", size: 12)
         static let verdana18 = UIFont(name: "Verdana", size: 18)
         static let verdana14 = UIFont(name: "Verdana", size: 14)
         static let verdana16 = UIFont(name: "Verdana", size: 16)
@@ -24,6 +28,7 @@ final class AuthViewController: UIViewController {
         static let visiblePassword = UIImage(named: "visiblePassword")
         static let invisiblePassword = UIImage(named: "invisiblePassword")
     }
+
     private let passwordVisibleButton: UIButton = {
         let button = UIButton()
         button.alpha = 1
@@ -34,6 +39,7 @@ final class AuthViewController: UIViewController {
         //            button.addTarget(nil, action: #selector(passwordVisibleButtonTouched), for: .touchUpInside)
         return button
     }()
+
     private let authorisationLabel: UILabel = {
         let label = UILabel()
         label.text = Constants.authorisationTitle
@@ -42,6 +48,7 @@ final class AuthViewController: UIViewController {
         label.textColor = .appLabels
         return label
     }()
+
     private let emailLabel: UILabel = {
         let label = UILabel()
         label.text = Constants.emailTitle
@@ -50,15 +57,37 @@ final class AuthViewController: UIViewController {
         label.textColor = .appLabels
         return label
     }()
+
+    private let incorrectEmailLabel: UILabel = {
+        let label = UILabel()
+        label.text = Constants.incorrectLabelText
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = Constants.verdanaBold12
+        label.textColor = .red
+        label.isHidden = true
+        return label
+    }()
+
     private let passwordLabel: UILabel = {
         let label = UILabel()
         label.text = Constants.passwordTitle
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = Constants.verdanaBold18
+        label.font = Constants.verdanaBold16
         label.textColor = .appLabels
         return label
     }()
-    private let loginTextField: UITextField = {
+
+    private let incorrectPasswordLabel: UILabel = {
+        let label = UILabel()
+        label.text = Constants.incorrectPasswordText
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = Constants.verdanaBold12
+        label.textColor = .red
+        label.isHidden = true
+        return label
+    }()
+
+    let loginTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = Constants.loginPlaceholder
         textField.font = Constants.verdana18
@@ -66,10 +95,12 @@ final class AuthViewController: UIViewController {
         textField.layer.borderWidth = 1
         textField.layer.cornerRadius = 12
         textField.textColor = .black
+        textField.tag = 0
 //        textField.addTarget(nil, action: #selector(textDidChange), for: .valueChanged)
         return textField
     }()
-    private let passwordTextField: UITextField = {
+
+    let passwordTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = Constants.passwordPlaceholder
         textField.font = Constants.verdana18
@@ -77,9 +108,10 @@ final class AuthViewController: UIViewController {
         textField.layer.borderWidth = 1
         textField.layer.cornerRadius = 12
         textField.textColor = .black
-//        textField.addTarget(nil, action: #selector(textDidChange), for: .valueChanged)
+        textField.addTarget(nil, action: #selector(textDidChange), for: .editingChanged)
         return textField
     }()
+
     private let loginButton: UIButton = {
         let loginButton = UIButton()
         loginButton.translatesAutoresizingMaskIntoConstraints = false
@@ -88,21 +120,43 @@ final class AuthViewController: UIViewController {
         loginButton.setTitle(Constants.loginButtonText, for: .normal)
         loginButton.titleLabel?.font = Constants.verdana16
         loginButton.backgroundColor = .appButton
-        //        loginButton.addTarget(nil, action: #selector(loginButtonTapped), for: .touchUpInside)
+        loginButton.addTarget(nil, action: #selector(loginButtonTapped), for: .touchUpInside)
         loginButton.isEnabled = true
         return loginButton
     }()
+
+    private let errorAuthorisationImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: Constants.errorImage)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.isHidden = true
+        return imageView
+    }()
+
     var presenter: AuthPresenter?
     var keyboardIsShown = false
     var keyboardHeight: CGFloat = 0.0
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillShow(_:)),
+            name: UIResponder.keyboardWillShowNotification,
+            object: nil
+        )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillHide(_:)),
+            name: UIResponder.keyboardWillHideNotification,
+            object: nil
+        )
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         view.addGestureRecognizer(tapGesture)
+
+        loginTextField.delegate = self
     }
+
     private func setLabels() {
         view.addSubview(authorisationLabel)
         view.addSubview(emailLabel)
@@ -122,6 +176,7 @@ final class AuthViewController: UIViewController {
             passwordLabel.heightAnchor.constraint(equalToConstant: 32)
         ])
     }
+
     private func setTextFields() {
         view.addSubview(loginTextField)
         view.addSubview(passwordTextField)
@@ -136,14 +191,16 @@ final class AuthViewController: UIViewController {
             passwordTextField.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
+
     private func addGradientToView() {
         let gradientLayer = CAGradientLayer()
-        gradientLayer.colors = [UIColor.white.cgColor, UIColor.lightGray.cgColor]
+        gradientLayer.colors = [UIColor.white.cgColor, UIColor.appButton.cgColor]
         gradientLayer.startPoint = CGPoint(x: 0, y: 0)
-        gradientLayer.endPoint = CGPoint(x: 0, y: 1)
+        gradientLayer.endPoint = CGPoint(x: 0, y: 3)
         gradientLayer.frame = view.bounds
         view.layer.insertSublayer(gradientLayer, at: 0)
     }
+
     private func configureUI() {
         setLabels()
         setTextFields()
@@ -155,28 +212,89 @@ final class AuthViewController: UIViewController {
             loginButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             loginButton.heightAnchor.constraint(equalToConstant: 48)
         ])
+
+        view.addSubview(incorrectEmailLabel)
+        view.addSubview(incorrectPasswordLabel)
+        view.addSubview(errorAuthorisationImageView)
+        NSLayoutConstraint.activate([
+            incorrectEmailLabel.topAnchor.constraint(equalTo: loginTextField.bottomAnchor),
+            incorrectEmailLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            incorrectEmailLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 140),
+            incorrectEmailLabel.heightAnchor.constraint(equalToConstant: 19),
+
+            incorrectPasswordLabel.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor),
+            incorrectPasswordLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            incorrectPasswordLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 140),
+            incorrectPasswordLabel.heightAnchor.constraint(equalToConstant: 19),
+
+            errorAuthorisationImageView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -83),
+            errorAuthorisationImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            errorAuthorisationImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            errorAuthorisationImageView.heightAnchor.constraint(equalToConstant: 87)
+        ])
     }
+
     @objc func keyboardWillHide(_ notification: Notification) {
-        self.presenter?.downKeyboard(notification)
+        presenter?.downKeyboard(notification)
     }
-    
+
     @objc func keyboardWillShow(_ notification: Notification) {
-        self.presenter?.upKeyboard(notification)
+        presenter?.upKeyboard(notification)
     }
+
+    @objc func loginButtonTapped() {
+        loginButton.setTitle("spiner", for: .normal)
+        loginButton.isEnabled = false
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            self.loginButton.setTitle(Constants.loginButtonText, for: .normal)
+            self.loginButton.isEnabled = true
+            self.presenter?.checkAuthorisation(self.passwordTextField.text)
+        }
+    }
+
     @objc func hideKeyboard() {
         view.endEditing(true)
+    }
+
+    @objc private func textDidChange() {
+        errorAuthorisationImageView.isHidden = true
+        incorrectPasswordLabel.isHidden = true
+        errorAuthorisationImageView.isHidden = true
+        passwordLabel.textColor = .appLabels
+        passwordTextField.layer.borderColor = UIColor.appLabels.cgColor
     }
 }
 
 extension AuthViewController: AuthView {
+    func changePasswordColor(_ color: UIColor, isIncorrectPasswordHidden: Bool) {
+        passwordLabel.textColor = color
+        passwordTextField.layer.borderColor = color.cgColor
+        incorrectPasswordLabel.isHidden = isIncorrectPasswordHidden
+        errorAuthorisationImageView.isHidden = isIncorrectPasswordHidden
+    }
+
+    func changeEmailColor(_ color: UIColor, isIncorrectEmailHidden: Bool) {
+        emailLabel.textColor = color
+        loginTextField.layer.borderColor = color.cgColor
+        incorrectEmailLabel.isHidden = isIncorrectEmailHidden
+    }
+
     func upView(_ keyboardHeight: CGFloat) {
         UIView.animate(withDuration: 0.3) {
             self.view.frame.origin.y -= keyboardHeight
         }
     }
+
     func downView(_ keyboardHeight: CGFloat) {
         UIView.animate(withDuration: 0.3) {
             self.view.frame.origin.y += keyboardHeight
         }
+    }
+}
+
+extension AuthViewController: UITextFieldDelegate {
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        presenter?.checkEmail(textField)
     }
 }
