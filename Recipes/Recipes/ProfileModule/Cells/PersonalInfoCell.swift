@@ -3,6 +3,17 @@
 
 import UIKit
 
+<<<<<<< HEAD
+=======
+private enum Constants {
+    static let fontVerdana = "Verdana"
+    static let fontVerdanaBold = "Verdana-Bold"
+    static let pencil = "pencil"
+    static let leftInset = UIScreen.main.bounds.width / 2 - 80
+}
+
+/// Делегат PersonalInfoCell
+>>>>>>> 6fc8184454b15b79458afdac08920168d865e42d
 protocol PersonalInfoCellDelegate: AnyObject {
     func didTapChangePersonalInfoButton()
 }
@@ -37,7 +48,7 @@ final class PersonalInfoCell: UITableViewCell {
         let button = UIButton()
         button.contentMode = .center
         button.setImage(UIImage(named: Constants.pencil), for: .normal)
-        button.addTarget(self, action: #selector(changePersonalInfo), for: .touchUpInside)
+        button.addTarget(nil, action: #selector(changePersonalInfo), for: .touchUpInside)
         return button
     }()
 

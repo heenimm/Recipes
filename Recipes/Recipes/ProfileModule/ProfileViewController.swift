@@ -3,10 +3,27 @@
 
 import UIKit
 
+<<<<<<< HEAD
+=======
+private enum Constants {
+    static let fontVerdana = "Verdana"
+    static let fontVerdanaBold = "Verdana-Bold"
+    static let plusBackgroundColor = "plusBackground"
+    static let headerLabel = "   Profile"
+    static let changeNameAlert = "Change your name and surname"
+    static let emptyText = ""
+    static let nameSurnameText = "Name Surname"
+    static let okText = "Ok"
+    static let cancelText = "Cancel"
+}
+
+>>>>>>> 6fc8184454b15b79458afdac08920168d865e42d
 /// Тип ячеек
 private enum TypeCell {
-    case infoPersonal // ячейка данных
-    case infoBenefit // ячейки дополнительной информации
+    /// ячейка данных
+    case infoPersonal
+    /// ячейки дополнительной информации
+    case infoBenefit
 }
 
 /// Просмотр профиля пользователя
@@ -20,11 +37,11 @@ final class ProfileViewController: UIViewController {
     
     // MARK: - Public Properties
 
-    var presenter: ProfilePresenter?
+    weak var presenter: ProfilePresenter?
 
     // MARK: - Private Properties
 
-    private let contentType: [TypeCell] = [.infoPersonal, .infoBenefit]
+    private let contentTypes: [TypeCell] = [.infoPersonal, .infoBenefit]
     private let storageInfoBenefit = StorageInfoBenefit()
     private var storageInfoPersonal = StorageInfoPersonal()
 
@@ -37,7 +54,7 @@ final class ProfileViewController: UIViewController {
             width: view.frame.width,
             height: 50
         ))
-        label.text = "   Profile"
+        label.text = Constants.headerLabel
         label.font = UIFont(name: Constants.fontVerdanaBold, size: 28)
         return label
     }()
@@ -78,8 +95,8 @@ final class ProfileViewController: UIViewController {
     }
 
     func termsBottom() {
-        let termsVC = TermsUseViewController()
-        if let termsUseSheet = termsVC.sheetPresentationController {
+        let termsViewController = TermsUseViewController()
+        if let termsUseSheet = termsViewController.sheetPresentationController {
             termsUseSheet.detents = [.medium(), .large()]
             termsUseSheet.prefersScrollingExpandsWhenScrolledToEdge = false
             termsUseSheet.prefersGrabberVisible = true
@@ -87,12 +104,12 @@ final class ProfileViewController: UIViewController {
             termsUseSheet.prefersEdgeAttachedInCompactHeight = true
             termsUseSheet.preferredCornerRadius = 30
         }
-        present(termsVC, animated: true)
+        present(termsViewController, animated: true)
     }
 
     func bonusesBottom() {
-        let bonusesVC = BonusesViewController()
-        if let bonusUseSheet = bonusesVC.sheetPresentationController {
+        let bonusesViewController = BonusesViewController()
+        if let bonusUseSheet = bonusesViewController.sheetPresentationController {
             bonusUseSheet.detents = [.medium(), .large()]
             bonusUseSheet.prefersScrollingExpandsWhenScrolledToEdge = false
             bonusUseSheet.prefersGrabberVisible = true
@@ -100,19 +117,19 @@ final class ProfileViewController: UIViewController {
             bonusUseSheet.prefersEdgeAttachedInCompactHeight = true
             bonusUseSheet.preferredCornerRadius = 30
         }
-        present(bonusesVC, animated: true)
+        present(bonusesViewController, animated: true)
     }
 
     private func addChangeNameAlert() -> UIAlertController {
         let alertController = UIAlertController(
-            title: "Change your name and surname",
-            message: "",
+            title: Constants.changeNameAlert,
+            message: Constants.emptyText,
             preferredStyle: .alert
         )
         alertController.addTextField { textField in
-            textField.placeholder = "Name Surname"
+            textField.placeholder = Constants.nameSurnameText
         }
-        let actionOK = UIAlertAction(title: "Ok", style: .default) { [weak self] okAction in
+        let actionOK = UIAlertAction(title: Constants.okText, style: .default) { [weak self] okAction in
             if let userName = alertController.textFields?.first?.text {
                 self?.storageInfoPersonal.infoPersonals[0].userName = userName
             }
@@ -120,7 +137,7 @@ final class ProfileViewController: UIViewController {
                 self?.tableView.reloadData()
             }
         }
-        let actionCancel = UIAlertAction(title: "Cancel", style: .cancel)
+        let actionCancel = UIAlertAction(title: Constants.cancelText, style: .cancel)
         alertController.addAction(actionOK)
         alertController.addAction(actionCancel)
         return alertController
@@ -131,7 +148,7 @@ final class ProfileViewController: UIViewController {
 
 extension ProfileViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        switch contentType[indexPath.section] {
+        switch contentTypes[indexPath.section] {
         case .infoPersonal:
             return 270
         case .infoBenefit:
@@ -151,11 +168,11 @@ extension ProfileViewController: UITableViewDelegate {
 
 extension ProfileViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        contentType.count
+        contentTypes.count
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch contentType[section] {
+        switch contentTypes[section] {
         case .infoPersonal:
             return storageInfoPersonal.infoPersonals.count
         case .infoBenefit:
@@ -164,7 +181,7 @@ extension ProfileViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch contentType[indexPath.section] {
+        switch contentTypes[indexPath.section] {
         case .infoPersonal:
             guard let cell = tableView.dequeueReusableCell(
                 withIdentifier: PersonalInfoCell.reuseID,

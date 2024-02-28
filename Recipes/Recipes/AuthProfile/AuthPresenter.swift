@@ -4,43 +4,31 @@
 import UIKit
 
 /// Протокол для view экрана авторизации
-protocol AuthView {
+protocol AuthViewProtocol {
     /// Подъем вью наверх
-    /// - Parameter keyboardHeight: высота клавиатуры
     func upView(_ keyboardHeight: CGFloat)
     /// Опускание вью вниз
-    /// - Parameter keyboardHeight: высота клавиатуры
     func downView(_ keyboardHeight: CGFloat)
     /// Изменение строк связанных с полем почты
-    /// - Parameters:
-    ///   - color: цвет полей
-    ///   - isIncorrectEmailHidden: Неправильность почты
     func changeEmailLabels(_ color: UIColor, isIncorrectEmailHidden: Bool)
     /// Изменение строк связанных с полем паролем
-    /// - Parameters:
-    ///   - color: цвет полей
-    ///   - isIncorrectPasswordHidden: Неправильность пароля
     func changePasswordLabels(_ color: UIColor, isIncorrectPasswordHidden: Bool)
 }
 
 /// Протокол для презентера view экрана авторизации
-protocol AuthViewPresenter {
+protocol AuthViewPresenterProtocol {
     /// Обработка при поднятии клавиатуры
-    /// - Parameter notification: уведомление о поднятии
     func showKeyboardIfNeeded(_ notification: Notification)
     /// Обработка при опускании клавиатуры
-    /// - Parameter notification: уведомление о опускании
     func downKeyboardIfNeeded(_ notification: Notification)
     /// Проверка почты
-    /// - Parameter textField: текстовое поле
     func checkEmail(_ textField: UITextField)
     /// Проверка логина
-    /// - Parameter passwordText: текст пароля
     func checkAuthorisation(_ passwordText: String?)
 }
 
 /// Презентер окна авторизации
-final class AuthPresenter: AuthViewPresenter {
+final class AuthPresenter: AuthViewPresenterProtocol {
     // MARK: - Constants
 
     enum Constants {
@@ -53,66 +41,56 @@ final class AuthPresenter: AuthViewPresenter {
 
     // MARK: - Private Properties
 
-    private var authModel = AuthModel(login: Constants.emptyText, password: Constants.emptyText)
-    private var view: AuthView?
+    private var auth = Auth(login: Constants.emptyText, password: Constants.emptyText)
+    private var view: AuthViewProtocol?
 
     // MARK: - Initializers
 
-    init(view: AuthView) {
+    init(view: AuthViewProtocol) {
         self.view = view
     }
 
     // MARK: - Public Methods
 
     func showKeyboardIfNeeded(_ notification: Notification) {
-        if authModel.keyboardIsShown { return }
+        if auth.keyboardIsShown { return }
         let userInfo = notification.userInfo
         if let keyboardSize = (userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            authModel.keyboardHeight = keyboardSize.height
-            view?.upView(authModel.keyboardHeight)
-            authModel.keyboardIsShown = true
+            auth.keyboardHeight = keyboardSize.height
+            view?.upView(auth.keyboardHeight)
+            auth.keyboardIsShown = true
         }
     }
 
     func downKeyboardIfNeeded(_ notification: Notification) {
-        if !authModel.keyboardIsShown { return }
+        if !auth.keyboardIsShown { return }
         let userInfo = notification.userInfo
         if let keyboardSize = (userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            authModel.keyboardHeight = keyboardSize.height
-            view?.downView(authModel.keyboardHeight)
-            authModel.keyboardIsShown = false
+            auth.keyboardHeight = keyboardSize.height
+            view?.downView(auth.keyboardHeight)
+            auth.keyboardIsShown = false
         }
     }
 
     func checkEmail(_ textField: UITextField) {
         if textField.tag == 0 {
             let isValidEmail = isValidEmail(textField.text ?? Constants.emptyText)
-            if isValidEmail {
-                view?.changeEmailLabels(.appLabels, isIncorrectEmailHidden: true)
-            } else {
-                view?.changeEmailLabels(.red, isIncorrectEmailHidden: false)
-            }
+            view?.changeEmailLabels(isValidEmail ? .appLabels : .red, isIncorrectEmailHidden: isValidEmail)
         }
     }
 
     func checkAuthorisation(_ passwordText: String?) {
         let isValidPassword = isValidPassword(passwordText ?? Constants.emptyText)
-        if isValidPassword {
-            view?.changePasswordLabels(.appLabels, isIncorrectPasswordHidden: true)
-        } else {
-            view?.changePasswordLabels(.red, isIncorrectPasswordHidden: false)
-        }
+        view?.changePasswordLabels(isValidPassword ? .appLabels : .red, isIncorrectPasswordHidden: isValidPassword)
     }
 
     // MARK: - Private Methods
 
     private func isValidEmail(_ email: String) -> Bool {
-        if email == authModel.validEmail { return true }
-        return false
+        email == auth.validEmail
     }
 
     private func isValidPassword(_ password: String) -> Bool {
-        if password == authModel.validPassword { return true }
-        return false
+        password == auth.validPassword
     }
 }

@@ -3,6 +3,7 @@
 
 import UIKit
 
+<<<<<<< HEAD
 /// Информация о пользовательском соглашении
 final class TermsUseViewController: UIViewController {
     
@@ -15,6 +16,24 @@ final class TermsUseViewController: UIViewController {
         static let termsKeyText = "terms_use"
     }
     
+=======
+private enum Constants {
+    static let fontVerdana = "Verdana"
+    static let fontVerdanaBold = "Verdana-Bold"
+    static let xmarkImage = "xmark"
+    static let leftInset = UIScreen.main.bounds.width / 2 - 80
+    static let termsTitleText = "Terms of Use"
+    static let termsKeyText = "terms_use"
+}
+
+/// Экран информации о пользовательском соглашении
+final class TermsUseViewController: UIViewController {
+    // MARK: - Static Constant
+
+    typealias VoidHandler = () -> Void
+    static let reuseID = String(describing: PersonalInfoCell.self)
+
+>>>>>>> 6fc8184454b15b79458afdac08920168d865e42d
     // MARK: - Visual Components
 
     private let termsTextView: UITextView = {
@@ -28,7 +47,7 @@ final class TermsUseViewController: UIViewController {
         let button = UIButton()
         button.contentMode = .center
         button.setImage(UIImage(systemName: Constants.xmarkImage), for: .normal)
-        button.addTarget(self, action: #selector(dismissBottom), for: .touchUpInside)
+        button.addTarget(nil, action: #selector(dismissBottom), for: .touchUpInside)
         return button
     }()
 

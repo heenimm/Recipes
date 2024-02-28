@@ -4,17 +4,23 @@
 import UIKit
 
 /// Контейнер для проставления зависимостей  и сборки модуля
-class AppBuilder {
+private class AppBuilder {
+    enum Constants {
+        static let profileText = "Profile"
+        static let smileText = "smiley.fill"
+        static let appGreenText = "AppGreen"
+    }
+
     func makeProfileModule() -> ProfileViewController {
         let view = ProfileViewController()
         let profilePresenter = ProfilePresenter(view: view)
         view.presenter = profilePresenter
         view.tabBarItem = UITabBarItem(
-            title: "Profile",
+            title: Constants.profileText,
 
-            image: UIImage(systemName: "smiley.fill")?.withTintColor(
+            image: UIImage(systemName: Constants.smileText)?.withTintColor(
                 UIColor(
-                    named: "AppGreen"
+                    named: Constants.appGreenText
                 )!,
                 renderingMode: .alwaysOriginal
             ),
@@ -26,19 +32,29 @@ class AppBuilder {
 
 /// Главный координатор
 final class AppCoordinator: BaseCoordinator {
-    private var tabBarViewController: MainTabBarViewController?
+    enum Constants {
+        static let adminText = "admin"
+    }
+
+    // MARK: - Private Properties
+
+    private var mainTabBarViewController: MainTabBarViewController?
     private var appBuilder = AppBuilder()
 
+    // MARK: - Life Cycle
+
     override func start() {
-        if "admin" == "admin" {
+        if Constants.adminText == Constants.adminText {
             toMain()
         } else {
             toAuth()
         }
     }
 
+    // MARK: - Private Methods
+
     private func toMain() {
-        tabBarViewController = MainTabBarViewController()
+        mainTabBarViewController = MainTabBarViewController()
         /// Set profile
         let profileView = appBuilder.makeProfileModule()
         let profileCoordinator = ProfileCoordinator(rootController: profileView)
@@ -47,12 +63,12 @@ final class AppCoordinator: BaseCoordinator {
 
         profileCoordinator.onFinishFlow = { [weak self] in
             self?.remove(coordinator: profileCoordinator)
-            self?.tabBarViewController = nil
+            self?.mainTabBarViewController = nil
             self?.toAuth()
         }
 
-        tabBarViewController?.setViewControllers([profileCoordinator.rootController], animated: false)
-        setAsRoot(_: tabBarViewController!)
+        mainTabBarViewController?.setViewControllers([profileCoordinator.rootController], animated: false)
+        setAsRoot(_: mainTabBarViewController!)
     }
 
     private func toAuth() {

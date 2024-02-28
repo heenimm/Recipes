@@ -3,11 +3,15 @@
 
 /// Отражаем логику ячейки бонусов
 struct InfoBenefit {
+    /// Название картинки бонусов
     let menuImage: String
+    /// Заголовок бонусов
     let menuTitle: String
 }
 
+/// Хранилище бонусов
 struct StorageInfoBenefit {
+    /// Массив с информацией
     let infoBenefits: [InfoBenefit] = [
         InfoBenefit(menuImage: "star.fill", menuTitle: "Bonuses"),
         InfoBenefit(menuImage: "doc.text.fill", menuTitle: "Terms & Privacy Policy"),

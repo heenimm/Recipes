@@ -22,7 +22,7 @@
 		7B42E4D22B8E09C10095C019 /* ProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B42E4D12B8E09C10095C019 /* ProfileCoordinator.swift */; };
 		7B42E4D52B8E0AF60095C019 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B42E4D42B8E0AF60095C019 /* AuthViewController.swift */; };
 		7B42E4D72B8E0B060095C019 /* AuthPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B42E4D62B8E0B060095C019 /* AuthPresenter.swift */; };
-		7B42E4D92B8E0D530095C019 /* AuthModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B42E4D82B8E0D530095C019 /* AuthModel.swift */; };
+		7B42E4D92B8E0D530095C019 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B42E4D82B8E0D530095C019 /* Auth.swift */; };
 		7B42E4DD2B8E4CF70095C019 /* PersonalInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B42E4DC2B8E4CF70095C019 /* PersonalInfoCell.swift */; };
 		7B42E4DF2B8E4D620095C019 /* BenefitsInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B42E4DE2B8E4D620095C019 /* BenefitsInfoCell.swift */; };
 		7B42E4E22B8E4EAD0095C019 /* InfoPersonal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B42E4E12B8E4EAD0095C019 /* InfoPersonal.swift */; };
@@ -49,7 +49,7 @@
 		7B42E4D12B8E09C10095C019 /* ProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinator.swift; sourceTree = "<group>"; };
 		7B42E4D42B8E0AF60095C019 /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		7B42E4D62B8E0B060095C019 /* AuthPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthPresenter.swift; sourceTree = "<group>"; };
-		7B42E4D82B8E0D530095C019 /* AuthModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthModel.swift; sourceTree = "<group>"; };
+		7B42E4D82B8E0D530095C019 /* Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
 		7B42E4DC2B8E4CF70095C019 /* PersonalInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalInfoCell.swift; sourceTree = "<group>"; };
 		7B42E4DE2B8E4D620095C019 /* BenefitsInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BenefitsInfoCell.swift; sourceTree = "<group>"; };
 		7B42E4E12B8E4EAD0095C019 /* InfoPersonal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoPersonal.swift; sourceTree = "<group>"; };
@@ -131,7 +131,7 @@
 			children = (
 				7B42E4D42B8E0AF60095C019 /* AuthViewController.swift */,
 				7B42E4D62B8E0B060095C019 /* AuthPresenter.swift */,
-				7B42E4D82B8E0D530095C019 /* AuthModel.swift */,
+				7B42E4D82B8E0D530095C019 /* Auth.swift */,
 			);
 			path = AuthProfile;
 			sourceTree = "<group>";
@@ -285,7 +285,7 @@
 				7B42E4EB2B8F366F0095C019 /* BonusesViewController.swift in Sources */,
 				7B42E4E72B8E94C90095C019 /* TermsUseViewController.swift in Sources */,
 				7B42E4AC2B8DD7180095C019 /* AppDelegate.swift in Sources */,
-				7B42E4D92B8E0D530095C019 /* AuthModel.swift in Sources */,
+				7B42E4D92B8E0D530095C019 /* Auth.swift in Sources */,
 				7B42E4C42B8DF56E0095C019 /* ProfileViewController.swift in Sources */,
 				7B42E4D72B8E0B060095C019 /* AuthPresenter.swift in Sources */,
 				7B42E4CE2B8E06D10095C019 /* AppCoordinator.swift in Sources */,

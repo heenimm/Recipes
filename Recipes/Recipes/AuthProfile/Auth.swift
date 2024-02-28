@@ -1,10 +1,10 @@
-// AuthModel.swift
+// Auth.swift
 // Copyright © RoadMap. All rights reserved.
 
 import Foundation
 
 /// Модель к экрану авторизации
-struct AuthModel {
+struct Auth {
     /// Текст логина
     var login: String
     /// Текст пароля
