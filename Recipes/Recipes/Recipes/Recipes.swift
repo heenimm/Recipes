@@ -20,8 +20,18 @@ struct Recipes {
             Recipes(image: UIImage(named: "fishPic") ?? UIImage(), name: "Fish"),
             Recipes(image: UIImage(named: "sidePic") ?? UIImage(), name: "Side dish"),
             Recipes(image: UIImage(named: "drinksPic") ?? UIImage(), name: "Drinks"),
-            Recipes(image: UIImage(named: "pancakePic") ?? UIImage(), name: "Pancake"),
+            Recipes(image: UIImage(named: "pancakesPic") ?? UIImage(), name: "Pancakes"),
             Recipes(image: UIImage(named: "dessertsPic") ?? UIImage(), name: "Desserts")
         ]
     }
+}
+
+/// Типы ячеек
+enum TypeCells {
+    /// Маленькая ячейка рецептов
+    case small
+    /// Средняя ячейка рецептов
+    case medium
+    /// Большая ячейка рецептов
+    case big
 }

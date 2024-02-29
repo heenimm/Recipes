@@ -3,12 +3,12 @@
 
 import UIKit
 
-class RecipesCollectionViewCell: UICollectionViewCell {
-    // MARK: - Types
-
+final class RecipesCollectionViewCell: UICollectionViewCell {
     // MARK: - Constants
 
-    // MARK: - IBOutlets
+    enum Constants {
+        static let verdana20 = UIFont(name: "Verdana", size: 20)
+    }
 
     // MARK: - Visual Components
 
@@ -19,7 +19,7 @@ class RecipesCollectionViewCell: UICollectionViewCell {
         return imageView
     }()
 
-    var footerView: UIView = {
+    private var footerView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .darkGray
@@ -27,15 +27,20 @@ class RecipesCollectionViewCell: UICollectionViewCell {
         return view
     }()
 
-    // MARK: - Public Properties
-
-    // MARK: - Private Properties
+    var footerLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = Constants.verdana20
+        label.textAlignment = .center
+        label.textColor = .white
+        return label
+    }()
 
     // MARK: - Initializers
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-//            setupUI()
+        setupUI()
     }
 
     @available(*, unavailable)
@@ -43,20 +48,39 @@ class RecipesCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    // MARK: - Life Cycle
-
-    // MARK: - Public Methods
-
-    // MARK: - IBAction
-
     // MARK: - Private Methods
 
-    ////    private func setupUI() {
-//        clipsToBounds = true
-//        contentView.addSubview(photoImageView)
-//        photoImageView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
-//        photoImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-//        photoImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-//        photoImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
-//    }
+    private func setupUI() {
+        configureCellLayer()
+        contentView.addSubview(recipesImageView)
+        contentView.addSubview(footerView)
+        contentView.addSubview(footerLabel)
+        NSLayoutConstraint.activate([
+            recipesImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            recipesImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            recipesImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            recipesImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+
+            footerView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.2),
+            footerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            footerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            footerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+
+            footerLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.2),
+            footerLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            footerLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            footerLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+        ])
+    }
+
+    private func configureCellLayer() {
+        contentView.layer.cornerRadius = 15
+        contentView.clipsToBounds = true
+        layer.cornerRadius = 15
+        layer.shadowColor = UIColor.black.cgColor
+        layer.shadowOffset = CGSize(width: 0, height: 8)
+        layer.shadowRadius = 5.0
+        layer.shadowOpacity = 0.7
+        layer.masksToBounds = false
+    }
 }

@@ -3,18 +3,9 @@
 
 import UIKit
 
+/// Вью экрана рецептов
 final class RecipesViewController: UIViewController {
     // MARK: - Constants
-
-    /// Типы ячеек
-    enum TypeCells {
-        /// Маленькая ячейка рецептов
-        case small
-        /// Средняя ячейка рецептов
-        case medium
-        /// Большая ячейка рецептов
-        case big
-    }
 
     enum Constants {
         static let recipesTitle = "Recipes"
@@ -30,8 +21,6 @@ final class RecipesViewController: UIViewController {
         static let recipesCell = "RecipesCollectionViewCell"
     }
 
-    // MARK: - IBOutlets
-
     // MARK: - Visual Components
 
     private var recipesCollectionView: UICollectionView!
@@ -39,13 +28,6 @@ final class RecipesViewController: UIViewController {
     // MARK: - Public Properties
 
     var presenter: RecipesPresenter?
-
-    // MARK: - Private Properties
-
-    private let typesCells: [TypeCells] = [.medium, .medium, .big, .small, .small, .small, .big, .medium, .medium]
-    private let recipes: [Recipes] = Recipes.allRecipes()
-
-    // MARK: - Initializers
 
     // MARK: - Life Cycle
 
@@ -65,7 +47,7 @@ final class RecipesViewController: UIViewController {
         recipesCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         recipesCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         recipesCollectionView.dataSource = self
-//        recipesCollectionView.delegate = self
+        recipesCollectionView.delegate = self
         recipesCollectionView.register(
             RecipesCollectionViewCell.self,
             forCellWithReuseIdentifier: Constants.recipesCell
@@ -74,8 +56,8 @@ final class RecipesViewController: UIViewController {
 
     private func setupFlowLayout() -> UICollectionViewFlowLayout {
         let layout = UICollectionViewFlowLayout()
-        layout.minimumInteritemSpacing = 0
-        layout.minimumLineSpacing = 1
+        layout.minimumInteritemSpacing = 10
+        layout.minimumLineSpacing = 15
         return layout
     }
 
@@ -92,22 +74,15 @@ final class RecipesViewController: UIViewController {
         titleLabel.sizeToFit()
         let leftItem = UIBarButtonItem(customView: titleLabel)
         navigationItem.leftBarButtonItem = leftItem
-
         navigationItem.leftBarButtonItem?.tintColor = .black
     }
-
-    // MARK: - Public Methods
-
-    // MARK: - IBAction
-
-    // MARK: - Private Methods
 }
 
 // MARK: - UICollectionViewDataSource
 
 extension RecipesViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        recipes.count
+        presenter?.recipes.count ?? 0
     }
 
     func collectionView(
@@ -120,7 +95,39 @@ extension RecipesViewController: UICollectionViewDataSource {
         ) as?
             RecipesCollectionViewCell else { return UICollectionViewCell() }
 
-//        cell.photoImageView.image = UIImage(named: photos[indexPath.item].imageName)
+        cell.recipesImageView.image = presenter?.recipes[indexPath.item].image
+        cell.footerLabel.text = presenter?.recipes[indexPath.item].name
+        cell.layer.cornerRadius = 15.0
         return cell
+    }
+}
+
+// MARK: - UICollectionViewDelegateFlowLayout
+
+/// Определение функций из протокола UICollectionViewDelegateFlowLayout
+extension RecipesViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        sizeForItemAt indexPath: IndexPath
+    ) -> CGSize {
+        presenter?.chooseSizeCell(indexPath) ?? CGSize(width: 110, height: 110)
+    }
+
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        insetForSectionAt section: Int
+    ) -> UIEdgeInsets {
+        UIEdgeInsets(top: 15, left: 7, bottom: 0, right: 7)
+    }
+}
+
+// MARK: - RecipesViewProtocol
+
+/// Определение функций из протокола RecipesViewProtocol
+extension RecipesViewController: RecipesViewProtocol {
+    func setCellSize(_ size: CGSize) -> CGSize {
+        size
     }
 }
