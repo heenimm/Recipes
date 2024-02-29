@@ -11,6 +11,7 @@ private class AppBuilder {
         static let appGreenText = "AppGreen"
         static let recipesText = "Recipes"
         static let recipesImage = "recipesCake"
+        static let fillRecipesImage = "filledCake"
     }
 
     func makeProfileModule() -> ProfileViewController {
@@ -43,7 +44,9 @@ private class AppBuilder {
                 )!,
                 renderingMode: .alwaysOriginal
             ),
-            tag: 0
+            selectedImage: UIImage(named: Constants.fillRecipesImage)?.withTintColor(
+                UIColor(named: Constants.appGreenText) ?? .green
+            ).withRenderingMode(.alwaysOriginal)
         )
         return view
     }
