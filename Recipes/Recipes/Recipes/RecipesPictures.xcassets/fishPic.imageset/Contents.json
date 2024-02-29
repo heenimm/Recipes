@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "fishPic.pdf",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

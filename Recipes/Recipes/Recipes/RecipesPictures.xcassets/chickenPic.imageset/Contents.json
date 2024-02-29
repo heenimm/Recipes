@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "chickenPic.pdf",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
