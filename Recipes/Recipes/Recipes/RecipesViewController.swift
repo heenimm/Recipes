@@ -3,6 +3,7 @@
 
 import UIKit
 
+/// Вью экрана рецептов
 final class RecipesViewController: UIViewController {
     // MARK: - Constants
 
@@ -20,8 +21,6 @@ final class RecipesViewController: UIViewController {
         static let recipesCell = "RecipesCollectionViewCell"
     }
 
-    // MARK: - IBOutlets
-
     // MARK: - Visual Components
 
     private var recipesCollectionView: UICollectionView!
@@ -29,13 +28,6 @@ final class RecipesViewController: UIViewController {
     // MARK: - Public Properties
 
     var presenter: RecipesPresenter?
-
-    // MARK: - Private Properties
-
-    private let typesCells: [TypeCells] = [.medium, .medium, .big, .small, .small, .small, .big, .medium, .medium]
-    private let recipes: [Recipes] = Recipes.allRecipes()
-
-    // MARK: - Initializers
 
     // MARK: - Life Cycle
 
@@ -82,22 +74,15 @@ final class RecipesViewController: UIViewController {
         titleLabel.sizeToFit()
         let leftItem = UIBarButtonItem(customView: titleLabel)
         navigationItem.leftBarButtonItem = leftItem
-
         navigationItem.leftBarButtonItem?.tintColor = .black
     }
-
-    // MARK: - Public Methods
-
-    // MARK: - IBAction
-
-    // MARK: - Private Methods
 }
 
 // MARK: - UICollectionViewDataSource
 
 extension RecipesViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        recipes.count
+        presenter?.recipes.count ?? 0
     }
 
     func collectionView(
@@ -110,34 +95,23 @@ extension RecipesViewController: UICollectionViewDataSource {
         ) as?
             RecipesCollectionViewCell else { return UICollectionViewCell() }
 
-        cell.recipesImageView.image = recipes[indexPath.item].image
-        cell.footerLabel.text = recipes[indexPath.item].name
+        cell.recipesImageView.image = presenter?.recipes[indexPath.item].image
+        cell.footerLabel.text = presenter?.recipes[indexPath.item].name
         cell.layer.cornerRadius = 15.0
-        ////        cell.layer.borderWidth = 0.0
-//        cell.layer.shadowColor = UIColor.black.cgColor
-//        cell.layer.shadowOffset = CGSize(width: 0, height: 5)
-//        cell.layer.shadowRadius = 18.0
-//        cell.layer.shadowOpacity = 1
-//        cell.layer.masksToBounds = false // <-
-
         return cell
     }
 }
 
+// MARK: - UICollectionViewDelegateFlowLayout
+
+/// Определение функций из протокола UICollectionViewDelegateFlowLayout
 extension RecipesViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(
         _ collectionView: UICollectionView,
         layout collectionViewLayout: UICollectionViewLayout,
         sizeForItemAt indexPath: IndexPath
     ) -> CGSize {
-        switch typesCells[indexPath.row] {
-        case .small:
-            return CGSize(width: 110, height: 110)
-        case .medium:
-            return CGSize(width: 175, height: 175)
-        case .big:
-            return CGSize(width: 250, height: 250)
-        }
+        presenter?.chooseSizeCell(indexPath) ?? CGSize(width: 110, height: 110)
     }
 
     func collectionView(
@@ -146,5 +120,14 @@ extension RecipesViewController: UICollectionViewDelegateFlowLayout {
         insetForSectionAt section: Int
     ) -> UIEdgeInsets {
         UIEdgeInsets(top: 15, left: 7, bottom: 0, right: 7)
+    }
+}
+
+// MARK: - RecipesViewProtocol
+
+/// Определение функций из протокола RecipesViewProtocol
+extension RecipesViewController: RecipesViewProtocol {
+    func setCellSize(_ size: CGSize) -> CGSize {
+        size
     }
 }

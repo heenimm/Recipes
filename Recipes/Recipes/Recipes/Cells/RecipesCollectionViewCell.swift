@@ -3,16 +3,12 @@
 
 import UIKit
 
-class RecipesCollectionViewCell: UICollectionViewCell {
-    // MARK: - Types
-
+final class RecipesCollectionViewCell: UICollectionViewCell {
     // MARK: - Constants
 
     enum Constants {
         static let verdana20 = UIFont(name: "Verdana", size: 20)
     }
-
-    // MARK: - IBOutlets
 
     // MARK: - Visual Components
 
@@ -23,7 +19,7 @@ class RecipesCollectionViewCell: UICollectionViewCell {
         return imageView
     }()
 
-    var footerView: UIView = {
+    private var footerView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .darkGray
@@ -40,10 +36,6 @@ class RecipesCollectionViewCell: UICollectionViewCell {
         return label
     }()
 
-    // MARK: - Public Properties
-
-    // MARK: - Private Properties
-
     // MARK: - Initializers
 
     override init(frame: CGRect) {
@@ -55,12 +47,6 @@ class RecipesCollectionViewCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
-    // MARK: - Life Cycle
-
-    // MARK: - Public Methods
-
-    // MARK: - IBAction
 
     // MARK: - Private Methods
 
