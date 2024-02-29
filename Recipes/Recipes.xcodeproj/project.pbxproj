@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		44E37C9A2B8FB8610047F3A5 /* RecipesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E37C992B8FB8610047F3A5 /* RecipesViewController.swift */; };
+		44E37C9C2B8FB87C0047F3A5 /* RecipesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E37C9B2B8FB87C0047F3A5 /* RecipesPresenter.swift */; };
+		44E37C9E2B8FB88E0047F3A5 /* Recipes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E37C9D2B8FB88E0047F3A5 /* Recipes.swift */; };
+		44E37CA02B8FB94F0047F3A5 /* RecipesCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E37C9F2B8FB94F0047F3A5 /* RecipesCoordinator.swift */; };
+		44E37CA42B9043740047F3A5 /* RecipesPictures.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 44E37CA32B9043740047F3A5 /* RecipesPictures.xcassets */; };
+		44E37CA72B9047170047F3A5 /* RecipesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E37CA62B9047170047F3A5 /* RecipesCollectionViewCell.swift */; };
 		7B42E4AC2B8DD7180095C019 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B42E4AB2B8DD7180095C019 /* AppDelegate.swift */; };
 		7B42E4AE2B8DD7180095C019 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B42E4AD2B8DD7180095C019 /* SceneDelegate.swift */; };
 		7B42E4B32B8DD7180095C019 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B42E4B12B8DD7180095C019 /* Main.storyboard */; };
@@ -32,6 +38,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		44E37C992B8FB8610047F3A5 /* RecipesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesViewController.swift; sourceTree = "<group>"; };
+		44E37C9B2B8FB87C0047F3A5 /* RecipesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesPresenter.swift; sourceTree = "<group>"; };
+		44E37C9D2B8FB88E0047F3A5 /* Recipes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recipes.swift; sourceTree = "<group>"; };
+		44E37C9F2B8FB94F0047F3A5 /* RecipesCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesCoordinator.swift; sourceTree = "<group>"; };
+		44E37CA32B9043740047F3A5 /* RecipesPictures.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = RecipesPictures.xcassets; sourceTree = "<group>"; };
+		44E37CA62B9047170047F3A5 /* RecipesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesCollectionViewCell.swift; sourceTree = "<group>"; };
 		7B42E4A82B8DD7180095C019 /* Recipes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Recipes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B42E4AB2B8DD7180095C019 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7B42E4AD2B8DD7180095C019 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -69,6 +81,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		44E37C982B8FB8380047F3A5 /* Recipes */ = {
+			isa = PBXGroup;
+			children = (
+				44E37CA52B90461C0047F3A5 /* Cells */,
+				44E37C992B8FB8610047F3A5 /* RecipesViewController.swift */,
+				44E37C9B2B8FB87C0047F3A5 /* RecipesPresenter.swift */,
+				44E37C9D2B8FB88E0047F3A5 /* Recipes.swift */,
+				44E37CA32B9043740047F3A5 /* RecipesPictures.xcassets */,
+			);
+			path = Recipes;
+			sourceTree = "<group>";
+		};
+		44E37CA52B90461C0047F3A5 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				44E37CA62B9047170047F3A5 /* RecipesCollectionViewCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		7B42E49F2B8DD7180095C019 = {
 			isa = PBXGroup;
 			children = (
@@ -89,6 +121,7 @@
 		7B42E4AA2B8DD7180095C019 /* Recipes */ = {
 			isa = PBXGroup;
 			children = (
+				44E37C982B8FB8380047F3A5 /* Recipes */,
 				7B42E4D32B8E0ADB0095C019 /* AuthProfile */,
 				7B42E4CA2B8E04B70095C019 /* Coordinators */,
 				7B42E4C72B8DF6050095C019 /* ProfileModule */,
@@ -122,6 +155,7 @@
 				7B42E4CD2B8E06D10095C019 /* AppCoordinator.swift */,
 				7B42E4CF2B8E09AE0095C019 /* AuthCoordinator.swift */,
 				7B42E4D12B8E09C10095C019 /* ProfileCoordinator.swift */,
+				44E37C9F2B8FB94F0047F3A5 /* RecipesCoordinator.swift */,
 			);
 			path = Coordinators;
 			sourceTree = "<group>";
@@ -223,6 +257,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				44E37CA42B9043740047F3A5 /* RecipesPictures.xcassets in Resources */,
 				7B42E4B82B8DD7190095C019 /* LaunchScreen.storyboard in Resources */,
 				7B42E4E92B8EA1530095C019 /* Localizable.strings in Resources */,
 				7B42E4B52B8DD7190095C019 /* Assets.xcassets in Resources */,
@@ -282,11 +317,15 @@
 			files = (
 				7B42E4D52B8E0AF60095C019 /* AuthViewController.swift in Sources */,
 				7B42E4C22B8DF55C0095C019 /* MainTabBarViewController.swift in Sources */,
+				44E37CA02B8FB94F0047F3A5 /* RecipesCoordinator.swift in Sources */,
 				7B42E4EB2B8F366F0095C019 /* BonusesViewController.swift in Sources */,
 				7B42E4E72B8E94C90095C019 /* TermsUseViewController.swift in Sources */,
 				7B42E4AC2B8DD7180095C019 /* AppDelegate.swift in Sources */,
+				44E37CA72B9047170047F3A5 /* RecipesCollectionViewCell.swift in Sources */,
 				7B42E4D92B8E0D530095C019 /* Auth.swift in Sources */,
+				44E37C9C2B8FB87C0047F3A5 /* RecipesPresenter.swift in Sources */,
 				7B42E4C42B8DF56E0095C019 /* ProfileViewController.swift in Sources */,
+				44E37C9A2B8FB8610047F3A5 /* RecipesViewController.swift in Sources */,
 				7B42E4D72B8E0B060095C019 /* AuthPresenter.swift in Sources */,
 				7B42E4CE2B8E06D10095C019 /* AppCoordinator.swift in Sources */,
 				7B42E4DD2B8E4CF70095C019 /* PersonalInfoCell.swift in Sources */,
@@ -294,6 +333,7 @@
 				7B42E4CC2B8E04D60095C019 /* BaseCoordinator.swift in Sources */,
 				7B42E4C62B8DF6000095C019 /* ProfilePresenter.swift in Sources */,
 				7B42E4D02B8E09AE0095C019 /* AuthCoordinator.swift in Sources */,
+				44E37C9E2B8FB88E0047F3A5 /* Recipes.swift in Sources */,
 				7B42E4D22B8E09C10095C019 /* ProfileCoordinator.swift in Sources */,
 				7B42E4E22B8E4EAD0095C019 /* InfoPersonal.swift in Sources */,
 				7B42E4DF2B8E4D620095C019 /* BenefitsInfoCell.swift in Sources */,

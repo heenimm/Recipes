@@ -9,6 +9,8 @@ private class AppBuilder {
         static let profileText = "Profile"
         static let smileText = "smiley.fill"
         static let appGreenText = "AppGreen"
+        static let recipesText = "Recipes"
+        static let recipesImage = "recipesCake"
     }
 
     func makeProfileModule() -> ProfileViewController {
@@ -19,6 +21,23 @@ private class AppBuilder {
             title: Constants.profileText,
 
             image: UIImage(systemName: Constants.smileText)?.withTintColor(
+                UIColor(
+                    named: Constants.appGreenText
+                )!,
+                renderingMode: .alwaysOriginal
+            ),
+            tag: 0
+        )
+        return view
+    }
+
+    func makeRecipesModule() -> RecipesViewController {
+        let view = RecipesViewController()
+        let recipesPresenter = RecipesPresenter(view: view)
+        view.presenter = recipesPresenter
+        view.tabBarItem = UITabBarItem(
+            title: Constants.recipesText,
+            image: UIImage(named: Constants.recipesImage)?.withTintColor(
                 UIColor(
                     named: Constants.appGreenText
                 )!,
@@ -67,7 +86,22 @@ final class AppCoordinator: BaseCoordinator {
             self?.toAuth()
         }
 
-        mainTabBarViewController?.setViewControllers([profileCoordinator.rootController], animated: false)
+        /// Set recipes
+        let recipesView = appBuilder.makeRecipesModule()
+        let recipesCoordinator = RecipesCoordinator(rootController: recipesView)
+        recipesView.presenter?.recipesCoordinator = recipesCoordinator
+        add(coordinator: recipesCoordinator)
+
+        recipesCoordinator.onFinishFlow = { [weak self] in
+            self?.remove(coordinator: recipesCoordinator)
+            self?.mainTabBarViewController = nil
+            self?.toAuth()
+        }
+
+        mainTabBarViewController?.setViewControllers(
+            [recipesCoordinator.rootController, profileCoordinator.rootController],
+            animated: false
+        )
         setAsRoot(_: mainTabBarViewController!)
     }
 
