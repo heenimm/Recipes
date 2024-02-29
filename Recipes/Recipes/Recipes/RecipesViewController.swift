@@ -6,16 +6,6 @@ import UIKit
 final class RecipesViewController: UIViewController {
     // MARK: - Constants
 
-    /// Типы ячеек
-    enum TypeCells {
-        /// Маленькая ячейка рецептов
-        case small
-        /// Средняя ячейка рецептов
-        case medium
-        /// Большая ячейка рецептов
-        case big
-    }
-
     enum Constants {
         static let recipesTitle = "Recipes"
         static let verdanaBold16 = UIFont(name: "Verdana-Bold", size: 16)
@@ -65,7 +55,7 @@ final class RecipesViewController: UIViewController {
         recipesCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         recipesCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         recipesCollectionView.dataSource = self
-//        recipesCollectionView.delegate = self
+        recipesCollectionView.delegate = self
         recipesCollectionView.register(
             RecipesCollectionViewCell.self,
             forCellWithReuseIdentifier: Constants.recipesCell
@@ -74,8 +64,8 @@ final class RecipesViewController: UIViewController {
 
     private func setupFlowLayout() -> UICollectionViewFlowLayout {
         let layout = UICollectionViewFlowLayout()
-        layout.minimumInteritemSpacing = 0
-        layout.minimumLineSpacing = 1
+        layout.minimumInteritemSpacing = 10
+        layout.minimumLineSpacing = 15
         return layout
     }
 
@@ -120,7 +110,41 @@ extension RecipesViewController: UICollectionViewDataSource {
         ) as?
             RecipesCollectionViewCell else { return UICollectionViewCell() }
 
-//        cell.photoImageView.image = UIImage(named: photos[indexPath.item].imageName)
+        cell.recipesImageView.image = recipes[indexPath.item].image
+        cell.footerLabel.text = recipes[indexPath.item].name
+        cell.layer.cornerRadius = 15.0
+        ////        cell.layer.borderWidth = 0.0
+//        cell.layer.shadowColor = UIColor.black.cgColor
+//        cell.layer.shadowOffset = CGSize(width: 0, height: 5)
+//        cell.layer.shadowRadius = 18.0
+//        cell.layer.shadowOpacity = 1
+//        cell.layer.masksToBounds = false // <-
+
         return cell
+    }
+}
+
+extension RecipesViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        sizeForItemAt indexPath: IndexPath
+    ) -> CGSize {
+        switch typesCells[indexPath.row] {
+        case .small:
+            return CGSize(width: 110, height: 110)
+        case .medium:
+            return CGSize(width: 175, height: 175)
+        case .big:
+            return CGSize(width: 250, height: 250)
+        }
+    }
+
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        insetForSectionAt section: Int
+    ) -> UIEdgeInsets {
+        UIEdgeInsets(top: 15, left: 7, bottom: 0, right: 7)
     }
 }

@@ -8,6 +8,10 @@ class RecipesCollectionViewCell: UICollectionViewCell {
 
     // MARK: - Constants
 
+    enum Constants {
+        static let verdana20 = UIFont(name: "Verdana", size: 20)
+    }
+
     // MARK: - IBOutlets
 
     // MARK: - Visual Components
@@ -27,6 +31,15 @@ class RecipesCollectionViewCell: UICollectionViewCell {
         return view
     }()
 
+    var footerLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = Constants.verdana20
+        label.textAlignment = .center
+        label.textColor = .white
+        return label
+    }()
+
     // MARK: - Public Properties
 
     // MARK: - Private Properties
@@ -35,7 +48,7 @@ class RecipesCollectionViewCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-//            setupUI()
+        setupUI()
     }
 
     @available(*, unavailable)
@@ -51,12 +64,37 @@ class RecipesCollectionViewCell: UICollectionViewCell {
 
     // MARK: - Private Methods
 
-    ////    private func setupUI() {
-//        clipsToBounds = true
-//        contentView.addSubview(photoImageView)
-//        photoImageView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
-//        photoImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-//        photoImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-//        photoImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
-//    }
+    private func setupUI() {
+        configureCellLayer()
+        contentView.addSubview(recipesImageView)
+        contentView.addSubview(footerView)
+        contentView.addSubview(footerLabel)
+        NSLayoutConstraint.activate([
+            recipesImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            recipesImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            recipesImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            recipesImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+
+            footerView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.2),
+            footerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            footerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            footerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+
+            footerLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.2),
+            footerLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            footerLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            footerLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+        ])
+    }
+
+    private func configureCellLayer() {
+        contentView.layer.cornerRadius = 15
+        contentView.clipsToBounds = true
+        layer.cornerRadius = 15
+        layer.shadowColor = UIColor.black.cgColor
+        layer.shadowOffset = CGSize(width: 0, height: 8)
+        layer.shadowRadius = 5.0
+        layer.shadowOpacity = 0.7
+        layer.masksToBounds = false
+    }
 }
