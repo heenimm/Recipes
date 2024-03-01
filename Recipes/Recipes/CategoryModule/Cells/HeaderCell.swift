@@ -49,9 +49,9 @@ final class HeaderCell: UITableViewHeaderFooterView {
     }()
 
     private let caloriesStateButton: UIButton = {
-        let button = UIButton()
+        let button = UIButton(type: .system)
         button.backgroundColor = UIColor(named: Constants.grayButtonColor)
-        button.titleLabel?.textColor = UIColor.black
+        button.setTitleColor(.black, for: .normal)
         button.setTitle(Constants.caloriesText, for: .normal)
         button.layer.cornerRadius = 5
         button.clipsToBounds = true
@@ -59,6 +59,8 @@ final class HeaderCell: UITableViewHeaderFooterView {
             UIImage(named: Constants.upStack)?.withTintColor(.black, renderingMode: .alwaysOriginal),
             for: .normal
         )
+        button.imageEdgeInsets = UIEdgeInsets(top: 0, left: 50, bottom: 0, right: -65)
+        button.titleEdgeInsets = UIEdgeInsets(top: 0, left: -20, bottom: 0, right: 20)
         return button
     }()
 
@@ -69,6 +71,8 @@ final class HeaderCell: UITableViewHeaderFooterView {
         button.layer.cornerRadius = 5
         button.clipsToBounds = true
         button.setImage(UIImage(named: Constants.downStack), for: .normal)
+        button.imageEdgeInsets = UIEdgeInsets(top: 0, left: 50, bottom: 0, right: -40)
+        button.titleEdgeInsets = UIEdgeInsets(top: 0, left: -20, bottom: 0, right: 20)
         return button
     }()
 
