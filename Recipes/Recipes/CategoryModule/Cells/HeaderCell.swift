@@ -53,7 +53,7 @@ final class HeaderCell: UITableViewHeaderFooterView {
         button.backgroundColor = UIColor(named: Constants.grayButtonColor)
         button.setTitleColor(.black, for: .normal)
         button.setTitle(Constants.caloriesText, for: .normal)
-        button.layer.cornerRadius = 5
+        button.layer.cornerRadius = 13
         button.clipsToBounds = true
         button.setImage(
             UIImage(named: Constants.upStack)?.withTintColor(.black, renderingMode: .alwaysOriginal),
@@ -68,7 +68,7 @@ final class HeaderCell: UITableViewHeaderFooterView {
         let button = UIButton()
         button.backgroundColor = UIColor(named: Constants.greenButtonColor)
         button.setTitle(Constants.timeText, for: .normal)
-        button.layer.cornerRadius = 5
+        button.layer.cornerRadius = 13
         button.clipsToBounds = true
         button.setImage(UIImage(named: Constants.downStack), for: .normal)
         button.imageEdgeInsets = UIEdgeInsets(top: 0, left: 50, bottom: 0, right: -40)
