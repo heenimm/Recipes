@@ -81,7 +81,7 @@ final class HeaderCell: UITableViewHeaderFooterView {
             searchBar.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
             searchBar.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
             searchBar.heightAnchor.constraint(equalToConstant: 36),
-            searchBar.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 10)
+            searchBar.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10)
         ])
     }
 

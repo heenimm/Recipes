@@ -1,21 +1,7 @@
 // DetailViewController.swift
 // Copyright © RoadMap. All rights reserved.
 
-import SwiftUI
 import UIKit
-
-struct ViewControllerPreview: UIViewControllerRepresentable {
-    let viewControllerGenerator: () -> UIViewController
-    init(viewControllerGenerator: @escaping () -> UIViewController) {
-        self.viewControllerGenerator = viewControllerGenerator
-    }
-
-    func makeUIViewController(context: Context) -> some UIViewController {
-        viewControllerGenerator()
-    }
-
-    func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {}
-}
 
 ///
 final class DetailViewController: UIViewController {
@@ -24,7 +10,8 @@ final class DetailViewController: UIViewController {
     private enum Constants {
         static let titleText = "Fish"
         static let fontVerdana = "Verdana"
-        static let leftInset = UIScreen.main.bounds.width / 2 - 80
+        static let fontVerdanaBold = "Verdana-Bold"
+        static let back = "back"
     }
 
     // MARK: - Public Properties
@@ -38,7 +25,6 @@ final class DetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setTitle()
         setupTableView()
         setupNavigationItem()
     }
@@ -46,18 +32,16 @@ final class DetailViewController: UIViewController {
     // MARK: - Private Methods
 
     private func setupNavigationItem() {
-        let title = UIBarButtonItem(title: "Fish", image: UIImage(named: "arrow"))
-        navigationItem.setLeftBarButtonItems([title], animated: true)
-        navigationItem.leftBarButtonItem?.tintColor = .black
-    }
-
-    private func setTitle() {
-        let label = UILabel()
-        label.font = UIFont(name: Constants.fontVerdana, size: 28)
-        label.textColor = .black
-        label.text = Constants.titleText
-
-        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: label)
+        let button = UIButton(type: .system)
+        button.setTitle(Constants.titleText, for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.titleLabel?.font = UIFont(name: Constants.fontVerdanaBold, size: 28)
+        button.setImage(
+            UIImage(named: Constants.back)?.withTintColor(.black, renderingMode: .alwaysOriginal),
+            for: .normal
+        )
+        button.addTarget(self, action: #selector(backToRecipes), for: .touchUpInside)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: button)
     }
 
     private func setupTableView() {
@@ -84,6 +68,10 @@ final class DetailViewController: UIViewController {
             detailTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             detailTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
+    }
+
+    @objc private func backToRecipes() {
+        navigationController?.popViewController(animated: true)
     }
 }
 
@@ -117,15 +105,6 @@ extension DetailViewController: UITableViewDataSource {
         ) as? DetailTableViewCell else { return UITableViewCell() }
 
         cell.configure(dish: dishes[indexPath.row])
-        cell.accessoryType = .disclosureIndicator
         return cell
-    }
-}
-
-struct ViewControllerProvider: PreviewProvider {
-    static var previews: some View {
-        ViewControllerPreview {
-            DetailViewController()
-        }.edgesIgnoringSafeArea(.all)
     }
 }

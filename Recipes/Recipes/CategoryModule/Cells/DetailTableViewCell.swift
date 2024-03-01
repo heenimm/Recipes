@@ -10,6 +10,7 @@ final class DetailTableViewCell: UITableViewCell {
     private enum Constants {
         static let fontVerdana = "Verdana"
         static let leftInset = UIScreen.main.bounds.width / 2 - 80
+        static let next = "arrow"
     }
 
     // MARK: - Static Constant
@@ -24,6 +25,12 @@ final class DetailTableViewCell: UITableViewCell {
         imageView.layer.cornerRadius = 8
         imageView.clipsToBounds = true
         return imageView
+    }()
+
+    private lazy var nextButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: Constants.next), for: .normal)
+        return button
     }()
 
     private let dishDescriptionLabel: UILabel = {
@@ -55,19 +62,19 @@ final class DetailTableViewCell: UITableViewCell {
         setupDishDescriptionLabelConstraints()
         setupDishTimeLabelConstraints()
         setupDishCaloriesLabelConstraints()
+        setupNextButtonConstraints()
     }
 
     // MARK: - Private Methods
 
     private func setupSubviews() {
         contentView.backgroundColor = UIColor(named: "appBottomGradient")
-
         contentView.layer.cornerRadius = contentView.bounds.width / 20
-
         contentView.addSubview(dishPhotoImageView)
         contentView.addSubview(dishDescriptionLabel)
         contentView.addSubview(dishTimeLabel)
         contentView.addSubview(dishCaloriesLabel)
+        contentView.addSubview(nextButton)
     }
 
     private func setupDishPhotoImageViewConstraints() {
@@ -128,6 +135,23 @@ final class DetailTableViewCell: UITableViewCell {
                 constant: 20
             ),
             dishCaloriesLabel.widthAnchor.constraint(equalToConstant: 80)
+        ])
+    }
+
+    private func setupNextButtonConstraints() {
+        nextButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            nextButton.topAnchor.constraint(
+                equalTo: contentView.topAnchor,
+                constant: 30
+            ),
+            nextButton.trailingAnchor.constraint(
+                equalTo: contentView.trailingAnchor,
+                constant: -12
+            ),
+            nextButton.widthAnchor.constraint(equalToConstant: 40),
+            nextButton.heightAnchor.constraint(equalToConstant: 40)
+
         ])
     }
 }
