@@ -56,6 +56,11 @@ final class DetailTableViewCell: UITableViewCell {
 
     // MARK: - Life Cycle
 
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10))
+    }
+
     override func didMoveToSuperview() {
         setupSubviews()
         setupDishPhotoImageViewConstraints()

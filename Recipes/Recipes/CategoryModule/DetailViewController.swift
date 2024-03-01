@@ -8,7 +8,7 @@ final class DetailViewController: UIViewController {
     // MARK: - Enums
 
     private enum Constants {
-        static let titleText = "Fish"
+        static let titleText = "  Fish"
         static let fontVerdana = "Verdana"
         static let fontVerdanaBold = "Verdana-Bold"
         static let back = "back"
@@ -40,6 +40,7 @@ final class DetailViewController: UIViewController {
             UIImage(named: Constants.back)?.withTintColor(.black, renderingMode: .alwaysOriginal),
             for: .normal
         )
+        button.sizeToFit()
         button.addTarget(self, action: #selector(backToRecipes), for: .touchUpInside)
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: button)
     }
@@ -52,7 +53,6 @@ final class DetailViewController: UIViewController {
         detailTableView.rowHeight = UITableView.automaticDimension
         detailTableView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         detailTableView.separatorStyle = .none
-
         detailTableView.register(DetailTableViewCell.self, forCellReuseIdentifier: DetailTableViewCell.reuseID)
         detailTableView.tableHeaderView = HeaderCell(frame: CGRect(
             origin: .zero,
@@ -103,7 +103,6 @@ extension DetailViewController: UITableViewDataSource {
             withIdentifier: DetailTableViewCell.reuseID,
             for: indexPath
         ) as? DetailTableViewCell else { return UITableViewCell() }
-
         cell.configure(dish: dishes[indexPath.row])
         return cell
     }
