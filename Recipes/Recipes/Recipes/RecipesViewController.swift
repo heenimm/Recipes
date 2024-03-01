@@ -78,6 +78,13 @@ final class RecipesViewController: UIViewController {
     }
 }
 
+extension RecipesViewController: RecipesCollectionViewCellDelegate {
+    func recipesCellDidTap(_ cell: RecipesCollectionViewCell) {
+        let detailTableView = DetailViewController()
+        navigationController?.pushViewController(detailTableView, animated: true)
+    }
+}
+
 // MARK: - UICollectionViewDataSource
 
 extension RecipesViewController: UICollectionViewDataSource {
@@ -95,6 +102,7 @@ extension RecipesViewController: UICollectionViewDataSource {
         ) as?
             RecipesCollectionViewCell else { return UICollectionViewCell() }
 
+        cell.delegate = self
         cell.recipesImageView.image = presenter?.recipes[indexPath.item].image
         cell.footerLabel.text = presenter?.recipes[indexPath.item].name
         cell.layer.cornerRadius = 15.0

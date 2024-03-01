@@ -3,17 +3,17 @@
 
 import UIKit
 
-private enum Constants {
-    static let fontVerdana = "Verdana"
-    static let fontVerdanaBold = "Verdana-Bold"
-    static let xmarkImage = "xmark"
-    static let leftInset = UIScreen.main.bounds.width / 2 - 80
-    static let termsTitleText = "Terms of Use"
-    static let termsKeyText = "terms_use"
-}
-
 /// Экран информации о пользовательском соглашении
 final class TermsUseViewController: UIViewController {
+    private enum Constants {
+        static let fontVerdana = "Verdana"
+        static let fontVerdanaBold = "Verdana-Bold"
+        static let xmarkImage = "xmark"
+        static let leftInset = UIScreen.main.bounds.width / 2 - 80
+        static let termsTitleText = "Terms of Use"
+        static let termsKeyText = "terms_use"
+    }
+
     // MARK: - Static Constant
 
     typealias VoidHandler = () -> Void

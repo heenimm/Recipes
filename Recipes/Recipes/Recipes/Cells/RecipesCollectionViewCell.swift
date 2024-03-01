@@ -3,7 +3,13 @@
 
 import UIKit
 
+protocol RecipesCollectionViewCellDelegate: AnyObject {
+    func recipesCellDidTap(_ cell: RecipesCollectionViewCell)
+}
+
 final class RecipesCollectionViewCell: UICollectionViewCell {
+    weak var delegate: RecipesCollectionViewCellDelegate?
+
     // MARK: - Constants
 
     enum Constants {
@@ -71,6 +77,9 @@ final class RecipesCollectionViewCell: UICollectionViewCell {
             footerLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             footerLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(cellTapped))
+        addGestureRecognizer(tapGesture)
+        isUserInteractionEnabled = true
     }
 
     private func configureCellLayer() {
@@ -82,5 +91,9 @@ final class RecipesCollectionViewCell: UICollectionViewCell {
         layer.shadowRadius = 5.0
         layer.shadowOpacity = 0.7
         layer.masksToBounds = false
+    }
+
+    @objc private func cellTapped() {
+        delegate?.recipesCellDidTap(self)
     }
 }
