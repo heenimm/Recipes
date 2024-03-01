@@ -7,11 +7,11 @@ struct InfoPersonal {
     var userPhoto: String
     /// Никнейм
     var userName: String
-}
 
-/// Информация о человеке
-struct StorageInfoPersonal {
-    var infoPersonals: [InfoPersonal] = [
-        InfoPersonal(userPhoto: "userImage", userName: "Surname Name")
-    ]
+    /// Информация о человеке
+    static func getInfoPersonals() -> [InfoPersonal] {
+        [
+            InfoPersonal(userPhoto: "userImage", userName: "Surname Name")
+        ]
+    }
 }

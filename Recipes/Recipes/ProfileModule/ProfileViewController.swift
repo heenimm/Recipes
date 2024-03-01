@@ -27,13 +27,13 @@ final class ProfileViewController: UIViewController {
 
     // MARK: - Public Properties
 
-    weak var presenter: ProfilePresenter?
+    var presenter: ProfilePresenter?
 
     // MARK: - Private Properties
 
     private let contentTypes: [TypeCell] = [.infoPersonal, .infoBenefit]
-    private let storageInfoBenefit = StorageInfoBenefit()
-    private var storageInfoPersonal = StorageInfoPersonal()
+    private let storageInfoBenefit = InfoBenefit.getAllBenefits()
+    private var storageInfoPersonal = InfoPersonal.getInfoPersonals()
 
     // MARK: - Visual Components
 
@@ -121,7 +121,7 @@ final class ProfileViewController: UIViewController {
         }
         let actionOK = UIAlertAction(title: Constants.okText, style: .default) { [weak self] okAction in
             if let userName = alertController.textFields?.first?.text {
-                self?.storageInfoPersonal.infoPersonals[0].userName = userName
+                self?.storageInfoPersonal[0].userName = userName
             }
             DispatchQueue.main.async {
                 self?.tableView.reloadData()
@@ -164,9 +164,9 @@ extension ProfileViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch contentTypes[section] {
         case .infoPersonal:
-            return storageInfoPersonal.infoPersonals.count
+            return storageInfoPersonal.count
         case .infoBenefit:
-            return storageInfoBenefit.infoBenefits.count
+            return storageInfoBenefit.count
         }
     }
 
@@ -179,7 +179,7 @@ extension ProfileViewController: UITableViewDataSource {
             ) as? PersonalInfoCell else { return UITableViewCell() }
             cell.selectionStyle = .none
             cell.delegate = self
-            cell.configure(storageInfoPersonal.infoPersonals[indexPath.row])
+            cell.configure(storageInfoPersonal[indexPath.row])
             return cell
         case .infoBenefit:
             guard let cell = tableView.dequeueReusableCell(
@@ -187,7 +187,7 @@ extension ProfileViewController: UITableViewDataSource {
                 for: indexPath
             ) as? BenefitsInfoCell else { return UITableViewCell() }
             cell.accessoryType = .disclosureIndicator
-            cell.configure(storageInfoBenefit.infoBenefits[indexPath.row])
+            cell.configure(storageInfoBenefit[indexPath.row])
             return cell
         }
     }
