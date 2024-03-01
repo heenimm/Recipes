@@ -46,13 +46,8 @@ final class DetailViewController: UIViewController {
     // MARK: - Private Methods
 
     private func setupNavigationItem() {
-//        let arrow = UIBarButtonItem(
-        ////            image: UIImage(systemName: "arrow").withRenderingMode(.alwaysOriginal),
-//            style: .done,
-//            target: nil,
-//            action: nil
-//        )
-//        navigationItem.leftBarButtonItem = arrow
+        let title = UIBarButtonItem(title: "Fish", image: UIImage(named: "arrow"))
+        navigationItem.setLeftBarButtonItems([title], animated: true)
         navigationItem.leftBarButtonItem?.tintColor = .black
     }
 

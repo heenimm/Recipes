@@ -33,12 +33,28 @@ final class DetailTableViewCell: UITableViewCell {
         return label
     }()
 
+    private let dishTimeLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(name: Constants.fontVerdana, size: 14)
+        label.numberOfLines = 0
+        return label
+    }()
+
+    private let dishCaloriesLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(name: Constants.fontVerdana, size: 14)
+        label.numberOfLines = 0
+        return label
+    }()
+
     // MARK: - Life Cycle
 
     override func didMoveToSuperview() {
         setupSubviews()
         setupDishPhotoImageViewConstraints()
         setupDishDescriptionLabelConstraints()
+        setupDishTimeLabelConstraints()
+        setupDishCaloriesLabelConstraints()
     }
 
     // MARK: - Private Methods
@@ -47,8 +63,11 @@ final class DetailTableViewCell: UITableViewCell {
         contentView.backgroundColor = UIColor(named: "appBottomGradient")
 
         contentView.layer.cornerRadius = contentView.bounds.width / 20
+
         contentView.addSubview(dishPhotoImageView)
         contentView.addSubview(dishDescriptionLabel)
+        contentView.addSubview(dishTimeLabel)
+        contentView.addSubview(dishCaloriesLabel)
     }
 
     private func setupDishPhotoImageViewConstraints() {
@@ -81,6 +100,36 @@ final class DetailTableViewCell: UITableViewCell {
             dishDescriptionLabel.widthAnchor.constraint(equalToConstant: 197)
         ])
     }
+
+    private func setupDishTimeLabelConstraints() {
+        dishTimeLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            dishTimeLabel.topAnchor.constraint(
+                equalTo: dishDescriptionLabel.topAnchor,
+                constant: 40
+            ),
+            dishTimeLabel.leadingAnchor.constraint(
+                equalTo: dishPhotoImageView.trailingAnchor,
+                constant: 20
+            ),
+            dishTimeLabel.widthAnchor.constraint(equalToConstant: 80)
+        ])
+    }
+
+    private func setupDishCaloriesLabelConstraints() {
+        dishCaloriesLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            dishCaloriesLabel.topAnchor.constraint(
+                equalTo: dishDescriptionLabel.topAnchor,
+                constant: 40
+            ),
+            dishCaloriesLabel.leadingAnchor.constraint(
+                equalTo: dishTimeLabel.trailingAnchor,
+                constant: 20
+            ),
+            dishCaloriesLabel.widthAnchor.constraint(equalToConstant: 80)
+        ])
+    }
 }
 
 // MARK: - Extension
@@ -89,5 +138,7 @@ extension DetailTableViewCell {
     func configure(dish: Dish) {
         dishPhotoImageView.image = UIImage(named: dish.foodImage)
         dishDescriptionLabel.text = dish.foodDescription
+        dishTimeLabel.text = dish.cookingTime
+        dishCaloriesLabel.text = dish.caloriesСontent
     }
 }

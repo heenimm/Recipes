@@ -133,7 +133,7 @@
 		7B42E4AA2B8DD7180095C019 /* Recipes */ = {
 			isa = PBXGroup;
 			children = (
-				7B8129132B9181C400B6459D /* DetailModule */,
+				7B8129132B9181C400B6459D /* CategoryModule */,
 				44E37C982B8FB8380047F3A5 /* Recipes */,
 				7B42E4D32B8E0ADB0095C019 /* AuthProfile */,
 				7B42E4CA2B8E04B70095C019 /* Coordinators */,
@@ -210,7 +210,7 @@
 			path = ViewControllers;
 			sourceTree = "<group>";
 		};
-		7B8129132B9181C400B6459D /* DetailModule */ = {
+		7B8129132B9181C400B6459D /* CategoryModule */ = {
 			isa = PBXGroup;
 			children = (
 				7B81291A2B91825900B6459D /* Cells */,
@@ -219,7 +219,7 @@
 				7B8129182B91823F00B6459D /* Dish.swift */,
 				7B81291F2B918B8400B6459D /* DetailsPictures.xcassets */,
 			);
-			path = DetailModule;
+			path = CategoryModule;
 			sourceTree = "<group>";
 		};
 		7B81291A2B91825900B6459D /* Cells */ = {
