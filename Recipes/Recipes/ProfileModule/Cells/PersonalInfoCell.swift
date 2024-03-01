@@ -10,6 +10,8 @@ protocol PersonalInfoCellDelegate: AnyObject {
 
 /// ячейка отображения персональных данных
 final class PersonalInfoCell: UITableViewCell {
+    // MARK: - Enums
+
     private enum Constants {
         static let fontVerdana = "Verdana"
         static let fontVerdanaBold = "Verdana-Bold"
