@@ -48,29 +48,21 @@ final class HeaderCell: UITableViewHeaderFooterView {
         return searchBar
     }()
 
-    private let caloriesStateButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.backgroundColor = UIColor(named: Constants.grayButtonColor)
-        button.setTitleColor(.black, for: .normal)
+    private let caloriesStateButton: SortingButton = {
+        let button = SortingButton(type: .system)
         button.setTitle(Constants.caloriesText, for: .normal)
         button.layer.cornerRadius = 13
         button.clipsToBounds = true
-        button.setImage(
-            UIImage(named: Constants.upStack)?.withTintColor(.black, renderingMode: .alwaysOriginal),
-            for: .normal
-        )
         button.imageEdgeInsets = UIEdgeInsets(top: 0, left: 50, bottom: 0, right: -65)
         button.titleEdgeInsets = UIEdgeInsets(top: 0, left: -20, bottom: 0, right: 20)
         return button
     }()
 
-    private let timeStateButton: UIButton = {
-        let button = UIButton()
-        button.backgroundColor = UIColor(named: Constants.greenButtonColor)
+    private let timeStateButton: SortingButton = {
+        let button = SortingButton(type: .system)
         button.setTitle(Constants.timeText, for: .normal)
         button.layer.cornerRadius = 13
         button.clipsToBounds = true
-        button.setImage(UIImage(named: Constants.downStack), for: .normal)
         button.imageEdgeInsets = UIEdgeInsets(top: 0, left: 50, bottom: 0, right: -40)
         button.titleEdgeInsets = UIEdgeInsets(top: 0, left: -20, bottom: 0, right: 20)
         return button
