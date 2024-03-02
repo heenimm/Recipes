@@ -7,10 +7,15 @@ import UIKit
 private class AppBuilder {
     enum Constants {
         static let profileText = "Profile"
+        static let profileImage = "smile"
+        static let fillProfileImage = "smile_fill"
         static let smileText = "smiley.fill"
         static let appGreenText = "AppGreen"
         static let recipesText = "Recipes"
+        static let favoritesText = "Favorites"
         static let recipesImage = "recipesCake"
+        static let favoritesImage = "mark"
+        static let fillFavoritesImage = "mark_fill"
         static let fillRecipesImage = "filledCake"
     }
 
@@ -20,14 +25,14 @@ private class AppBuilder {
         view.presenter = profilePresenter
         view.tabBarItem = UITabBarItem(
             title: Constants.profileText,
-
-            image: UIImage(systemName: Constants.smileText)?.withTintColor(
-                UIColor(
-                    named: Constants.appGreenText
-                )!,
-                renderingMode: .alwaysOriginal
-            ),
-            tag: 0
+            image: UIImage(named: Constants.profileImage)?
+                .withRenderingMode(.alwaysOriginal),
+            selectedImage: UIImage(named: Constants.fillProfileImage)?
+                .withRenderingMode(.alwaysOriginal)
+        )
+        view.tabBarItem.setTitleTextAttributes(
+            [.foregroundColor: UIColor(named: Constants.appGreenText)!],
+            for: .selected
         )
         return view
     }
@@ -38,15 +43,28 @@ private class AppBuilder {
         view.presenter = recipesPresenter
         view.tabBarItem = UITabBarItem(
             title: Constants.recipesText,
-            image: UIImage(named: Constants.recipesImage)?.withTintColor(
-                UIColor(
-                    named: Constants.appGreenText
-                )!,
-                renderingMode: .alwaysOriginal
-            ),
-            selectedImage: UIImage(named: Constants.fillRecipesImage)?.withTintColor(
-                UIColor(named: Constants.appGreenText) ?? .green
-            ).withRenderingMode(.alwaysOriginal)
+            image: UIImage(named: Constants.recipesImage)?.withRenderingMode(.alwaysOriginal),
+            selectedImage: UIImage(named: Constants.fillRecipesImage)?.withRenderingMode(.alwaysOriginal)
+        )
+        view.tabBarItem.setTitleTextAttributes(
+            [.foregroundColor: UIColor(named: Constants.appGreenText)!],
+            for: .selected
+        )
+        return view
+    }
+
+    func makeFavoriteModule() -> FavoriteViewController {
+        let view = FavoriteViewController()
+        let favoritePresenter = FavoritePresenter(view: view)
+        view.presenter = favoritePresenter
+        view.tabBarItem = UITabBarItem(
+            title: Constants.favoritesText,
+            image: UIImage(named: Constants.favoritesImage)?.withRenderingMode(.alwaysOriginal),
+            selectedImage: UIImage(named: Constants.fillFavoritesImage)?.withRenderingMode(.alwaysOriginal)
+        )
+        view.tabBarItem.setTitleTextAttributes(
+            [.foregroundColor: UIColor(named: Constants.appGreenText)!],
+            for: .selected
         )
         return view
     }
@@ -101,8 +119,20 @@ final class AppCoordinator: BaseCoordinator {
             self?.toAuth()
         }
 
+        /// Set favorites
+        let favoritesView = appBuilder.makeFavoriteModule()
+        let favoritesCoordinator = FavoriteCoordinator(rootController: favoritesView)
+        favoritesView.presenter?.coordinator = favoritesCoordinator
+        add(coordinator: favoritesCoordinator)
+
+        favoritesCoordinator.onFinishFlow = { [weak self] in
+            self?.remove(coordinator: favoritesCoordinator)
+            self?.mainTabBarViewController = nil
+            self?.toAuth()
+        }
+
         mainTabBarViewController?.setViewControllers(
-            [recipesCoordinator.rootController, profileCoordinator.rootController],
+            [recipesCoordinator.rootController, favoritesCoordinator.rootController, profileCoordinator.rootController],
             animated: false
         )
         setAsRoot(_: mainTabBarViewController!)
