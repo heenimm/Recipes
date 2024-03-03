@@ -21,11 +21,15 @@ final class FavoriteViewController: UIViewController {
 
     private var favoriteTableView: UITableView!
     private var favorites = Favorite.favorites
+    private lazy var nothingYetView = NothingYetView()
+
+    // MARK: - Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
         setupNavigationItem()
+        setupNothingViewConstraints()
     }
 
     // MARK: - Private Methods
@@ -49,11 +53,6 @@ final class FavoriteViewController: UIViewController {
         favoriteTableView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         favoriteTableView.separatorStyle = .none
         favoriteTableView.register(FavoriteTableViewCell.self, forCellReuseIdentifier: FavoriteTableViewCell.reuseID)
-//        favoriteTableView.tableHeaderView = HeaderCell(frame: CGRect(
-//            origin: .zero,
-//            size: CGSize(width: 100, height: 100)
-//        ))
-
         view.addSubview(favoriteTableView)
 
         favoriteTableView.translatesAutoresizingMaskIntoConstraints = false
@@ -62,6 +61,18 @@ final class FavoriteViewController: UIViewController {
             favoriteTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             favoriteTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             favoriteTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
+    }
+
+    private func setupNothingViewConstraints() {
+        view.addSubview(nothingYetView)
+        nothingYetView.isHidden = true
+        nothingYetView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            nothingYetView.topAnchor.constraint(equalTo: view.topAnchor),
+            nothingYetView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            nothingYetView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            nothingYetView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
     }
 
@@ -93,6 +104,10 @@ extension FavoriteViewController: UITableViewDelegate {
         if editingStyle == .delete {
             favorites.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
+        }
+        if favorites.count == 0 {
+            tableView.isHidden = true
+            nothingYetView.isHidden = false
         }
     }
 }
