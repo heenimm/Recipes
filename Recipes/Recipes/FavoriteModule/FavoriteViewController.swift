@@ -50,6 +50,8 @@ final class FavoriteViewController: UIViewController {
         favoriteTableView.dataSource = self
         favoriteTableView.backgroundColor = .white
         favoriteTableView.rowHeight = UITableView.automaticDimension
+        favoriteTableView.estimatedRowHeight = UITableView.automaticDimension
+        favoriteTableView.cellLayoutMarginsFollowReadableWidth = true
         favoriteTableView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         favoriteTableView.separatorStyle = .none
         favoriteTableView.register(FavoriteTableViewCell.self, forCellReuseIdentifier: FavoriteTableViewCell.reuseID)
@@ -84,9 +86,9 @@ final class FavoriteViewController: UIViewController {
 // MARK: - Extension FavoriteViewController + UITableViewDelegate
 
 extension FavoriteViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        110
-    }
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        110
+//    }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)

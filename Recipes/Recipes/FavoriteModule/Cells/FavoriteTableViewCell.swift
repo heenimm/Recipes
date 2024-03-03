@@ -75,14 +75,21 @@ final class FavoriteTableViewCell: UITableViewCell {
 
     private func setupDishPhotoImageViewConstraints() {
         dishPhotoImageView.translatesAutoresizingMaskIntoConstraints = false
+
+        let margins = contentView.layoutMarginsGuide
+
         NSLayoutConstraint.activate([
-            dishPhotoImageView.topAnchor.constraint(
-                equalTo: contentView.topAnchor,
-                constant: 10
+            margins.topAnchor.constraint(
+                equalTo: dishPhotoImageView.topAnchor,
+                constant: -8
             ),
-            dishPhotoImageView.leadingAnchor.constraint(
-                equalTo: contentView.leadingAnchor,
-                constant: 15
+            margins.leadingAnchor.constraint(
+                equalTo: dishPhotoImageView.leadingAnchor,
+                constant: -8
+            ),
+            margins.bottomAnchor.constraint(
+                equalTo: dishPhotoImageView.bottomAnchor,
+                constant: 8
             ),
             dishPhotoImageView.heightAnchor.constraint(equalToConstant: 80),
             dishPhotoImageView.widthAnchor.constraint(equalToConstant: 80)
@@ -133,6 +140,17 @@ final class FavoriteTableViewCell: UITableViewCell {
             dishCaloriesLabel.widthAnchor.constraint(equalToConstant: 80)
         ])
     }
+
+    private lazy var stackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [
+            dishPhotoImageView,
+            dishDescriptionLabel,
+            dishTimeLabel,
+            dishCaloriesLabel
+        ])
+        stackView.axis = .horizontal
+        return stackView
+    }()
 }
 
 // MARK: - Extension
