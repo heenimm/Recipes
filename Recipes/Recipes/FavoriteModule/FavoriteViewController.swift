@@ -16,11 +16,11 @@ final class FavoriteViewController: UIViewController {
     // MARK: - Public Properties
 
     weak var presenter: FavoritePresenter?
+    private var favorites = Favorite.favorites
 
     // MARK: - Visual Components
 
     private var favoriteTableView: UITableView!
-    private var favorites = Favorite.favorites
     private lazy var nothingYetView = NothingYetView()
 
     // MARK: - Life Cycle
