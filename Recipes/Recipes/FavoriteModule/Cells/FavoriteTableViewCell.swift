@@ -9,7 +9,7 @@ final class FavoriteTableViewCell: UITableViewCell {
 
     private enum Constants {
         static let fontVerdana = "Verdana"
-        static let leftInset = UIScreen.main.bounds.width / 2 - 80
+        static let bottomGradient = "appBottomGradient"
     }
 
     // MARK: - Static Constant
@@ -65,7 +65,7 @@ final class FavoriteTableViewCell: UITableViewCell {
     // MARK: - Private Methods
 
     private func setupSubviews() {
-        contentView.backgroundColor = UIColor(named: "appBottomGradient")
+        contentView.backgroundColor = UIColor(named: Constants.bottomGradient)
         contentView.layer.cornerRadius = contentView.bounds.width / 20
         contentView.addSubview(dishPhotoImageView)
         contentView.addSubview(dishDescriptionLabel)
