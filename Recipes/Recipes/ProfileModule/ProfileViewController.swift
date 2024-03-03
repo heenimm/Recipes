@@ -140,7 +140,7 @@ extension ProfileViewController: UITableViewDelegate {
         case .infoPersonal:
             return 270
         case .infoBenefit:
-            return 53
+            return 60
         }
     }
 
@@ -196,5 +196,13 @@ extension ProfileViewController: UITableViewDataSource {
 extension ProfileViewController: PersonalInfoCellDelegate {
     func didTapChangePersonalInfoButton() {
         present(addChangeNameAlert(), animated: true)
+    }
+
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if indexPath.section == 0, indexPath.row == 0 {
+            cell.separatorInset = UIEdgeInsets(top: 0, left: cell.bounds.size.width, bottom: 0, right: 0)
+        } else {
+            cell.separatorInset = UIEdgeInsets(top: 10, left: 30, bottom: 10, right: 30)
+        }
     }
 }
