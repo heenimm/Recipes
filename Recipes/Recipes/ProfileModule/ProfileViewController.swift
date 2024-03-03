@@ -202,7 +202,7 @@ extension ProfileViewController: PersonalInfoCellDelegate {
         if indexPath.section == 0, indexPath.row == 0 {
             cell.separatorInset = UIEdgeInsets(top: 0, left: cell.bounds.size.width, bottom: 0, right: 0)
         } else {
-            cell.separatorInset = UIEdgeInsets(top: 10, left: 30, bottom: 10, right: 30)
+            cell.separatorInset = UIEdgeInsets(top: 0, left: 30, bottom: 0, right: 30)
         }
     }
 }
