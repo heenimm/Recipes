@@ -104,6 +104,16 @@ extension DetailViewController: UITableViewDataSource {
             for: indexPath
         ) as? DetailTableViewCell else { return UITableViewCell() }
         cell.configure(dish: dishes[indexPath.row])
+        cell.delegate = self
         return cell
+    }
+}
+
+// MARK: - Extension DetailViewController + DetailTableViewCellDelegate
+
+extension DetailViewController: DetailTableViewCellDelegate {
+    func recipesCellDidTap(_ cell: DetailTableViewCell) {
+        let recipeDetailTableView = RecipeDetailViewController()
+        navigationController?.pushViewController(recipeDetailTableView, animated: true)
     }
 }
