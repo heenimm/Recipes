@@ -41,7 +41,7 @@ final class KBJUViewCell: UITableViewCell {
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = 20
         imageView.layer.borderWidth = 3
-        imageView.layer.borderColor = CGColor(red: 112 / 255, green: 185 / 255, blue: 190 / 255, alpha: 1)
+        imageView.layer.borderColor = UIColor(resource: .appKBJU).cgColor
         return imageView
     }()
 
@@ -72,7 +72,7 @@ final class KBJUViewCell: UITableViewCell {
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = 20
         imageView.layer.borderWidth = 3
-        imageView.layer.borderColor = CGColor(red: 112 / 255, green: 185 / 255, blue: 190 / 255, alpha: 1)
+        imageView.layer.borderColor = UIColor(resource: .appKBJU).cgColor
         return imageView
     }()
 
@@ -103,7 +103,7 @@ final class KBJUViewCell: UITableViewCell {
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = 20
         imageView.layer.borderWidth = 3
-        imageView.layer.borderColor = CGColor(red: 112 / 255, green: 185 / 255, blue: 190 / 255, alpha: 1)
+        imageView.layer.borderColor = UIColor(resource: .appKBJU).cgColor
         return imageView
     }()
 
@@ -134,7 +134,7 @@ final class KBJUViewCell: UITableViewCell {
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = 20
         imageView.layer.borderWidth = 3
-        imageView.layer.borderColor = CGColor(red: 112 / 255, green: 185 / 255, blue: 190 / 255, alpha: 1)
+        imageView.layer.borderColor = UIColor(resource: .appKBJU).cgColor
         return imageView
     }()
 

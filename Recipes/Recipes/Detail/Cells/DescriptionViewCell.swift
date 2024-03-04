@@ -8,38 +8,7 @@ final class DescriptionViewCell: UITableViewCell {
 
     enum Constants {
         static let verdana14 = UIFont(name: "Verdana", size: 14)
-        static let descriptionText = """
-        1/2 to 2 fish heads, depending on size, about 5 pounds total
-        2 tablespoons vegetable oil
-        1/4 cup red or green Thai curry paste
-        3 tablespoons fish sauce or anchovy sauce
-        1 tablespoon sugar
-        1 can coconut milk, about 12 ounces
-        3 medium-size Asian eggplants, cut into 1-inch rounds
-        Handful of bird's eye chilies
-        1/2 cup Thai basil leaves
-        Juice of 3 limes
-        1/2 to 2 fish heads, depending on size, about 5 pounds total
-        2 tablespoons vegetable oil
-        1/4 cup red or green Thai curry paste
-        3 tablespoons fish sauce or anchovy sauce
-        1 tablespoon sugar
-        1 can coconut milk, about 12 ounces
-        3 medium-size Asian eggplants, cut into 1-inch rounds
-        Handful of bird's eye chilies
-        1/2 cup Thai basil leaves
-        Juice of 3 limes
-        1/2 to 2 fish heads, depending on size, about 5 pounds total
-        2 tablespoons vegetable oil
-        1/4 cup red or green Thai curry paste
-        3 tablespoons fish sauce or anchovy sauce
-        1 tablespoon sugar
-        1 can coconut milk, about 12 ounces
-        3 medium-size Asian eggplants, cut into 1-inch rounds
-        Handful of bird's eye chilies
-        1/2 cup Thai basil leaves
-        Juice of 3 limes
-        """
+        static let descriptionText = "description_text"
     }
 
     // MARK: - Visual Components
@@ -48,7 +17,7 @@ final class DescriptionViewCell: UITableViewCell {
 
     private let descriptionLabel: UILabel = {
         let label = UILabel()
-        label.text = Constants.descriptionText
+        label.text = NSLocalizedString(Constants.descriptionText, comment: "")
         label.font = Constants.verdana14
         label.textColor = .black
         label.numberOfLines = 0

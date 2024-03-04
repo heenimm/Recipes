@@ -128,24 +128,8 @@ final class PictureViewCell: UITableViewCell {
 
     // MARK: - Private Methods
 
-    private func setConstraint() {
+    private func setBagView() {
         NSLayoutConstraint.activate([
-            insideView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            insideView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            insideView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            insideView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-
-            titleLabel.leadingAnchor.constraint(equalTo: insideView.leadingAnchor, constant: 20),
-            titleLabel.trailingAnchor.constraint(equalTo: insideView.trailingAnchor, constant: -20),
-            titleLabel.topAnchor.constraint(equalTo: insideView.topAnchor),
-            titleLabel.heightAnchor.constraint(equalToConstant: 25),
-
-            pictureImageView.leadingAnchor.constraint(equalTo: insideView.leadingAnchor, constant: 45),
-            pictureImageView.trailingAnchor.constraint(equalTo: insideView.trailingAnchor, constant: -45),
-            pictureImageView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20),
-            pictureImageView.heightAnchor.constraint(equalTo: pictureImageView.widthAnchor),
-            pictureImageView.bottomAnchor.constraint(equalTo: insideView.bottomAnchor),
-
             bagView.trailingAnchor.constraint(equalTo: pictureImageView.trailingAnchor, constant: -6),
             bagView.topAnchor.constraint(equalTo: pictureImageView.topAnchor, constant: 8),
             bagView.widthAnchor.constraint(equalToConstant: 50),
@@ -160,7 +144,11 @@ final class PictureViewCell: UITableViewCell {
             bagLabel.trailingAnchor.constraint(equalTo: bagView.trailingAnchor, constant: -10),
             bagLabel.topAnchor.constraint(equalTo: bagView.topAnchor, constant: 28),
             bagLabel.bottomAnchor.constraint(equalTo: bagView.bottomAnchor, constant: -6),
+        ])
+    }
 
+    private func setCookingTimeView() {
+        NSLayoutConstraint.activate([
             cookingTimeView.leadingAnchor.constraint(equalTo: pictureImageView.leadingAnchor, constant: 176),
             cookingTimeView.bottomAnchor.constraint(equalTo: pictureImageView.bottomAnchor),
             cookingTimeView.widthAnchor.constraint(equalToConstant: 140),
@@ -181,6 +169,28 @@ final class PictureViewCell: UITableViewCell {
             cookingTimeLabel.widthAnchor.constraint(equalToConstant: 50),
             cookingTimeLabel.heightAnchor.constraint(equalToConstant: 15)
         ])
+    }
+
+    private func setConstraint() {
+        NSLayoutConstraint.activate([
+            insideView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            insideView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            insideView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            insideView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+
+            titleLabel.leadingAnchor.constraint(equalTo: insideView.leadingAnchor, constant: 20),
+            titleLabel.trailingAnchor.constraint(equalTo: insideView.trailingAnchor, constant: -20),
+            titleLabel.topAnchor.constraint(equalTo: insideView.topAnchor),
+            titleLabel.heightAnchor.constraint(equalToConstant: 25),
+
+            pictureImageView.leadingAnchor.constraint(equalTo: insideView.leadingAnchor, constant: 45),
+            pictureImageView.trailingAnchor.constraint(equalTo: insideView.trailingAnchor, constant: -45),
+            pictureImageView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20),
+            pictureImageView.heightAnchor.constraint(equalTo: pictureImageView.widthAnchor),
+            pictureImageView.bottomAnchor.constraint(equalTo: insideView.bottomAnchor)
+        ])
+        setBagView()
+        setCookingTimeView()
     }
 
     private func setupCell() {
