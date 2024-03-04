@@ -3,6 +3,10 @@
 
 import UIKit
 
+protocol DetailTableViewCellDelegate: AnyObject {
+    func recipesCellDidTap(_ cell: DetailTableViewCell)
+}
+
 /// Виды блюд
 final class DetailTableViewCell: UITableViewCell {
     // MARK: - Enums
@@ -17,6 +21,8 @@ final class DetailTableViewCell: UITableViewCell {
 
     static let reuseID = String(describing: DetailTableViewCell.self)
 
+    weak var delegate: DetailTableViewCellDelegate?
+
     // MARK: - Visual Components
 
     private let dishPhotoImageView: UIImageView = {
@@ -30,6 +36,7 @@ final class DetailTableViewCell: UITableViewCell {
     private lazy var nextButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: Constants.next), for: .normal)
+        button.addTarget(nil, action: #selector(cellTapped), for: .touchUpInside)
         return button
     }()
 
@@ -158,6 +165,10 @@ final class DetailTableViewCell: UITableViewCell {
             nextButton.heightAnchor.constraint(equalToConstant: 40)
 
         ])
+    }
+
+    @objc private func cellTapped() {
+        delegate?.recipesCellDidTap(self)
     }
 }
 

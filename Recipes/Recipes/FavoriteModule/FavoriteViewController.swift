@@ -1,22 +1,21 @@
-// DetailViewController.swift
+// FavoriteViewController.swift
 // Copyright © RoadMap. All rights reserved.
 
 import UIKit
 
 ///
-final class DetailViewController: UIViewController {
+final class FavoriteViewController: UIViewController {
     // MARK: - Enums
 
     private enum Constants {
-        static let titleText = "  Fish"
+        static let titleText = "Favorites"
         static let fontVerdana = "Verdana"
         static let fontVerdanaBold = "Verdana-Bold"
-        static let back = "back"
     }
 
     // MARK: - Public Properties
 
-    weak var presenter: DetailPresenter?
+    weak var presenter: FavoritePresenter?
 
     // MARK: - Visual Components
 
@@ -32,17 +31,13 @@ final class DetailViewController: UIViewController {
     // MARK: - Private Methods
 
     private func setupNavigationItem() {
-        let button = UIButton(type: .system)
-        button.setTitle(Constants.titleText, for: .normal)
-        button.setTitleColor(.black, for: .normal)
-        button.titleLabel?.font = UIFont(name: Constants.fontVerdanaBold, size: 28)
-        button.setImage(
-            UIImage(named: Constants.back)?.withTintColor(.black, renderingMode: .alwaysOriginal),
-            for: .normal
-        )
-        button.sizeToFit()
-        button.addTarget(self, action: #selector(backToRecipes), for: .touchUpInside)
-        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: button)
+        let label = UILabel()
+        label.text = Constants.titleText
+        label.sizeToFit()
+        label.font = UIFont(name: Constants.fontVerdanaBold, size: 28)
+        let leftItem = UIBarButtonItem(customView: label)
+        navigationItem.leftBarButtonItem = leftItem
+        navigationItem.leftBarButtonItem?.tintColor = .black
     }
 
     private func setupTableView() {
@@ -75,9 +70,9 @@ final class DetailViewController: UIViewController {
     }
 }
 
-// MARK: - Extension DetailViewController + UITableViewDelegate
+// MARK: - Extension FavoriteViewController + UITableViewDelegate
 
-extension DetailViewController: UITableViewDelegate {
+extension FavoriteViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         100
     }
@@ -87,9 +82,9 @@ extension DetailViewController: UITableViewDelegate {
     }
 }
 
-// MARK: - Extension DetailViewController + UITableViewDataSource
+// MARK: - Extension FavoriteViewController + UITableViewDataSource
 
-extension DetailViewController: UITableViewDataSource {
+extension FavoriteViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         1
     }
@@ -104,16 +99,6 @@ extension DetailViewController: UITableViewDataSource {
             for: indexPath
         ) as? DetailTableViewCell else { return UITableViewCell() }
         cell.configure(dish: dishes[indexPath.row])
-        cell.delegate = self
         return cell
-    }
-}
-
-// MARK: - Extension DetailViewController + DetailTableViewCellDelegate
-
-extension DetailViewController: DetailTableViewCellDelegate {
-    func recipesCellDidTap(_ cell: DetailTableViewCell) {
-        let recipeDetailTableView = RecipeDetailViewController()
-        navigationController?.pushViewController(recipeDetailTableView, animated: true)
     }
 }
