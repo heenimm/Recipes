@@ -18,6 +18,14 @@ final class RecipesCoordinator: BaseCoordinator {
 
     // MARK: - Public Methods
 
+    func showDetailScreen() -> DetailViewController {
+        let detailViewController = DetailViewController()
+        let detailPresenter = DetailPresenter(view: detailViewController)
+        detailViewController.presenter = detailPresenter
+        detailPresenter.detailCoordinator = self
+        return detailViewController
+    }
+
     func logOut() {
         onFinishFlow?()
     }

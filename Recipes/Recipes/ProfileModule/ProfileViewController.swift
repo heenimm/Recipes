@@ -9,7 +9,7 @@ final class ProfileViewController: UIViewController {
         static let fontVerdana = "Verdana"
         static let fontVerdanaBold = "Verdana-Bold"
         static let plusBackgroundColor = "plusBackground"
-        static let headerLabel = "  Profile"
+        static let titleText = "Profile"
         static let changeNameAlert = "Change your name and surname"
         static let emptyText = ""
         static let nameSurnameText = "Surname Name"
@@ -37,18 +37,6 @@ final class ProfileViewController: UIViewController {
 
     // MARK: - Visual Components
 
-    private lazy var headerLabel: UILabel = {
-        let label = UILabel(frame: CGRect(
-            x: view.frame.width,
-            y: 0,
-            width: view.frame.width,
-            height: 50
-        ))
-        label.text = Constants.headerLabel
-        label.font = UIFont(name: Constants.fontVerdanaBold, size: 28)
-        return label
-    }()
-
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.register(PersonalInfoCell.self, forCellReuseIdentifier: PersonalInfoCell.reuseID)
@@ -56,7 +44,6 @@ final class ProfileViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.headerView(forSection: 0)
-        tableView.tableHeaderView = headerLabel
         return tableView
     }()
 
@@ -66,9 +53,20 @@ final class ProfileViewController: UIViewController {
         super.viewDidLoad()
         setupSubviews()
         setupConstraints()
+        setupNavigationItem()
     }
 
     // MARK: - Private Methods
+
+    private func setupNavigationItem() {
+        let label = UILabel()
+        label.text = Constants.titleText
+        label.sizeToFit()
+        label.font = UIFont(name: Constants.fontVerdanaBold, size: 28)
+        let leftItem = UIBarButtonItem(customView: label)
+        navigationItem.leftBarButtonItem = leftItem
+        navigationItem.leftBarButtonItem?.tintColor = .black
+    }
 
     private func setupSubviews() {
         view.addSubview(tableView)
@@ -142,7 +140,7 @@ extension ProfileViewController: UITableViewDelegate {
         case .infoPersonal:
             return 270
         case .infoBenefit:
-            return 53
+            return 60
         }
     }
 
@@ -198,5 +196,13 @@ extension ProfileViewController: UITableViewDataSource {
 extension ProfileViewController: PersonalInfoCellDelegate {
     func didTapChangePersonalInfoButton() {
         present(addChangeNameAlert(), animated: true)
+    }
+
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if indexPath.section == 0, indexPath.row == 0 {
+            cell.separatorInset = UIEdgeInsets(top: 0, left: cell.bounds.size.width, bottom: 0, right: 0)
+        } else {
+            cell.separatorInset = UIEdgeInsets(top: 0, left: 30, bottom: 0, right: 30)
+        }
     }
 }

@@ -1,27 +1,20 @@
-// DetailTableViewCell.swift
+// FavoriteTableViewCell.swift
 // Copyright © RoadMap. All rights reserved.
 
 import UIKit
 
-protocol DetailTableViewCellDelegate: AnyObject {
-    func recipesCellDidTap(_ cell: DetailTableViewCell)
-}
-
-/// Виды блюд
-final class DetailTableViewCell: UITableViewCell {
+/// Избранное
+final class FavoriteTableViewCell: UITableViewCell {
     // MARK: - Enums
 
     private enum Constants {
         static let fontVerdana = "Verdana"
-        static let leftInset = UIScreen.main.bounds.width / 2 - 80
-        static let next = "arrow"
+        static let bottomGradient = "appBottomGradient"
     }
 
     // MARK: - Static Constant
 
-    static let reuseID = String(describing: DetailTableViewCell.self)
-
-    weak var delegate: DetailTableViewCellDelegate?
+    static let reuseID = String(describing: FavoriteTableViewCell.self)
 
     // MARK: - Visual Components
 
@@ -31,13 +24,6 @@ final class DetailTableViewCell: UITableViewCell {
         imageView.layer.cornerRadius = 8
         imageView.clipsToBounds = true
         return imageView
-    }()
-
-    private lazy var nextButton: UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(named: Constants.next), for: .normal)
-        button.addTarget(nil, action: #selector(cellTapped), for: .touchUpInside)
-        return button
     }()
 
     private let dishDescriptionLabel: UILabel = {
@@ -74,31 +60,36 @@ final class DetailTableViewCell: UITableViewCell {
         setupDishDescriptionLabelConstraints()
         setupDishTimeLabelConstraints()
         setupDishCaloriesLabelConstraints()
-        setupNextButtonConstraints()
     }
 
     // MARK: - Private Methods
 
     private func setupSubviews() {
-        contentView.backgroundColor = UIColor(named: "appBottomGradient")
+        contentView.backgroundColor = UIColor(named: Constants.bottomGradient)
         contentView.layer.cornerRadius = contentView.bounds.width / 20
         contentView.addSubview(dishPhotoImageView)
         contentView.addSubview(dishDescriptionLabel)
         contentView.addSubview(dishTimeLabel)
         contentView.addSubview(dishCaloriesLabel)
-        contentView.addSubview(nextButton)
     }
 
     private func setupDishPhotoImageViewConstraints() {
         dishPhotoImageView.translatesAutoresizingMaskIntoConstraints = false
+
+        let margins = contentView.layoutMarginsGuide
+
         NSLayoutConstraint.activate([
-            dishPhotoImageView.topAnchor.constraint(
-                equalTo: contentView.topAnchor,
-                constant: 10
+            margins.topAnchor.constraint(
+                equalTo: dishPhotoImageView.topAnchor,
+                constant: -8
             ),
-            dishPhotoImageView.leadingAnchor.constraint(
-                equalTo: contentView.leadingAnchor,
-                constant: 15
+            margins.leadingAnchor.constraint(
+                equalTo: dishPhotoImageView.leadingAnchor,
+                constant: -8
+            ),
+            margins.bottomAnchor.constraint(
+                equalTo: dishPhotoImageView.bottomAnchor,
+                constant: 8
             ),
             dishPhotoImageView.heightAnchor.constraint(equalToConstant: 80),
             dishPhotoImageView.widthAnchor.constraint(equalToConstant: 80)
@@ -150,35 +141,25 @@ final class DetailTableViewCell: UITableViewCell {
         ])
     }
 
-    private func setupNextButtonConstraints() {
-        nextButton.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            nextButton.topAnchor.constraint(
-                equalTo: contentView.topAnchor,
-                constant: 30
-            ),
-            nextButton.trailingAnchor.constraint(
-                equalTo: contentView.trailingAnchor,
-                constant: -12
-            ),
-            nextButton.widthAnchor.constraint(equalToConstant: 40),
-            nextButton.heightAnchor.constraint(equalToConstant: 40)
-
+    private lazy var stackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [
+            dishPhotoImageView,
+            dishDescriptionLabel,
+            dishTimeLabel,
+            dishCaloriesLabel
         ])
-    }
-
-    @objc private func cellTapped() {
-        delegate?.recipesCellDidTap(self)
-    }
+        stackView.axis = .horizontal
+        return stackView
+    }()
 }
 
 // MARK: - Extension
 
-extension DetailTableViewCell {
-    func configure(dish: Dish) {
-        dishPhotoImageView.image = UIImage(named: dish.foodImage)
-        dishDescriptionLabel.text = dish.foodDescription
-        dishTimeLabel.text = dish.cookingTime
-        dishCaloriesLabel.text = dish.caloriesСontent
+extension FavoriteTableViewCell {
+    func configure(favorite: Favorite) {
+        dishPhotoImageView.image = UIImage(named: favorite.foodImage)
+        dishDescriptionLabel.text = favorite.foodDescription
+        dishTimeLabel.text = favorite.cookingTime
+        dishCaloriesLabel.text = favorite.caloriesСontent
     }
 }
