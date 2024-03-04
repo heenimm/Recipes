@@ -80,8 +80,10 @@ final class RecipesViewController: UIViewController {
 
 extension RecipesViewController: RecipesCollectionViewCellDelegate {
     func recipesCellDidTap(_ cell: RecipesCollectionViewCell) {
-        let detailTableView = DetailViewController()
-        navigationController?.pushViewController(detailTableView, animated: true)
+        if let detailTableView = presenter?.recipesCoordinator?.showDetailScreen() {
+            navigationController?.pushViewController(detailTableView, animated: true)
+        }
+//        navigationController?.pushViewController(presenter?.recipesCoordinator?.showDetailScreen(), animated: true)
     }
 }
 

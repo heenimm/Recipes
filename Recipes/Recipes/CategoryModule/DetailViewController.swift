@@ -16,12 +16,19 @@ final class DetailViewController: UIViewController {
 
     // MARK: - Public Properties
 
-    weak var presenter: DetailPresenter?
+    var presenter: DetailPresenter?
+
+    // MARK: - Private Properties
+
+    private var dishes = Dish.allFoods()
 
     // MARK: - Visual Components
 
     private var detailTableView: UITableView!
-    private var dishes = Dish.allFoods()
+    private let headerView = HeaderCell(frame: CGRect(
+        origin: .zero,
+        size: CGSize(width: 100, height: 100)
+    ))
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,10 +61,9 @@ final class DetailViewController: UIViewController {
         detailTableView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         detailTableView.separatorStyle = .none
         detailTableView.register(DetailTableViewCell.self, forCellReuseIdentifier: DetailTableViewCell.reuseID)
-        detailTableView.tableHeaderView = HeaderCell(frame: CGRect(
-            origin: .zero,
-            size: CGSize(width: 100, height: 100)
-        ))
+
+        headerView.searchBar.delegate = self
+        detailTableView.tableHeaderView = headerView
 
         view.addSubview(detailTableView)
 
@@ -106,6 +112,30 @@ extension DetailViewController: UITableViewDataSource {
         cell.configure(dish: dishes[indexPath.row])
         cell.delegate = self
         return cell
+    }
+}
+
+// MARK: - Extension DetailViewController + UISearchBarDelegate
+
+extension DetailViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText.count > 3 {
+            if let dishes = presenter?.filterContentForSearchText(searchText, dishes: dishes) {
+                self.dishes = dishes
+                DispatchQueue.main.async {
+                    self.detailTableView.reloadData()
+                }
+            }
+        } else {
+            dishes = Dish.allFoods()
+            DispatchQueue.main.async {
+                self.detailTableView.reloadData()
+            }
+        }
+    }
+
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        headerView.searchBar.resignFirstResponder()
     }
 }
 

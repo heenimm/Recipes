@@ -30,7 +30,7 @@ final class HeaderCell: UITableViewHeaderFooterView {
         setupTimeStateButtonConstraints()
     }
 
-    // MARK: - Private
+    // MARK: - Private Methods
 
     private func setupSubviews() {
         contentView.addSubview(searchBar)
@@ -38,7 +38,9 @@ final class HeaderCell: UITableViewHeaderFooterView {
         contentView.addSubview(timeStateButton)
     }
 
-    private let searchBar = {
+    // MARK: - Visual Components
+
+    let searchBar: UISearchBar = {
         let searchBar = UISearchBar()
         searchBar.searchTextField.borderStyle = .none
         searchBar.searchBarStyle = .minimal

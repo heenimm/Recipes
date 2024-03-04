@@ -1,28 +1,26 @@
-// RecipesCoordinator.swift
+// DetailCoordinator.swift
 // Copyright © RoadMap. All rights reserved.
 
 import UIKit
 
-/// Координатор экрана рецептов
-final class RecipesCoordinator: BaseCoordinator {
+///
+final class DetailCoordinator: BaseCoordinator {
     // MARK: - Public Properties
 
-    var rootController: UINavigationController
+    var rootViewController: DetailViewController!
     var onFinishFlow: (() -> Void)?
 
     // MARK: - Initializers
 
-    init(rootController: UIViewController) {
-        self.rootController = UINavigationController(rootViewController: rootController)
+    init(rootViewController: DetailViewController) {
+        self.rootViewController = rootViewController
     }
-
-    // MARK: - Public Methods
 
     func showDetailScreen() -> DetailViewController {
         let detailViewController = DetailViewController()
         let detailPresenter = DetailPresenter(view: detailViewController)
         detailViewController.presenter = detailPresenter
-        detailPresenter.detailCoordinator = DetailCoordinator(rootViewController: detailViewController)
+        detailPresenter.detailCoordinator = self
         return detailViewController
     }
 
