@@ -6,7 +6,7 @@ import Foundation
 ///
 final class DetailPresenter {
     private weak var view: DetailViewController?
-    weak var detailCoordinator: DetailCoordinator?
+    weak var detailCoordinator: RecipesCoordinator?
 
     init(view: DetailViewController) {
         self.view = view

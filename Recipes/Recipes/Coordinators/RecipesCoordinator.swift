@@ -22,7 +22,7 @@ final class RecipesCoordinator: BaseCoordinator {
         let detailViewController = DetailViewController()
         let detailPresenter = DetailPresenter(view: detailViewController)
         detailViewController.presenter = detailPresenter
-        detailPresenter.detailCoordinator = DetailCoordinator(rootViewController: detailViewController)
+        detailPresenter.detailCoordinator = self
         return detailViewController
     }
 
