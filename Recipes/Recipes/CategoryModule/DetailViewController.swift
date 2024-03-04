@@ -119,7 +119,7 @@ extension DetailViewController: UITableViewDataSource {
 
 extension DetailViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchText.count > 3 {
+        if searchText.count > 2 {
             if let dishes = presenter?.filterContentForSearchText(searchText, dishes: dishes) {
                 self.dishes = dishes
                 DispatchQueue.main.async {
