@@ -16,16 +16,20 @@ final class FavoriteViewController: UIViewController {
     // MARK: - Public Properties
 
     weak var presenter: FavoritePresenter?
+    private var favorites = Favorite.favorites
 
     // MARK: - Visual Components
 
-    private var detailTableView: UITableView!
-    private var dishes = Dish.allFoods()
+    private var favoriteTableView: UITableView!
+    private lazy var nothingYetView = NothingYetView()
+
+    // MARK: - Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
         setupNavigationItem()
+        setupNothingViewConstraints()
     }
 
     // MARK: - Private Methods
@@ -41,27 +45,36 @@ final class FavoriteViewController: UIViewController {
     }
 
     private func setupTableView() {
-        detailTableView = UITableView()
-        detailTableView.delegate = self
-        detailTableView.dataSource = self
-        detailTableView.backgroundColor = .white
-        detailTableView.rowHeight = UITableView.automaticDimension
-        detailTableView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
-        detailTableView.separatorStyle = .none
-        detailTableView.register(DetailTableViewCell.self, forCellReuseIdentifier: DetailTableViewCell.reuseID)
-        detailTableView.tableHeaderView = HeaderCell(frame: CGRect(
-            origin: .zero,
-            size: CGSize(width: 100, height: 100)
-        ))
+        favoriteTableView = UITableView()
+        favoriteTableView.delegate = self
+        favoriteTableView.dataSource = self
+        favoriteTableView.backgroundColor = .white
+        favoriteTableView.rowHeight = UITableView.automaticDimension
+        favoriteTableView.estimatedRowHeight = UITableView.automaticDimension
+        favoriteTableView.cellLayoutMarginsFollowReadableWidth = true
+        favoriteTableView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+        favoriteTableView.separatorStyle = .none
+        favoriteTableView.register(FavoriteTableViewCell.self, forCellReuseIdentifier: FavoriteTableViewCell.reuseID)
+        view.addSubview(favoriteTableView)
 
-        view.addSubview(detailTableView)
-
-        detailTableView.translatesAutoresizingMaskIntoConstraints = false
+        favoriteTableView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            detailTableView.topAnchor.constraint(equalTo: view.topAnchor),
-            detailTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            detailTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            detailTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+            favoriteTableView.topAnchor.constraint(equalTo: view.topAnchor),
+            favoriteTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            favoriteTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            favoriteTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
+    }
+
+    private func setupNothingViewConstraints() {
+        view.addSubview(nothingYetView)
+        nothingYetView.isHidden = true
+        nothingYetView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            nothingYetView.topAnchor.constraint(equalTo: view.topAnchor),
+            nothingYetView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            nothingYetView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            nothingYetView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
     }
 
@@ -80,6 +93,25 @@ extension FavoriteViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
+
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        true
+    }
+
+    func tableView(
+        _ tableView: UITableView,
+        commit editingStyle: UITableViewCell.EditingStyle,
+        forRowAt indexPath: IndexPath
+    ) {
+        if editingStyle == .delete {
+            favorites.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+        }
+        if favorites.count == 0 {
+            tableView.isHidden = true
+            nothingYetView.isHidden = false
+        }
+    }
 }
 
 // MARK: - Extension FavoriteViewController + UITableViewDataSource
@@ -90,15 +122,15 @@ extension FavoriteViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        dishes.count
+        favorites.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = detailTableView.dequeueReusableCell(
-            withIdentifier: DetailTableViewCell.reuseID,
+        guard let cell = favoriteTableView.dequeueReusableCell(
+            withIdentifier: FavoriteTableViewCell.reuseID,
             for: indexPath
-        ) as? DetailTableViewCell else { return UITableViewCell() }
-        cell.configure(dish: dishes[indexPath.row])
+        ) as? FavoriteTableViewCell else { return UITableViewCell() }
+        cell.configure(favorite: favorites[indexPath.row])
         return cell
     }
 }

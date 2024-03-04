@@ -79,7 +79,7 @@ final class DetailViewController: UIViewController {
 
 extension DetailViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        100
+        110
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
