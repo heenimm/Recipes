@@ -16,7 +16,6 @@ class RecipeDetailViewController: UIViewController {
         static let saveImage = "saveImage"
         static let developText = "Функционал в разработке"
         static let okText = "ОК"
-        static let verdanaBold28 = UIFont(name: "Verdana-Bold", size: 28)
     }
 
     /// Типы ячеек
@@ -64,7 +63,7 @@ class RecipeDetailViewController: UIViewController {
         let button = UIButton(type: .system)
         button.setTitle(Constants.titleText, for: .normal)
         button.setTitleColor(.black, for: .normal)
-        button.titleLabel?.font = Constants.verdanaBold28
+        button.titleLabel?.font = .VerdanaBold28
         button.setImage(
             UIImage(named: Constants.back)?.withTintColor(.black, renderingMode: .alwaysOriginal),
             for: .normal

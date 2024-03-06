@@ -18,15 +18,6 @@ final class AuthViewController: UIViewController {
         static let loginButtonText = "Login"
         static let errorImage = "errorAuthorisation"
         static let spinerText = "spiner"
-        static let verdanaBold16 = UIFont(name: "Verdana-Bold", size: 16)
-        static let verdanaBold26 = UIFont(name: "Verdana-Bold", size: 26)
-        static let verdanaBold24 = UIFont(name: "Verdana-Bold", size: 24)
-        static let verdanaBold28 = UIFont(name: "Verdana-Bold", size: 28)
-        static let verdanaBold18 = UIFont(name: "Verdana-Bold", size: 18)
-        static let verdanaBold12 = UIFont(name: "Verdana-Bold", size: 12)
-        static let verdana18 = UIFont(name: "Verdana", size: 18)
-        static let verdana14 = UIFont(name: "Verdana", size: 14)
-        static let verdana16 = UIFont(name: "Verdana", size: 16)
     }
 
     // MARK: - Visual Components
@@ -35,7 +26,7 @@ final class AuthViewController: UIViewController {
         let label = UILabel()
         label.text = Constants.authorisationTitle
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = Constants.verdanaBold28
+        label.font = .VerdanaBold28
         label.textColor = .appLabels
         return label
     }()
@@ -44,7 +35,7 @@ final class AuthViewController: UIViewController {
         let label = UILabel()
         label.text = Constants.emailTitle
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = Constants.verdanaBold18
+        label.font = .VerdanaBold18
         label.textColor = .appLabels
         return label
     }()
@@ -53,7 +44,7 @@ final class AuthViewController: UIViewController {
         let label = UILabel()
         label.text = Constants.incorrectLabelText
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = Constants.verdanaBold12
+        label.font = .VerdanaBold12
         label.textColor = .appLabels
         label.isHidden = true
         return label
@@ -63,7 +54,7 @@ final class AuthViewController: UIViewController {
         let label = UILabel()
         label.text = Constants.passwordTitle
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = Constants.verdanaBold16
+        label.font = .VerdanaBold16
         label.textColor = .appLabels
         return label
     }()
@@ -72,7 +63,7 @@ final class AuthViewController: UIViewController {
         let label = UILabel()
         label.text = Constants.incorrectPasswordText
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = Constants.verdanaBold12
+        label.font = .VerdanaBold12
         label.textColor = .appLabels
         label.isHidden = true
         return label
@@ -81,7 +72,7 @@ final class AuthViewController: UIViewController {
     let loginTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = Constants.loginPlaceholder
-        textField.font = Constants.verdana18
+        textField.font = .Verdana18
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.layer.borderWidth = 1
         textField.layer.cornerRadius = 12
@@ -93,7 +84,7 @@ final class AuthViewController: UIViewController {
     let passwordTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = Constants.passwordPlaceholder
-        textField.font = Constants.verdana18
+        textField.font = .Verdana18
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.layer.borderWidth = 1
         textField.layer.cornerRadius = 12
@@ -108,7 +99,7 @@ final class AuthViewController: UIViewController {
         loginButton.layer.cornerRadius = 12
         loginButton.backgroundColor = .black
         loginButton.setTitle(Constants.loginButtonText, for: .normal)
-        loginButton.titleLabel?.font = Constants.verdana16
+        loginButton.titleLabel?.font = .Verdana16
         loginButton.backgroundColor = .appButton
         loginButton.addTarget(nil, action: #selector(loginButtonTapped), for: .touchUpInside)
         loginButton.isEnabled = true

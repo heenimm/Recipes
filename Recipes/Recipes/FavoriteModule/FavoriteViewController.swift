@@ -9,8 +9,6 @@ final class FavoriteViewController: UIViewController {
 
     private enum Constants {
         static let titleText = "Favorites"
-        static let fontVerdana = "Verdana"
-        static let fontVerdanaBold = "Verdana-Bold"
     }
 
     // MARK: - Public Properties
@@ -38,7 +36,7 @@ final class FavoriteViewController: UIViewController {
         let label = UILabel()
         label.text = Constants.titleText
         label.sizeToFit()
-        label.font = UIFont(name: Constants.fontVerdanaBold, size: 28)
+        label.font = .VerdanaBold28
         let leftItem = UIBarButtonItem(customView: label)
         navigationItem.leftBarButtonItem = leftItem
         navigationItem.leftBarButtonItem?.tintColor = .black

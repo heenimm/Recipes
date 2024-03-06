@@ -8,7 +8,6 @@ final class FavoriteTableViewCell: UITableViewCell {
     // MARK: - Enums
 
     private enum Constants {
-        static let fontVerdana = "Verdana"
         static let bottomGradient = "appBottomGradient"
     }
 
@@ -28,21 +27,21 @@ final class FavoriteTableViewCell: UITableViewCell {
 
     private let dishDescriptionLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: Constants.fontVerdana, size: 14)
+        label.font = .Verdana14
         label.numberOfLines = 0
         return label
     }()
 
     private let dishTimeLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: Constants.fontVerdana, size: 14)
+        label.font = .Verdana14
         label.numberOfLines = 0
         return label
     }()
 
     private let dishCaloriesLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: Constants.fontVerdana, size: 14)
+        label.font = .Verdana14
         label.numberOfLines = 0
         return label
     }()

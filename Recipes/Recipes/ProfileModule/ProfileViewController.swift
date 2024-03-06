@@ -14,8 +14,6 @@ final class ProfileViewController: UIViewController {
     }
 
     private enum Constants {
-        static let fontVerdana = "Verdana"
-        static let fontVerdanaBold = "Verdana-Bold"
         static let plusBackgroundColor = "plusBackground"
         static let titleText = "Profile"
         static let changeNameAlert = "Change your name and surname"
@@ -74,7 +72,7 @@ final class ProfileViewController: UIViewController {
         let label = UILabel()
         label.text = Constants.titleText
         label.sizeToFit()
-        label.font = UIFont(name: Constants.fontVerdanaBold, size: 28)
+        label.font = .VerdanaBold28
         let leftItem = UIBarButtonItem(customView: label)
         navigationItem.leftBarButtonItem = leftItem
         navigationItem.leftBarButtonItem?.tintColor = .black

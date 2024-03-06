@@ -8,8 +8,6 @@ final class NothingYetView: UIView {
     // MARK: - Enums
 
     private enum Constants {
-        static let fontVerdana = "Verdana"
-        static let fontVerdanaBold = "Verdana-Bold"
         static let infoLabelText = "There's nothing here yet"
         static let descriptionLabelText = "Add interesting recipes to make ordering products convenient"
         static let mark = "mark"
@@ -30,7 +28,7 @@ final class NothingYetView: UIView {
 
     private let infoLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: Constants.fontVerdanaBold, size: 18)
+        label.font = .VerdanaBold18
         label.text = Constants.infoLabelText
         label.textAlignment = .center
         label.numberOfLines = 0
@@ -39,7 +37,7 @@ final class NothingYetView: UIView {
 
     private let descriptionLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: Constants.fontVerdana, size: 14)
+        label.font = .Verdana14
         label.text = Constants.descriptionLabelText
         label.textAlignment = .center
         label.numberOfLines = 0

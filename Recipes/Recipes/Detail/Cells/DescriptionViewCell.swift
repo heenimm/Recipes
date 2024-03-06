@@ -7,7 +7,6 @@ final class DescriptionViewCell: UITableViewCell {
     // MARK: - Constants
 
     enum Constants {
-        static let verdana14 = UIFont(name: "Verdana", size: 14)
         static let descriptionText = "description_text"
     }
 
@@ -18,7 +17,7 @@ final class DescriptionViewCell: UITableViewCell {
     private let descriptionLabel: UILabel = {
         let label = UILabel()
         label.text = NSLocalizedString(Constants.descriptionText, comment: "")
-        label.font = Constants.verdana14
+        label.font = .Verdana14
         label.textColor = .black
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false

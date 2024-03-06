@@ -9,8 +9,6 @@ final class DetailViewController: UIViewController {
 
     private enum Constants {
         static let titleText = "  Fish"
-        static let fontVerdana = "Verdana"
-        static let fontVerdanaBold = "Verdana-Bold"
         static let back = "back"
     }
 
@@ -51,7 +49,7 @@ final class DetailViewController: UIViewController {
         let button = UIButton(type: .system)
         button.setTitle(Constants.titleText, for: .normal)
         button.setTitleColor(.black, for: .normal)
-        button.titleLabel?.font = UIFont(name: Constants.fontVerdanaBold, size: 28)
+        button.titleLabel?.font = .VerdanaBold28
         button.setImage(
             UIImage(named: Constants.back)?.withTintColor(.black, renderingMode: .alwaysOriginal),
             for: .normal

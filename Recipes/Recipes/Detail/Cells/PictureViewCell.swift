@@ -15,18 +15,6 @@ final class PictureViewCell: UITableViewCell {
         static let cookingText = "Cooking time"
         static let cookingTimeText = "60 min"
         static let cookingTimePicture = "cookingTimeImage"
-        static let verdanaBold18 = UIFont(name: "Verdana-Bold", size: 18)
-        static let verdanaBold16 = UIFont(name: "Verdana-Bold", size: 16)
-        static let verdanaBold20 = UIFont(name: "Verdana-Bold", size: 20)
-        static let verdanaBold26 = UIFont(name: "Verdana-Bold", size: 26)
-        static let verdanaBold12 = UIFont(name: "Verdana-Bold", size: 12)
-        static let verdanaBold10 = UIFont(name: "Verdana-Bold", size: 10)
-        static let verdanaBold14 = UIFont(name: "Verdana-Bold", size: 14)
-        static let verdana16 = UIFont(name: "Verdana", size: 16)
-        static let verdana14 = UIFont(name: "Verdana", size: 14)
-        static let verdana12 = UIFont(name: "Verdana", size: 12)
-        static let verdana10 = UIFont(name: "Verdana", size: 10)
-        static let verdana8 = UIFont(name: "Verdana", size: 8)
     }
 
     // MARK: - Visual Components
@@ -44,7 +32,7 @@ final class PictureViewCell: UITableViewCell {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.text = Constants.detailText
-        label.font = Constants.verdanaBold20
+        label.font = .VerdanaBold20
         label.textAlignment = .center
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -70,7 +58,7 @@ final class PictureViewCell: UITableViewCell {
     private let bagLabel: UILabel = {
         let label = UILabel()
         label.text = Constants.bagText
-        label.font = Constants.verdana10
+        label.font = .Verdana10
         label.textAlignment = .center
         label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -97,7 +85,7 @@ final class PictureViewCell: UITableViewCell {
     private let cookingLabel: UILabel = {
         let label = UILabel()
         label.text = Constants.cookingText
-        label.font = Constants.verdana10
+        label.font = .Verdana10
         label.textAlignment = .center
         label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -107,7 +95,7 @@ final class PictureViewCell: UITableViewCell {
     private let cookingTimeLabel: UILabel = {
         let label = UILabel()
         label.text = Constants.cookingTimeText
-        label.font = Constants.verdana10
+        label.font = .Verdana10
         label.textAlignment = .center
         label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false

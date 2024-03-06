@@ -9,15 +9,6 @@ final class RecipesViewController: UIViewController {
 
     enum Constants {
         static let recipesTitle = "Recipes"
-        static let verdanaBold16 = UIFont(name: "Verdana-Bold", size: 16)
-        static let verdanaBold26 = UIFont(name: "Verdana-Bold", size: 26)
-        static let verdanaBold24 = UIFont(name: "Verdana-Bold", size: 24)
-        static let verdanaBold28 = UIFont(name: "Verdana-Bold", size: 28)
-        static let verdanaBold18 = UIFont(name: "Verdana-Bold", size: 18)
-        static let verdanaBold12 = UIFont(name: "Verdana-Bold", size: 12)
-        static let verdana18 = UIFont(name: "Verdana", size: 18)
-        static let verdana14 = UIFont(name: "Verdana", size: 14)
-        static let verdana16 = UIFont(name: "Verdana", size: 16)
         static let recipesCell = "RecipesCollectionViewCell"
     }
 
@@ -70,7 +61,7 @@ final class RecipesViewController: UIViewController {
     private func configureNavigationItem() {
         let titleLabel = UILabel()
         titleLabel.text = Constants.recipesTitle
-        titleLabel.font = Constants.verdanaBold28
+        titleLabel.font = .VerdanaBold28
         titleLabel.sizeToFit()
         let leftItem = UIBarButtonItem(customView: titleLabel)
         navigationItem.leftBarButtonItem = leftItem
@@ -83,7 +74,6 @@ extension RecipesViewController: RecipesCollectionViewCellDelegate {
         if let detailTableView = presenter?.recipesCoordinator?.showDetailScreen() {
             navigationController?.pushViewController(detailTableView, animated: true)
         }
-//        navigationController?.pushViewController(presenter?.recipesCoordinator?.showDetailScreen(), animated: true)
     }
 }
 

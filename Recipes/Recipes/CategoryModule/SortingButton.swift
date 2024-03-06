@@ -12,7 +12,6 @@ final class SortingButton: UIButton {
         static let grayButtonColor = "AppSearchColor"
         static let upStack = "up_stack"
         static let downStack = "down_stack"
-        static let fontVerdana = "Verdana"
     }
 
     /// Энум для определения состояния кнопки
@@ -48,7 +47,7 @@ final class SortingButton: UIButton {
     }
 
     private func setup() {
-        titleLabel?.font = UIFont(name: Constants.fontVerdana, size: 18)
+        titleLabel?.font = .Verdana18
         addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         currentState = .none
     }

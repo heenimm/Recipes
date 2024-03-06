@@ -18,18 +18,6 @@ final class KBJUViewCell: UITableViewCell {
         static let fatsText = "10,00 g"
         static let proteinsTitleText = "Fats"
         static let proteinsText = "10,00 g"
-        static let verdanaBold18 = UIFont(name: "Verdana-Bold", size: 18)
-        static let verdanaBold16 = UIFont(name: "Verdana-Bold", size: 16)
-        static let verdanaBold20 = UIFont(name: "Verdana-Bold", size: 20)
-        static let verdanaBold26 = UIFont(name: "Verdana-Bold", size: 26)
-        static let verdanaBold12 = UIFont(name: "Verdana-Bold", size: 12)
-        static let verdanaBold10 = UIFont(name: "Verdana-Bold", size: 10)
-        static let verdanaBold14 = UIFont(name: "Verdana-Bold", size: 14)
-        static let verdana16 = UIFont(name: "Verdana", size: 16)
-        static let verdana14 = UIFont(name: "Verdana", size: 14)
-        static let verdana12 = UIFont(name: "Verdana", size: 12)
-        static let verdana10 = UIFont(name: "Verdana", size: 10)
-        static let verdana8 = UIFont(name: "Verdana", size: 8)
     }
 
     // MARK: - Visual Components
@@ -48,7 +36,7 @@ final class KBJUViewCell: UITableViewCell {
     private let kcalTitleLabel: UILabel = {
         let label = UILabel()
         label.text = Constants.kcalTitleText
-        label.font = Constants.verdana10
+        label.font = .Verdana10
         label.textAlignment = .center
         label.textColor = .white
         label.backgroundColor = .appPictureView
@@ -59,7 +47,7 @@ final class KBJUViewCell: UITableViewCell {
     private let kcalLabel: UILabel = {
         let label = UILabel()
         label.text = Constants.kcalText
-        label.font = Constants.verdana10
+        label.font = .Verdana10
         label.textAlignment = .center
         label.textColor = .appPictureView
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -79,7 +67,7 @@ final class KBJUViewCell: UITableViewCell {
     private let carbohidTitleLabel: UILabel = {
         let label = UILabel()
         label.text = Constants.carbohidTitleText
-        label.font = Constants.verdana8
+        label.font = .Verdana8
         label.textAlignment = .center
         label.textColor = .white
         label.backgroundColor = .appPictureView
@@ -90,7 +78,7 @@ final class KBJUViewCell: UITableViewCell {
     private let carbohidLabel: UILabel = {
         let label = UILabel()
         label.text = Constants.carbohidText
-        label.font = Constants.verdana10
+        label.font = .Verdana10
         label.textAlignment = .center
         label.textColor = .appPictureView
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -110,7 +98,7 @@ final class KBJUViewCell: UITableViewCell {
     private let fatsTitleLabel: UILabel = {
         let label = UILabel()
         label.text = Constants.fatsTitleText
-        label.font = Constants.verdana10
+        label.font = .Verdana10
         label.textAlignment = .center
         label.textColor = .white
         label.backgroundColor = .appPictureView
@@ -121,7 +109,7 @@ final class KBJUViewCell: UITableViewCell {
     private let fatsLabel: UILabel = {
         let label = UILabel()
         label.text = Constants.fatsText
-        label.font = Constants.verdana10
+        label.font = .Verdana10
         label.textAlignment = .center
         label.textColor = .appPictureView
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -141,7 +129,7 @@ final class KBJUViewCell: UITableViewCell {
     private let proteinsTitleLabel: UILabel = {
         let label = UILabel()
         label.text = Constants.proteinsTitleText
-        label.font = Constants.verdana10
+        label.font = .Verdana10
         label.textAlignment = .center
         label.textColor = .white
         label.backgroundColor = .appPictureView
@@ -152,7 +140,7 @@ final class KBJUViewCell: UITableViewCell {
     private let proteinsLabel: UILabel = {
         let label = UILabel()
         label.text = Constants.proteinsText
-        label.font = Constants.verdana10
+        label.font = .Verdana10
         label.textAlignment = .center
         label.textColor = .appPictureView
         label.translatesAutoresizingMaskIntoConstraints = false
