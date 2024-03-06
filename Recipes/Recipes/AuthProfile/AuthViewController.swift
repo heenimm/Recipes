@@ -36,7 +36,7 @@ final class AuthViewController: UIViewController {
         label.text = Constants.authorisationTitle
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = Constants.verdanaBold28
-        label.textColor = .red
+        label.textColor = .appLabels
         return label
     }()
 
@@ -45,7 +45,7 @@ final class AuthViewController: UIViewController {
         label.text = Constants.emailTitle
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = Constants.verdanaBold18
-        label.textColor = .red
+        label.textColor = .appLabels
         return label
     }()
 
@@ -54,7 +54,7 @@ final class AuthViewController: UIViewController {
         label.text = Constants.incorrectLabelText
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = Constants.verdanaBold12
-        label.textColor = .red
+        label.textColor = .appLabels
         label.isHidden = true
         return label
     }()
@@ -64,7 +64,7 @@ final class AuthViewController: UIViewController {
         label.text = Constants.passwordTitle
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = Constants.verdanaBold16
-        label.textColor = .red
+        label.textColor = .appLabels
         return label
     }()
 
@@ -73,7 +73,7 @@ final class AuthViewController: UIViewController {
         label.text = Constants.incorrectPasswordText
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = Constants.verdanaBold12
-        label.textColor = .red
+        label.textColor = .appLabels
         label.isHidden = true
         return label
     }()
