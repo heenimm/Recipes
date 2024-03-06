@@ -41,7 +41,7 @@ final class ShimmerState: ShimmerStateProtocol {
     // MARK: - Public Methods
 
     func enableShimmer() {
-        gradientLayer.frame = view.bounds
+        gradientLayer.frame = CGRect(x: 0, y: 0, width: 355, height: 100)
         gradientLayer.cornerRadius = view.bounds.width / 20
         gradientLayer.colors = [
             UIColor(white: 0.8, alpha: 1.0).cgColor,
@@ -127,7 +127,7 @@ final class DetailTableViewCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10))
-        setShimmer()
+//        updateShimmerSize()
     }
 
     override func didMoveToSuperview() {
@@ -137,6 +137,8 @@ final class DetailTableViewCell: UITableViewCell {
         setupDishTimeLabelConstraints()
         setupDishCaloriesLabelConstraints()
         setupNextButtonConstraints()
+
+        setShimmer()
     }
 
     // MARK: - Private Methods
@@ -144,7 +146,7 @@ final class DetailTableViewCell: UITableViewCell {
     private func setShimmer() {
         let shimmerManager = ShimmerState(view: contentView)
         shimmerManager.enableShimmer()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             shimmerManager.disableShimmer()
         }
     }
