@@ -66,8 +66,6 @@ final class ProfileViewController: UIViewController {
         setupSubviews()
         setupConstraints()
         setupNavigationItem()
-
-//        setupCard()
     }
 
     // MARK: - Private Methods
@@ -97,17 +95,7 @@ final class ProfileViewController: UIViewController {
     }
 
     func termsBottom() {
-//        let termsViewController = TermsUseViewController()
-//        if let termsUseSheet = termsViewController.sheetPresentationController {
-//            termsUseSheet.detents = [.medium(), .large()]
-//            termsUseSheet.prefersScrollingExpandsWhenScrolledToEdge = false
-//            termsUseSheet.prefersGrabberVisible = true
-//            termsUseSheet.largestUndimmedDetentIdentifier = .medium
-//            termsUseSheet.prefersEdgeAttachedInCompactHeight = true
-//            termsUseSheet.preferredCornerRadius = 30
-//        }
-//        present(termsViewController, animated: true)
-        setupCard()
+        setupTerm()
     }
 
     func bonusesBottom() {
@@ -234,7 +222,7 @@ extension ProfileViewController {
         case collapsed
     }
 
-    private func setupCard() {
+    private func setupTerm() {
         visualEffectView = UIVisualEffectView()
         visualEffectView.frame = view.frame
         view.addSubview(visualEffectView)
