@@ -5,6 +5,25 @@ import UIKit
 
 /// Просмотр профиля пользователя
 final class ProfileViewController: UIViewController {
+    enum TermState {
+        case expanded
+        case collapsed
+    }
+
+    var termsViewController: TermsUseViewController!
+    var visualEffectView: UIVisualEffectView!
+
+    let termHeight: CGFloat = 700
+    let termHandleAreaHeight: CGFloat = 0
+
+    var termVisible = false
+    var nextState: TermState {
+        termVisible ? .collapsed : .expanded
+    }
+
+    var runningAnimations = [UIViewPropertyAnimator]()
+    var animationProgressWhenInterrupted: CGFloat = 0
+
     private enum Constants {
         static let fontVerdana = "Verdana"
         static let fontVerdanaBold = "Verdana-Bold"
@@ -15,6 +34,134 @@ final class ProfileViewController: UIViewController {
         static let nameSurnameText = "Surname Name"
         static let okText = "Ok"
         static let cancelText = "Cancel"
+    }
+
+    func setupCard() {
+        visualEffectView = UIVisualEffectView()
+        visualEffectView.frame = view.frame
+        view.addSubview(visualEffectView)
+
+        termsViewController = TermsUseViewController()
+        addChild(termsViewController)
+        view.addSubview(termsViewController.view)
+
+        termsViewController.view.frame = CGRect(
+            x: 0,
+            y: view.frame.height - termHandleAreaHeight,
+            width: view.bounds.width,
+            height: termHeight
+        )
+
+        termsViewController.view.clipsToBounds = true
+
+        let tapGestureRecognizer = UITapGestureRecognizer(
+            target: self,
+            action: #selector(ProfileViewController.handleTermTap(recognzier:))
+        )
+        let panGestureRecognizer = UIPanGestureRecognizer(
+            target: self,
+            action: #selector(ProfileViewController.handleTermPan(recognizer:))
+        )
+
+        termsViewController.view.addGestureRecognizer(tapGestureRecognizer)
+        termsViewController.view.addGestureRecognizer(panGestureRecognizer)
+        tabBarController?.tabBar.backgroundColor = .white
+        animateTransitionIfNeeded(state: nextState, duration: 1.5)
+    }
+
+    @objc
+    func handleTermTap(recognzier: UITapGestureRecognizer) {
+        switch recognzier.state {
+        case .ended:
+            animateTransitionIfNeeded(state: nextState, duration: 1.5)
+        default:
+            break
+        }
+    }
+
+    @objc
+    func handleTermPan(recognizer: UIPanGestureRecognizer) {
+        switch recognizer.state {
+        case .began:
+            startInteractiveTransition(state: nextState, duration: 1.5)
+        case .changed:
+            let translation = recognizer.translation(in: termsViewController.view)
+            var fractionComplete = translation.y / termHeight
+            fractionComplete = termVisible ? fractionComplete : -fractionComplete
+            updateInteractiveTransition(fractionCompleted: fractionComplete)
+        case .ended:
+            continueInteractiveTransition()
+        default:
+            break
+        }
+    }
+
+    func animateTransitionIfNeeded(state: TermState, duration: TimeInterval) {
+        if runningAnimations.isEmpty {
+            let frameAnimator = UIViewPropertyAnimator(duration: duration, dampingRatio: 1) {
+                switch state {
+                case .expanded:
+                    self.termsViewController.view.frame.origin.y = self.view.frame.height - self.termHeight
+                case .collapsed:
+                    self.termsViewController.view.frame.origin.y = self.view.frame.height - self.termHandleAreaHeight
+                    self.visualEffectView.removeFromSuperview()
+                }
+            }
+
+            frameAnimator.addCompletion { _ in
+                self.termVisible = !self.termVisible
+                self.runningAnimations.removeAll()
+            }
+
+            frameAnimator.startAnimation()
+            runningAnimations.append(frameAnimator)
+
+            let cornerRadiusAnimator = UIViewPropertyAnimator(duration: duration, curve: .linear) {
+                switch state {
+                case .expanded:
+                    self.termsViewController.view.layer.cornerRadius = 12
+                case .collapsed:
+                    self.termsViewController.view.layer.cornerRadius = 0
+                }
+            }
+
+            cornerRadiusAnimator.startAnimation()
+            runningAnimations.append(cornerRadiusAnimator)
+
+            let blurAnimator = UIViewPropertyAnimator(duration: duration, dampingRatio: 1) {
+                switch state {
+                case .expanded:
+                    self.visualEffectView.effect = UIBlurEffect(style: .dark)
+                case .collapsed:
+                    self.visualEffectView.effect = nil
+                }
+            }
+
+            blurAnimator.startAnimation()
+            runningAnimations.append(blurAnimator)
+        }
+    }
+
+    func startInteractiveTransition(state: TermState, duration: TimeInterval) {
+        if runningAnimations.isEmpty {
+            animateTransitionIfNeeded(state: state, duration: duration)
+        }
+        for animator in runningAnimations {
+            animator.pauseAnimation()
+            animationProgressWhenInterrupted = animator.fractionComplete
+        }
+    }
+
+    func updateInteractiveTransition(fractionCompleted: CGFloat) {
+        for animator in runningAnimations {
+            animator.fractionComplete = fractionCompleted + animationProgressWhenInterrupted
+        }
+    }
+
+    func continueInteractiveTransition() {
+        for animator in runningAnimations {
+            animator.continueAnimation(withTimingParameters: nil, durationFactor: 0)
+        }
     }
 
     /// Тип ячеек
@@ -54,6 +201,8 @@ final class ProfileViewController: UIViewController {
         setupSubviews()
         setupConstraints()
         setupNavigationItem()
+
+//        setupCard()
     }
 
     // MARK: - Private Methods
@@ -83,16 +232,17 @@ final class ProfileViewController: UIViewController {
     }
 
     func termsBottom() {
-        let termsViewController = TermsUseViewController()
-        if let termsUseSheet = termsViewController.sheetPresentationController {
-            termsUseSheet.detents = [.medium(), .large()]
-            termsUseSheet.prefersScrollingExpandsWhenScrolledToEdge = false
-            termsUseSheet.prefersGrabberVisible = true
-            termsUseSheet.largestUndimmedDetentIdentifier = .medium
-            termsUseSheet.prefersEdgeAttachedInCompactHeight = true
-            termsUseSheet.preferredCornerRadius = 30
-        }
-        present(termsViewController, animated: true)
+//        let termsViewController = TermsUseViewController()
+//        if let termsUseSheet = termsViewController.sheetPresentationController {
+//            termsUseSheet.detents = [.medium(), .large()]
+//            termsUseSheet.prefersScrollingExpandsWhenScrolledToEdge = false
+//            termsUseSheet.prefersGrabberVisible = true
+//            termsUseSheet.largestUndimmedDetentIdentifier = .medium
+//            termsUseSheet.prefersEdgeAttachedInCompactHeight = true
+//            termsUseSheet.preferredCornerRadius = 30
+//        }
+//        present(termsViewController, animated: true)
+        setupCard()
     }
 
     func bonusesBottom() {
