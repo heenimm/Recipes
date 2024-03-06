@@ -8,7 +8,7 @@ final class DetailPresenter {
     private enum Constants {
         static let caloriesText = "Calories"
     }
-    
+
     private weak var view: DetailViewController?
     weak var detailCoordinator: RecipesCoordinator?
 
@@ -29,7 +29,8 @@ final class DetailPresenter {
         case .ascending:
             if sender.titleLabel?
                 .text ==
-                Constants.caloriesText {
+                Constants.caloriesText
+            {
                 headerView.timeStateButton.currentState = .none
                 return dishes
                     .sorted {
@@ -47,9 +48,9 @@ final class DetailPresenter {
             if sender.titleLabel?.text == Constants.caloriesText {
                 headerView.timeStateButton.currentState = .none
                 return dishes.sorted {
-                Int($0.caloriesСontent.components(separatedBy: " ").first ?? "") ?? 0 >
-                    Int($1.caloriesСontent.components(separatedBy: " ").first ?? "") ?? 0
-            }
+                    Int($0.caloriesСontent.components(separatedBy: " ").first ?? "") ?? 0 >
+                        Int($1.caloriesСontent.components(separatedBy: " ").first ?? "") ?? 0
+                }
             } else {
                 headerView.caloriesStateButton.currentState = .none
                 return dishes.sorted {
