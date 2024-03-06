@@ -25,7 +25,7 @@ final class DetailViewController: UIViewController {
     // MARK: - Visual Components
 
     private var detailTableView: UITableView!
-    private let headerView: HeaderCell = {
+    private lazy var headerView: HeaderCell = {
         let headerView = HeaderCell(frame: CGRect(
             origin: .zero,
             size: CGSize(width: 100, height: 100)
@@ -92,7 +92,7 @@ final class DetailViewController: UIViewController {
     }
 
     @objc private func tappedSortButton(_ sender: SortingButton) {
-        if let dishes = presenter?.sortTableview(sender: sender, dishes: dishes) {
+        if let dishes = presenter?.sortTableview(sender: sender, dishes: dishes, headerView: headerView) {
             self.dishes = dishes
             DispatchQueue.main.async {
                 self.detailTableView.reloadData()
@@ -140,7 +140,7 @@ extension DetailViewController: UITableViewDataSource {
 
 extension DetailViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchText.count > 2 {
+        if searchText.count > 3 {
             if let dishes = presenter?.filterContentForSearchText(searchText, dishes: dishes) {
                 self.dishes = dishes
                 DispatchQueue.main.async {

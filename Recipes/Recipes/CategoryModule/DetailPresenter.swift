@@ -3,8 +3,12 @@
 
 import Foundation
 
-///
+/// отрабатывает логику сортировки и фильтрации
 final class DetailPresenter {
+    private enum Constants {
+        static let caloriesText = "Calories"
+    }
+    
     private weak var view: DetailViewController?
     weak var detailCoordinator: RecipesCoordinator?
 
@@ -17,32 +21,37 @@ final class DetailPresenter {
         } // данный метод ищет подстроку в строке без учета регистра
     }
 
-    func sortTableview(sender: SortingButton, dishes: [Dish]) -> [Dish] {
+    func sortTableview(sender: SortingButton, dishes: [Dish], headerView: HeaderCell) -> [Dish] {
         switch sender.currentState {
         case .none:
+            sender.currentState = .none
             return Dish.allFoods()
         case .ascending:
             if sender.titleLabel?
                 .text ==
-                "Calories"
-            {
+                Constants.caloriesText {
+                headerView.timeStateButton.currentState = .none
                 return dishes
                     .sorted {
                         Int($0.caloriesСontent.components(separatedBy: " ").first ?? "") ?? 0 <
                             Int($1.caloriesСontent.components(separatedBy: " ").first ?? "") ?? 0
                     }
             } else {
+                headerView.caloriesStateButton.currentState = .none
                 return dishes.sorted {
                     Int($0.cookingTime.components(separatedBy: " ").first ?? "") ?? 0 <
                         Int($1.cookingTime.components(separatedBy: " ").first ?? "") ?? 0
                 }
             }
         case .descending:
-            if sender.titleLabel?.text == "Calories" { return dishes.sorted {
+            if sender.titleLabel?.text == Constants.caloriesText {
+                headerView.timeStateButton.currentState = .none
+                return dishes.sorted {
                 Int($0.caloriesСontent.components(separatedBy: " ").first ?? "") ?? 0 >
                     Int($1.caloriesСontent.components(separatedBy: " ").first ?? "") ?? 0
             }
             } else {
+                headerView.caloriesStateButton.currentState = .none
                 return dishes.sorted {
                     Int($0.cookingTime.components(separatedBy: " ").first ?? "") ?? 0 >
                         Int($1.cookingTime.components(separatedBy: " ").first ?? "") ?? 0
