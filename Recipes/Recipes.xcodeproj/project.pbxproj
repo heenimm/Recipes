@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		445B93352B97A8E10040B25E /* TermsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445B93342B97A8E10040B25E /* TermsViewController.swift */; };
 		44B8E2322B9595B50067B02B /* RecipeDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44B8E2312B9595B50067B02B /* RecipeDetail.swift */; };
 		44B8E2352B9595C40067B02B /* RecipeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44B8E2332B9595C30067B02B /* RecipeDetailViewController.swift */; };
 		44B8E2362B9595C40067B02B /* RecipeDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44B8E2342B9595C40067B02B /* RecipeDetailPresenter.swift */; };
@@ -59,6 +60,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		445B93342B97A8E10040B25E /* TermsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsViewController.swift; sourceTree = "<group>"; };
 		44B8E2312B9595B50067B02B /* RecipeDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeDetail.swift; sourceTree = "<group>"; };
 		44B8E2332B9595C30067B02B /* RecipeDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeDetailViewController.swift; sourceTree = "<group>"; };
 		44B8E2342B9595C40067B02B /* RecipeDetailPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeDetailPresenter.swift; sourceTree = "<group>"; };
@@ -123,6 +125,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		445B93312B97A8530040B25E /* Terms */ = {
+			isa = PBXGroup;
+			children = (
+				445B93342B97A8E10040B25E /* TermsViewController.swift */,
+			);
+			path = Terms;
+			sourceTree = "<group>";
+		};
 		44B8E2302B9595880067B02B /* Detail */ = {
 			isa = PBXGroup;
 			children = (
@@ -198,6 +208,7 @@
 			isa = PBXGroup;
 			children = (
 				7B9711262B985BDF003A0D4E /* Extension */,
+				445B93312B97A8530040B25E /* Terms */,
 				7B2311FF2B92F32E0072AA37 /* FavoriteModule */,
 				44B8E2302B9595880067B02B /* Detail */,
 				7B8129132B9181C400B6459D /* CategoryModule */,
@@ -479,6 +490,7 @@
 				44B8E2322B9595B50067B02B /* RecipeDetail.swift in Sources */,
 				7B42E4D02B8E09AE0095C019 /* AuthCoordinator.swift in Sources */,
 				44B8E23F2B9596360067B02B /* DetailViewController.swift in Sources */,
+				445B93352B97A8E10040B25E /* TermsViewController.swift in Sources */,
 				44B8E2362B9595C40067B02B /* RecipeDetailPresenter.swift in Sources */,
 				44E37C9E2B8FB88E0047F3A5 /* Recipes.swift in Sources */,
 				7B42E4D22B8E09C10095C019 /* ProfileCoordinator.swift in Sources */,

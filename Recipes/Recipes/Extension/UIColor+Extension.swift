@@ -1,12 +1,6 @@
-//
-//  UIColor+Extension.swift
-//  Recipes
-//
-//  Created by Халимка on 06.03.2024.
-//
+// UIColor+Extension.swift
+// Copyright © RoadMap. All rights reserved.
 
 import UIKit
 
-extension UIColor {
-    
-}
+extension UIColor {}
