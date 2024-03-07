@@ -7,6 +7,67 @@ protocol DetailTableViewCellDelegate: AnyObject {
     func recipesCellDidTap(_ cell: DetailTableViewCell)
 }
 
+/// Состояния шиммера
+protocol ShimmerStateProtocol {
+    /// Включенный шиммер
+    func enableShimmer()
+    /// Выключенный шиммер
+    func disableShimmer()
+}
+
+/// Описание состояний шиммера
+final class ShimmerState: ShimmerStateProtocol {
+    // MARK: - Constants
+
+    enum Constants {
+        static let locations = "locations"
+        static let shimmerAnimation = "shimmerAnimation"
+    }
+
+    // MARK: - Visual Components
+
+    private let view: UIView
+
+    // MARK: - Private Properties
+
+    private let gradientLayer = CAGradientLayer()
+
+    // MARK: - Initializers
+
+    init(view: UIView) {
+        self.view = view
+    }
+
+    // MARK: - Public Methods
+
+    func enableShimmer() {
+        gradientLayer.frame = CGRect(x: 0, y: 0, width: 355, height: 100)
+        gradientLayer.cornerRadius = view.bounds.width / 20
+        gradientLayer.colors = [
+            UIColor(white: 0.8, alpha: 1.0).cgColor,
+            UIColor.white.cgColor,
+            UIColor(white: 0.8, alpha: 1.0).cgColor
+        ]
+
+        gradientLayer.locations = [0.0, 0.5, 1.0]
+        gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.5)
+        gradientLayer.endPoint = CGPoint(x: 1.0, y: 0.5)
+
+        view.layer.addSublayer(gradientLayer)
+
+        let animation = CABasicAnimation(keyPath: Constants.locations)
+        animation.duration = 2.0
+        animation.fromValue = [0.0, 0.2, 0.4]
+        animation.toValue = [0.6, 0.8, 1.0]
+        animation.repeatCount = .infinity
+        gradientLayer.add(animation, forKey: Constants.shimmerAnimation)
+    }
+
+    func disableShimmer() {
+        gradientLayer.removeFromSuperlayer()
+    }
+}
+
 /// Виды блюд
 final class DetailTableViewCell: UITableViewCell {
     // MARK: - Enums
@@ -66,6 +127,7 @@ final class DetailTableViewCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10))
+//        updateShimmerSize()
     }
 
     override func didMoveToSuperview() {
@@ -75,9 +137,19 @@ final class DetailTableViewCell: UITableViewCell {
         setupDishTimeLabelConstraints()
         setupDishCaloriesLabelConstraints()
         setupNextButtonConstraints()
+
+        setShimmer()
     }
 
     // MARK: - Private Methods
+
+    private func setShimmer() {
+        let shimmerManager = ShimmerState(view: contentView)
+        shimmerManager.enableShimmer()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            shimmerManager.disableShimmer()
+        }
+    }
 
     private func setupSubviews() {
         contentView.backgroundColor = UIColor(named: "appBottomGradient")

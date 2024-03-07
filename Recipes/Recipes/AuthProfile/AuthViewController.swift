@@ -18,6 +18,11 @@ final class AuthViewController: UIViewController {
         static let loginButtonText = "Login"
         static let errorImage = "errorAuthorisation"
         static let spinerText = "spiner"
+        static let passwordImage = "passwordImage"
+        static let emailImage = "emailImage"
+        static let emptyText = ""
+        static let rotationZ = "transform.rotation.z"
+        static let rotationAnimation = "rotationAnimation"
         static let verdanaBold16 = UIFont(name: "Verdana-Bold", size: 16)
         static let verdanaBold26 = UIFont(name: "Verdana-Bold", size: 26)
         static let verdanaBold24 = UIFont(name: "Verdana-Bold", size: 24)
@@ -36,7 +41,7 @@ final class AuthViewController: UIViewController {
         label.text = Constants.authorisationTitle
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = Constants.verdanaBold28
-        label.textColor = .red
+        label.textColor = .appLabels
         return label
     }()
 
@@ -45,7 +50,7 @@ final class AuthViewController: UIViewController {
         label.text = Constants.emailTitle
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = Constants.verdanaBold18
-        label.textColor = .red
+        label.textColor = .appLabels
         return label
     }()
 
@@ -54,7 +59,7 @@ final class AuthViewController: UIViewController {
         label.text = Constants.incorrectLabelText
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = Constants.verdanaBold12
-        label.textColor = .red
+        label.textColor = .appLabels
         label.isHidden = true
         return label
     }()
@@ -64,7 +69,7 @@ final class AuthViewController: UIViewController {
         label.text = Constants.passwordTitle
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = Constants.verdanaBold16
-        label.textColor = .red
+        label.textColor = .appLabels
         return label
     }()
 
@@ -73,7 +78,7 @@ final class AuthViewController: UIViewController {
         label.text = Constants.incorrectPasswordText
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = Constants.verdanaBold12
-        label.textColor = .red
+        label.textColor = .appLabels
         label.isHidden = true
         return label
     }()
@@ -86,6 +91,8 @@ final class AuthViewController: UIViewController {
         textField.layer.borderWidth = 1
         textField.layer.cornerRadius = 12
         textField.textColor = .black
+        textField.leftViewMode = .always
+        textField.rightViewMode = .always
         textField.tag = 0
         return textField
     }()
@@ -98,6 +105,8 @@ final class AuthViewController: UIViewController {
         textField.layer.borderWidth = 1
         textField.layer.cornerRadius = 12
         textField.textColor = .black
+        textField.leftViewMode = .always
+        textField.rightViewMode = .always
         textField.addTarget(nil, action: #selector(textDidChange), for: .editingChanged)
         return textField
     }()
@@ -121,6 +130,22 @@ final class AuthViewController: UIViewController {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.isHidden = true
         return imageView
+    }()
+
+    private let passwordButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(UIImage(named: Constants.passwordImage), for: .normal)
+        button.tintColor = .systemGray
+        return button
+    }()
+
+    private let emailButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(UIImage(named: Constants.emailImage), for: .normal)
+        button.tintColor = .systemGray
+        return button
     }()
 
     // MARK: - Public Properties
@@ -189,6 +214,19 @@ final class AuthViewController: UIViewController {
             passwordTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             passwordTextField.heightAnchor.constraint(equalToConstant: 50)
         ])
+        var view = setTextFieldView(wrappedView: passwordButton)
+        passwordTextField.leftView = view
+        view = setTextFieldView(wrappedView: emailButton)
+        loginTextField.leftView = view
+    }
+
+    private func setTextFieldView(wrappedView: UIView) -> UIView {
+        let view = UIView()
+        view.addSubview(wrappedView)
+        view.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        wrappedView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        wrappedView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        return view
     }
 
     private func addGradientToView() {
@@ -251,15 +289,38 @@ final class AuthViewController: UIViewController {
         presenter?.showKeyboardIfNeeded(notification)
     }
 
-    @objc private func loginButtonTapped() {
-        loginButton.setTitle(Constants.spinerText, for: .normal)
-        loginButton.isEnabled = false
+    private func setSpinner() {
+        let image = UIImage(named: Constants.spinerText)
+        let imageView = UIImageView(image: image)
+        let imageSize = CGSize(width: 24, height: 24)
+        let imageOrigin = CGPoint(
+            x: (loginButton.bounds.width - imageSize.width) / 2,
+            y: (loginButton.bounds.height - imageSize.height) / 2
+        )
+        imageView.frame = CGRect(origin: imageOrigin, size: imageSize)
+        loginButton.addSubview(imageView)
+
+        let rotationAnimation = CABasicAnimation(keyPath: Constants.rotationZ)
+        rotationAnimation.toValue = NSNumber(value: Double.pi * 2)
+        rotationAnimation.duration = 1.0
+        rotationAnimation.isCumulative = true
+        rotationAnimation.repeatCount = Float.greatestFiniteMagnitude
+
+        imageView.layer.add(rotationAnimation, forKey: Constants.rotationAnimation)
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
             self.loginButton.setTitle(Constants.loginButtonText, for: .normal)
             self.loginButton.isEnabled = true
             self.presenter?.checkAuthorisation(self.passwordTextField.text)
+            imageView.removeFromSuperview()
         }
+    }
+
+    @objc private func loginButtonTapped() {
+        loginButton.setTitle(Constants.emptyText, for: .normal)
+        loginButton.isEnabled = false
+
+        setSpinner()
     }
 
     @objc private func hideKeyboard() {

@@ -25,7 +25,7 @@ final class SortingButton: UIButton {
         case descending
     }
 
-    private var currentState: StateButton = .none {
+    var currentState: StateButton = .none {
         didSet {
             updateUI()
         }

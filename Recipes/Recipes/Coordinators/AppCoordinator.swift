@@ -85,7 +85,7 @@ final class AppCoordinator: BaseCoordinator {
 
     override func start() {
         if Constants.adminText == Constants.adminText {
-            toMain()
+            toAuth()
         } else {
             toAuth()
         }

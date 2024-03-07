@@ -25,6 +25,8 @@ final class TermsUseViewController: UIViewController {
         let termsTextView = UITextView()
         termsTextView.text = NSLocalizedString(Constants.termsKeyText, comment: "")
         termsTextView.font = UIFont(name: Constants.fontVerdana, size: 14)
+        termsTextView.isEditable = false
+        termsTextView.showsVerticalScrollIndicator = false
         return termsTextView
     }()
 

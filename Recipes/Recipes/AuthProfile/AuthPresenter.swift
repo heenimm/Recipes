@@ -82,6 +82,9 @@ final class AuthPresenter: AuthViewPresenterProtocol {
     func checkAuthorisation(_ passwordText: String?) {
         let isValidPassword = isValidPassword(passwordText ?? Constants.emptyText)
         view?.changePasswordLabels(isValidPassword ? .appLabels : .red, isIncorrectPasswordHidden: isValidPassword)
+        if isValidPassword {
+            authCoordinator?.onFinishFlow?()
+        }
     }
 
     // MARK: - Private Methods
