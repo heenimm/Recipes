@@ -21,6 +21,8 @@ final class AuthViewController: UIViewController {
         static let passwordImage = "passwordImage"
         static let emailImage = "emailImage"
         static let emptyText = ""
+        static let rotationZ = "transform.rotation.z"
+        static let rotationAnimation = "rotationAnimation"
         static let verdanaBold16 = UIFont(name: "Verdana-Bold", size: 16)
         static let verdanaBold26 = UIFont(name: "Verdana-Bold", size: 26)
         static let verdanaBold24 = UIFont(name: "Verdana-Bold", size: 24)
@@ -287,10 +289,7 @@ final class AuthViewController: UIViewController {
         presenter?.showKeyboardIfNeeded(notification)
     }
 
-    @objc private func loginButtonTapped() {
-        loginButton.setTitle(Constants.emptyText, for: .normal)
-        loginButton.isEnabled = false
-
+    private func setSpinner() {
         let image = UIImage(named: Constants.spinerText)
         let imageView = UIImageView(image: image)
         let imageSize = CGSize(width: 24, height: 24)
@@ -301,13 +300,13 @@ final class AuthViewController: UIViewController {
         imageView.frame = CGRect(origin: imageOrigin, size: imageSize)
         loginButton.addSubview(imageView)
 
-        let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
+        let rotationAnimation = CABasicAnimation(keyPath: Constants.rotationZ)
         rotationAnimation.toValue = NSNumber(value: Double.pi * 2)
         rotationAnimation.duration = 1.0
         rotationAnimation.isCumulative = true
         rotationAnimation.repeatCount = Float.greatestFiniteMagnitude
 
-        imageView.layer.add(rotationAnimation, forKey: "rotationAnimation")
+        imageView.layer.add(rotationAnimation, forKey: Constants.rotationAnimation)
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
             self.loginButton.setTitle(Constants.loginButtonText, for: .normal)
@@ -315,6 +314,13 @@ final class AuthViewController: UIViewController {
             self.presenter?.checkAuthorisation(self.passwordTextField.text)
             imageView.removeFromSuperview()
         }
+    }
+
+    @objc private func loginButtonTapped() {
+        loginButton.setTitle(Constants.emptyText, for: .normal)
+        loginButton.isEnabled = false
+
+        setSpinner()
     }
 
     @objc private func hideKeyboard() {
