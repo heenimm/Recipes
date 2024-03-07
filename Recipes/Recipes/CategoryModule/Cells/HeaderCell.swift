@@ -3,7 +3,7 @@
 
 import UIKit
 
-/// Создает бар поиска и кнопки сортировки, которые размещаются в хедере таблицы
+///
 final class HeaderCell: UITableViewHeaderFooterView {
     // MARK: - Enum
 
@@ -50,7 +50,7 @@ final class HeaderCell: UITableViewHeaderFooterView {
         return searchBar
     }()
 
-    let caloriesStateButton: SortingButton = {
+    private let caloriesStateButton: SortingButton = {
         let button = SortingButton(type: .system)
         button.setTitle(Constants.caloriesText, for: .normal)
         button.layer.cornerRadius = 13
@@ -60,7 +60,7 @@ final class HeaderCell: UITableViewHeaderFooterView {
         return button
     }()
 
-    let timeStateButton: SortingButton = {
+    private let timeStateButton: SortingButton = {
         let button = SortingButton(type: .system)
         button.setTitle(Constants.timeText, for: .normal)
         button.layer.cornerRadius = 13

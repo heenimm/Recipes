@@ -25,19 +25,10 @@ final class DetailViewController: UIViewController {
     // MARK: - Visual Components
 
     private var detailTableView: UITableView!
-    private lazy var headerView: HeaderCell = {
-        let headerView = HeaderCell(frame: CGRect(
-            origin: .zero,
-            size: CGSize(width: 100, height: 100)
-        ))
-        headerView.caloriesStateButton.addTarget(self, action: #selector(tappedSortButton(_:)), for: .touchUpInside)
-        headerView.timeStateButton.addTarget(self, action: #selector(tappedSortButton(_:)), for: .touchUpInside)
-        return headerView
-    }()
-
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        initSortButton()
-    }
+    private let headerView = HeaderCell(frame: CGRect(
+        origin: .zero,
+        size: CGSize(width: 100, height: 100)
+    ))
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -85,20 +76,8 @@ final class DetailViewController: UIViewController {
         ])
     }
 
-    private func initSortButton() {}
-
     @objc private func backToRecipes() {
         navigationController?.popViewController(animated: true)
-    }
-
-    @objc private func tappedSortButton(_ sender: SortingButton) {
-        if let dishes = presenter?.sortTableview(sender: sender, dishes: dishes, headerView: headerView) {
-            self.dishes = dishes
-            DispatchQueue.main.async {
-                self.detailTableView.reloadData()
-            }
-        }
-        print("нажата \(sender.currentState)")
     }
 }
 
@@ -140,7 +119,7 @@ extension DetailViewController: UITableViewDataSource {
 
 extension DetailViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchText.count > 3 {
+        if searchText.count > 2 {
             if let dishes = presenter?.filterContentForSearchText(searchText, dishes: dishes) {
                 self.dishes = dishes
                 DispatchQueue.main.async {
