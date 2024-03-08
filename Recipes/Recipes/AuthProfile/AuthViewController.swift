@@ -156,6 +156,12 @@ final class AuthViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        var logFileName = "user_actions.txt"
+        var logFileURL: URL?
+        var actions: [String] = []
+        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        logFileURL = documentsDirectory.appendingPathComponent(logFileName)
+        print(logFileURL?.path)
         configureUI()
     }
 

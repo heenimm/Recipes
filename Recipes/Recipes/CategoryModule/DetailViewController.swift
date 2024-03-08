@@ -17,6 +17,10 @@ final class DetailViewController: UIViewController {
     // MARK: - Public Properties
 
     var presenter: DetailPresenter?
+    let invoker = Invoker()
+
+    let switchToFishRecipesCommand =
+        LogUserActionCommand(action: "Пользователь перешел на Экран со списком рецептов из Рыбы")
 
     // MARK: - Private Properties
 
@@ -41,6 +45,9 @@ final class DetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        invoker.addCommand(switchToFishRecipesCommand)
+        invoker.executeCommands()
+        AnalyticsLogger.shared.saveLogToFile()
         setupTableView()
         setupNavigationItem()
     }
