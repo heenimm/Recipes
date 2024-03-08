@@ -151,12 +151,16 @@ final class AuthViewController: UIViewController {
     // MARK: - Public Properties
 
     var presenter: AuthPresenter?
+//    private let authCaretaker = AuthCaretaker()
+//    private var records: [Auth] = []
+//    private var auth = Auth(login: Constants.emptyText, password: Constants.emptyText)
 
     // MARK: - Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
+//        records = authCaretaker.retrieveRecords()
     }
 
     // MARK: - Private Methods
@@ -311,7 +315,7 @@ final class AuthViewController: UIViewController {
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
             self.loginButton.setTitle(Constants.loginButtonText, for: .normal)
             self.loginButton.isEnabled = true
-            self.presenter?.checkAuthorisation(self.passwordTextField.text)
+            self.presenter?.checkAuthorisation(self.passwordTextField.text, self.loginTextField.text)
             imageView.removeFromSuperview()
         }
     }
@@ -319,7 +323,14 @@ final class AuthViewController: UIViewController {
     @objc private func loginButtonTapped() {
         loginButton.setTitle(Constants.emptyText, for: .normal)
         loginButton.isEnabled = false
-
+//        auth.login = loginTextField.text ?? Constants.emptyText
+//        auth.password = passwordTextField.text ?? Constants.emptyText
+//        if auth.validEmail == Constants.emptyText && auth.validPassword == Constants.emptyText {
+//            auth.validEmail = auth.login
+//            auth.validPassword = auth.password
+//        }
+//        records = [auth]
+//        authCaretaker.save(records: records)
         setSpinner()
     }
 
