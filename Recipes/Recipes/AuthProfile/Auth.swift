@@ -4,7 +4,7 @@
 import Foundation
 
 /// Модель к экрану авторизации
-struct Auth {
+struct Auth: Codable {
     /// Текст логина
     var login: String
     /// Текст пароля
@@ -14,7 +14,7 @@ struct Auth {
     /// Высота клавиатуры
     var keyboardHeight: CGFloat = 0.0
     /// Правильный логин
-    var validEmail = "Adm"
+    var validEmail = ""
     /// Правильный пароль
-    var validPassword = "123"
+    var validPassword = ""
 }
