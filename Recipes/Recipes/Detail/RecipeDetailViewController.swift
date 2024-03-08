@@ -35,7 +35,6 @@ class RecipeDetailViewController: UIViewController {
     let invoker = Invoker()
     let openSalmonRecipeCommand = LogUserActionCommand(action: "Пользователь открыл рецепт блюда из семги")
 
-
     // MARK: - Visual Components
 
     private let typesCells: [TypeCells] = [.picture, .kbju, .descriptionCell]
