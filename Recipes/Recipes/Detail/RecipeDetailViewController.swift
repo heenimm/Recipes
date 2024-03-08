@@ -32,16 +32,19 @@ class RecipeDetailViewController: UIViewController {
     // MARK: - Public Properties
 
     weak var presenter: RecipeDetailPresenter?
+    let invoker = Invoker()
+    let openSalmonRecipeCommand = LogUserActionCommand(action: "Пользователь открыл рецепт блюда из семги")
 
     // MARK: - Visual Components
 
     private let typesCells: [TypeCells] = [.picture, .kbju, .descriptionCell]
     private let recipeDetailTableView: UITableView = .init()
 
-    private let shareButton: UIButton = {
+    private lazy var shareButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(named: Constants.shareImage), for: .normal)
         button.tintColor = .black
+        button.addTarget(self, action: #selector(addShare), for: .touchUpInside)
         return button
     }()
 
@@ -55,6 +58,9 @@ class RecipeDetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        invoker.addCommand(openSalmonRecipeCommand)
+        invoker.executeCommands()
+        AnalyticsLogger.shared.saveLogToFile()
         configureUI()
     }
 
@@ -104,6 +110,13 @@ class RecipeDetailViewController: UIViewController {
 
     @objc private func backToRecipes() {
         navigationController?.popViewController(animated: true)
+    }
+
+    @objc func addShare() {
+        let shareSalmonRecipeCommand = LogUserActionCommand(action: "Пользователь поделился рецептом из Семги")
+        invoker.addCommand(shareSalmonRecipeCommand)
+        invoker.executeCommands()
+        AnalyticsLogger.shared.saveLogToFile()
     }
 }
 

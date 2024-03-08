@@ -28,11 +28,16 @@ final class RecipesViewController: UIViewController {
     // MARK: - Public Properties
 
     var presenter: RecipesPresenter?
+    let invoker = Invoker()
+    let openRecipesScreenCommand = LogUserActionCommand(action: "Пользователь открыл 'Экран рецептов'")
 
     // MARK: - Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        invoker.addCommand(openRecipesScreenCommand)
+        invoker.executeCommands()
+        AnalyticsLogger.shared.saveLogToFile()
         configureUI()
     }
 
@@ -83,7 +88,6 @@ extension RecipesViewController: RecipesCollectionViewCellDelegate {
         if let detailTableView = presenter?.recipesCoordinator?.showDetailScreen() {
             navigationController?.pushViewController(detailTableView, animated: true)
         }
-//        navigationController?.pushViewController(presenter?.recipesCoordinator?.showDetailScreen(), animated: true)
     }
 }
 
