@@ -24,7 +24,7 @@ protocol AuthViewPresenterProtocol {
     /// Проверка почты
     func checkEmail(_ textField: UITextField)
     /// Проверка логина
-    func checkAuthorisation(_ passwordText: String?)
+    func checkAuthorisation(_ passwordText: String?, _ loginText: String?)
 }
 
 /// Презентер окна авторизации
@@ -43,11 +43,14 @@ final class AuthPresenter: AuthViewPresenterProtocol {
 
     private var auth = Auth(login: Constants.emptyText, password: Constants.emptyText)
     private var view: AuthViewProtocol?
+    private var records: [Auth] = []
+    private let authCaretaker = AuthCaretaker()
 
     // MARK: - Initializers
 
     init(view: AuthViewProtocol) {
         self.view = view
+        auth = authCaretaker.retrieveRecords().first ?? Auth(login: Constants.emptyText, password: Constants.emptyText)
     }
 
     // MARK: - Public Methods
@@ -79,7 +82,16 @@ final class AuthPresenter: AuthViewPresenterProtocol {
         }
     }
 
-    func checkAuthorisation(_ passwordText: String?) {
+    func checkAuthorisation(_ passwordText: String?, _ loginText: String?) {
+        auth.login = loginText ?? Constants.emptyText
+        auth.password = passwordText ?? Constants.emptyText
+        if auth.validEmail == Constants.emptyText || auth.validPassword == Constants.emptyText {
+            auth.validEmail = auth.login
+            auth.validPassword = auth.password
+            records = [auth]
+            authCaretaker.save(records: records)
+        }
+
         let isValidPassword = isValidPassword(passwordText ?? Constants.emptyText)
         view?.changePasswordLabels(isValidPassword ? .appLabels : .red, isIncorrectPasswordHidden: isValidPassword)
         if isValidPassword {
@@ -90,10 +102,17 @@ final class AuthPresenter: AuthViewPresenterProtocol {
     // MARK: - Private Methods
 
     private func isValidEmail(_ email: String) -> Bool {
-        email == auth.validEmail
+        if auth.validEmail == Constants.emptyText {
+            auth.validEmail = email
+            records = [auth]
+            authCaretaker.save(records: records)
+        }
+        records = authCaretaker.retrieveRecords()
+        return email == records.first?.validEmail
     }
 
     private func isValidPassword(_ password: String) -> Bool {
-        password == auth.validPassword
+        records = authCaretaker.retrieveRecords()
+        return password == records.first?.validPassword
     }
 }

@@ -2,7 +2,7 @@
 // Copyright © RoadMap. All rights reserved.
 
 /// Отражаем логику персональных данных
-struct InfoPersonal {
+struct InfoPersonal: Codable {
     /// Фото юзера
     var userPhoto: String
     /// Никнейм

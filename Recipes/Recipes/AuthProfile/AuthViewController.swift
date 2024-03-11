@@ -311,7 +311,7 @@ final class AuthViewController: UIViewController {
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
             self.loginButton.setTitle(Constants.loginButtonText, for: .normal)
             self.loginButton.isEnabled = true
-            self.presenter?.checkAuthorisation(self.passwordTextField.text)
+            self.presenter?.checkAuthorisation(self.passwordTextField.text, self.loginTextField.text)
             imageView.removeFromSuperview()
         }
     }
@@ -319,7 +319,6 @@ final class AuthViewController: UIViewController {
     @objc private func loginButtonTapped() {
         loginButton.setTitle(Constants.emptyText, for: .normal)
         loginButton.isEnabled = false
-
         setSpinner()
     }
 
