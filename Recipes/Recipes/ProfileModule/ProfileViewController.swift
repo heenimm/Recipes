@@ -23,6 +23,8 @@ final class ProfileViewController: UIViewController {
         static let nameSurnameText = "Surname Name"
         static let okText = "Ok"
         static let cancelText = "Cancel"
+        static let userImage = "userImage"
+        static let username = "Surname Name"
     }
 
     // MARK: - Public Properties
@@ -30,6 +32,10 @@ final class ProfileViewController: UIViewController {
     var presenter: ProfilePresenter?
 
     // MARK: - Private Properties
+
+    private let infoPersonalCaretaker = InfoPersonalCaretaker()
+    private var records: [InfoPersonal] = []
+    private var infoPersonal = InfoPersonal(userPhoto: "userImage", userName: "Surname Name")
 
     private let contentTypes: [TypeCell] = [.infoPersonal, .infoBenefit]
     private let storageInfoBenefit = InfoBenefit.getAllBenefits()
@@ -66,6 +72,7 @@ final class ProfileViewController: UIViewController {
         setupSubviews()
         setupConstraints()
         setupNavigationItem()
+        loadData()
     }
 
     // MARK: - Private Methods
@@ -122,6 +129,7 @@ final class ProfileViewController: UIViewController {
         }
         let actionOK = UIAlertAction(title: Constants.okText, style: .default) { [weak self] okAction in
             if let userName = alertController.textFields?.first?.text {
+                self?.presenter?.saveUsername(userName)
                 self?.storageInfoPersonal[0].userName = userName
             }
             DispatchQueue.main.async {
@@ -132,6 +140,15 @@ final class ProfileViewController: UIViewController {
         alertController.addAction(actionOK)
         alertController.addAction(actionCancel)
         return alertController
+    }
+
+    private func loadData() {
+        infoPersonal = infoPersonalCaretaker.retrievePersonalData().first ?? InfoPersonal(
+            userPhoto: Constants.userImage,
+            userName: Constants.username
+        )
+        records = [infoPersonal]
+        storageInfoPersonal = records
     }
 }
 

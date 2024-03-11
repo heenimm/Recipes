@@ -13,10 +13,19 @@ final class ProfilePresenter {
 
     private weak var view: ProfileViewController?
 
+    private var records: [InfoPersonal] = []
+    private let infoPersonalCaretaker = InfoPersonalCaretaker()
+    private var infoPersonal = InfoPersonal(userPhoto: "userImage", userName: "Surname Name")
+//    private var storageInfoPersonal = InfoPersonal.getInfoPersonals()
+
     // MARK: - Init
 
     init(view: ProfileViewController) {
         self.view = view
+        infoPersonal = infoPersonalCaretaker.retrievePersonalData().first ?? InfoPersonal(
+            userPhoto: "userImage",
+            userName: "Surname Name"
+        )
     }
 
     // MARK: - Public Methods
@@ -29,5 +38,21 @@ final class ProfilePresenter {
         default:
             break
         }
+    }
+
+    func saveUsername(_ userName: String) {
+        infoPersonal.userName = userName
+        records = [infoPersonal]
+        infoPersonalCaretaker.save(records: records)
+    }
+
+    func loadInfoPersonal() -> [InfoPersonal] {
+        infoPersonal = infoPersonalCaretaker.retrievePersonalData().first ?? InfoPersonal(
+            userPhoto: "userImage",
+            userName: "Surname Name"
+        )
+        records = [infoPersonal]
+        return records
+//        storageInfoPersonal = records
     }
 }
