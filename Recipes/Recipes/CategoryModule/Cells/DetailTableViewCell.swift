@@ -127,7 +127,6 @@ final class DetailTableViewCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10))
-//        updateShimmerSize()
     }
 
     override func didMoveToSuperview() {
@@ -138,7 +137,7 @@ final class DetailTableViewCell: UITableViewCell {
         setupDishCaloriesLabelConstraints()
         setupNextButtonConstraints()
 
-        setShimmer()
+//        setShimmer()
     }
 
     // MARK: - Private Methods

@@ -36,6 +36,13 @@ final class DetailPresenter {
         } // данный метод ищет подстроку в строке без учета регистра
     }
 
+    func changeState() {
+        view?.setState(.loading)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
+            self?.view?.setState(.success)
+        }
+    }
+
     func sortTableview(sender: SortingButton, dishes: [Dish], headerView: HeaderCell) -> [Dish] {
         switch sender.currentState {
         case .none:
