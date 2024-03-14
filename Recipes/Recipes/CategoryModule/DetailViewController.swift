@@ -5,14 +5,6 @@ import UIKit
 
 /// Вью экрана с рецептами
 final class DetailViewController: UIViewController {
-    /// Состояния экрана рецептов
-    enum State {
-        /// Загрузка
-        case loading
-        /// Успешная загрузка
-        case success
-    }
-
     // MARK: - Enums
 
     private enum Constants {
@@ -24,6 +16,7 @@ final class DetailViewController: UIViewController {
 
     // MARK: - Public Properties
 
+    var networkService: NetworkService!
     var presenter: DetailPresenter?
     let invoker = Invoker()
 
@@ -32,7 +25,8 @@ final class DetailViewController: UIViewController {
 
     // MARK: - Private Properties
 
-    private var dishes = Dish.allFoods()
+//    private var dishes = Dish.allFoods()
+    private var dishes: [Recipe] = []
     private var state: State? {
         didSet {
             detailTableView.reloadData()
@@ -64,12 +58,27 @@ final class DetailViewController: UIViewController {
         setupTableView()
         setupNavigationItem()
         changeState()
+        updateRecipes()
     }
 
     // MARK: - Public Methods
 
     func setState(_ state: State) {
         self.state = state
+    }
+
+    func updateRecipes() {
+        networkService = NetworkService()
+        networkService.getRecipe { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case let .success(recipesCategory):
+                print(recipesCategory)
+                dishes = recipesCategory
+            case let .failure(error):
+                print(error)
+            }
+        }
     }
 
     // MARK: - Private Methods
@@ -124,13 +133,13 @@ final class DetailViewController: UIViewController {
     }
 
     @objc private func tappedSortButton(_ sender: SortingButton) {
-        if let dishes = presenter?.sortTableview(sender: sender, dishes: dishes, headerView: headerView) {
-            self.dishes = dishes
-            DispatchQueue.main.async {
-                self.detailTableView.reloadData()
-            }
-        }
-        print("нажата \(sender.currentState)")
+//        if let dishes = presenter?.sortTableview(sender: sender, dishes: dishes, headerView: headerView) {
+//            self.dishes = dishes
+//            DispatchQueue.main.async {
+//                self.detailTableView.reloadData()
+//            }
+//        }
+//        print("нажата \(sender.currentState)")
     }
 }
 
@@ -154,7 +163,16 @@ extension DetailViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        dishes.count
+        switch state {
+        case .loading:
+            6
+        case .data:
+            dishes.count
+        case .noData, .error:
+            0
+        default:
+            6
+        }
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -167,7 +185,7 @@ extension DetailViewController: UITableViewDataSource {
                 ) as? ShimmerTableViewCell
             else { return UITableViewCell() }
             return shimmerCell
-        case .success:
+        case .data:
             guard let cell = detailTableView.dequeueReusableCell(
                 withIdentifier: DetailTableViewCell.description(),
                 for: indexPath
@@ -175,6 +193,8 @@ extension DetailViewController: UITableViewDataSource {
             cell.configure(dish: dishes[indexPath.row])
             cell.delegate = self
             return cell
+        case .noData, .error:
+            return UITableViewCell()
         default:
             guard let cell = detailTableView.dequeueReusableCell(
                 withIdentifier: DetailTableViewCell.description(),
@@ -200,7 +220,7 @@ extension DetailViewController: UISearchBarDelegate {
                 }
             }
         } else {
-            dishes = Dish.allFoods()
+//            dishes = Dish.allFoods()
             DispatchQueue.main.async {
                 self.detailTableView.reloadData()
             }
