@@ -12,14 +12,14 @@ final class Recipe {
     /// Картинка блюда
     let foodImage: String
     /// Время приготовления
-    let cookingTime: Double
+    let cookingTime: Int
     /// Каллорийность
-    let caloriesСontent: Double
+    let caloriesСontent: Int
 
     init(dto: RecipeDTO) {
         foodImage = dto.image
         foodDescription = dto.label
-        cookingTime = dto.totalTime
-        caloriesСontent = dto.calories
+        cookingTime = Int(dto.totalTime)
+        caloriesСontent = Int(dto.calories)
     }
 }

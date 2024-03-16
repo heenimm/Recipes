@@ -3,7 +3,7 @@
 
 import UIKit
 
-///
+/// Вью экрана с рецептами
 final class DetailViewController: UIViewController {
     // MARK: - Enums
 
@@ -16,6 +16,7 @@ final class DetailViewController: UIViewController {
 
     // MARK: - Public Properties
 
+    var networkService: NetworkService!
     var presenter: DetailPresenter?
     let invoker = Invoker()
 
@@ -24,7 +25,13 @@ final class DetailViewController: UIViewController {
 
     // MARK: - Private Properties
 
-    private var dishes = Dish.allFoods()
+//    private var dishes = Dish.allFoods()
+    private var dishes: [Recipe] = []
+    private var state: State? {
+        didSet {
+            detailTableView.reloadData()
+        }
+    }
 
     // MARK: - Visual Components
 
@@ -50,9 +57,35 @@ final class DetailViewController: UIViewController {
         AnalyticsLogger.shared.saveLogToFile()
         setupTableView()
         setupNavigationItem()
+        changeState()
+        updateRecipes()
+    }
+
+    // MARK: - Public Methods
+
+    func setState(_ state: State) {
+        self.state = state
+    }
+
+    func updateRecipes() {
+        networkService = NetworkService()
+        networkService.getRecipe { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case let .success(recipesCategory):
+                print(recipesCategory)
+                dishes = recipesCategory
+            case let .failure(error):
+                print(error)
+            }
+        }
     }
 
     // MARK: - Private Methods
+
+    private func changeState() {
+        presenter?.changeState()
+    }
 
     private func setupNavigationItem() {
         let button = UIButton(type: .system)
@@ -76,7 +109,8 @@ final class DetailViewController: UIViewController {
         detailTableView.rowHeight = UITableView.automaticDimension
         detailTableView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         detailTableView.separatorStyle = .none
-        detailTableView.register(DetailTableViewCell.self, forCellReuseIdentifier: DetailTableViewCell.reuseID)
+        detailTableView.register(DetailTableViewCell.self, forCellReuseIdentifier: DetailTableViewCell.description())
+        detailTableView.register(ShimmerTableViewCell.self, forCellReuseIdentifier: ShimmerTableViewCell.description())
 
         headerView.searchBar.delegate = self
         detailTableView.tableHeaderView = headerView
@@ -99,13 +133,13 @@ final class DetailViewController: UIViewController {
     }
 
     @objc private func tappedSortButton(_ sender: SortingButton) {
-        if let dishes = presenter?.sortTableview(sender: sender, dishes: dishes, headerView: headerView) {
-            self.dishes = dishes
-            DispatchQueue.main.async {
-                self.detailTableView.reloadData()
-            }
-        }
-        print("нажата \(sender.currentState)")
+//        if let dishes = presenter?.sortTableview(sender: sender, dishes: dishes, headerView: headerView) {
+//            self.dishes = dishes
+//            DispatchQueue.main.async {
+//                self.detailTableView.reloadData()
+//            }
+//        }
+//        print("нажата \(sender.currentState)")
     }
 }
 
@@ -129,17 +163,47 @@ extension DetailViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        dishes.count
+        switch state {
+        case .loading:
+            6
+        case .data:
+            dishes.count
+        case .noData, .error:
+            0
+        default:
+            6
+        }
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = detailTableView.dequeueReusableCell(
-            withIdentifier: DetailTableViewCell.reuseID,
-            for: indexPath
-        ) as? DetailTableViewCell else { return UITableViewCell() }
-        cell.configure(dish: dishes[indexPath.row])
-        cell.delegate = self
-        return cell
+        switch state {
+        case .loading:
+            guard let shimmerCell = detailTableView
+                .dequeueReusableCell(
+                    withIdentifier: ShimmerTableViewCell.description(),
+                    for: indexPath
+                ) as? ShimmerTableViewCell
+            else { return UITableViewCell() }
+            return shimmerCell
+        case .data:
+            guard let cell = detailTableView.dequeueReusableCell(
+                withIdentifier: DetailTableViewCell.description(),
+                for: indexPath
+            ) as? DetailTableViewCell else { return UITableViewCell() }
+            cell.configure(dish: dishes[indexPath.row])
+            cell.delegate = self
+            return cell
+        case .noData, .error:
+            return UITableViewCell()
+        default:
+            guard let cell = detailTableView.dequeueReusableCell(
+                withIdentifier: DetailTableViewCell.description(),
+                for: indexPath
+            ) as? DetailTableViewCell else { return UITableViewCell() }
+            cell.configure(dish: dishes[indexPath.row])
+            cell.delegate = self
+            return cell
+        }
     }
 }
 
@@ -148,6 +212,7 @@ extension DetailViewController: UITableViewDataSource {
 extension DetailViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText.count > 3 {
+            presenter?.changeState()
             if let dishes = presenter?.filterContentForSearchText(searchText, dishes: dishes) {
                 self.dishes = dishes
                 DispatchQueue.main.async {
@@ -155,7 +220,7 @@ extension DetailViewController: UISearchBarDelegate {
                 }
             }
         } else {
-            dishes = Dish.allFoods()
+//            dishes = Dish.allFoods()
             DispatchQueue.main.async {
                 self.detailTableView.reloadData()
             }

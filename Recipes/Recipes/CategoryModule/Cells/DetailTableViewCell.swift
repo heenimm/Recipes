@@ -127,7 +127,6 @@ final class DetailTableViewCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10))
-//        updateShimmerSize()
     }
 
     override func didMoveToSuperview() {
@@ -138,7 +137,7 @@ final class DetailTableViewCell: UITableViewCell {
         setupDishCaloriesLabelConstraints()
         setupNextButtonConstraints()
 
-        setShimmer()
+//        setShimmer()
     }
 
     // MARK: - Private Methods
@@ -247,10 +246,19 @@ final class DetailTableViewCell: UITableViewCell {
 // MARK: - Extension
 
 extension DetailTableViewCell {
-    func configure(dish: Dish) {
-        dishPhotoImageView.image = UIImage(named: dish.foodImage)
+    func configure(dish: Recipe) {
+        if let imageURL = URL(string: dish.foodImage),
+           let imageData = try? Data(contentsOf: imageURL),
+           let image = UIImage(data: imageData)
+        {
+            dishPhotoImageView.image = image
+        } else {
+            dishPhotoImageView.image = nil
+        }
+
+//        dishPhotoImageView.image = UIImage(named: dish.foodImage)
         dishDescriptionLabel.text = dish.foodDescription
-        dishTimeLabel.text = dish.cookingTime
-        dishCaloriesLabel.text = dish.caloriesСontent
+        dishTimeLabel.text = String(dish.cookingTime) + " min"
+        dishCaloriesLabel.text = String(dish.caloriesСontent)
     }
 }
