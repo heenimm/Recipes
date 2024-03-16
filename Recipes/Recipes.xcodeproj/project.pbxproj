@@ -9,6 +9,12 @@
 /* Begin PBXBuildFile section */
 		445B93352B97A8E10040B25E /* TermsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445B93342B97A8E10040B25E /* TermsViewController.swift */; };
 		446A72F32B9A324B003A93E7 /* AuthCaretaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446A72F22B9A324B003A93E7 /* AuthCaretaker.swift */; };
+		447F573E2BA21F83009A3694 /* RecipeDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447F573D2BA21F83009A3694 /* RecipeDTO.swift */; };
+		447F57402BA21F8E009A3694 /* HitDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447F573F2BA21F8E009A3694 /* HitDTO.swift */; };
+		447F57422BA21F9E009A3694 /* ResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447F57412BA21F9E009A3694 /* ResponseDTO.swift */; };
+		447F57442BA21FAF009A3694 /* Recipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447F57432BA21FAF009A3694 /* Recipe.swift */; };
+		447F57462BA21FBD009A3694 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447F57452BA21FBD009A3694 /* NetworkService.swift */; };
+		447F57482BA21FCA009A3694 /* RequestBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447F57472BA21FCA009A3694 /* RequestBuilder.swift */; };
 		448D5FB52B9CB997005785F8 /* InfoPersonalCaretaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 448D5FB42B9CB997005785F8 /* InfoPersonalCaretaker.swift */; };
 		44B8E2322B9595B50067B02B /* RecipeDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44B8E2312B9595B50067B02B /* RecipeDetail.swift */; };
 		44B8E2352B9595C40067B02B /* RecipeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44B8E2332B9595C30067B02B /* RecipeDetailViewController.swift */; };
@@ -74,6 +80,12 @@
 /* Begin PBXFileReference section */
 		445B93342B97A8E10040B25E /* TermsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsViewController.swift; sourceTree = "<group>"; };
 		446A72F22B9A324B003A93E7 /* AuthCaretaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCaretaker.swift; sourceTree = "<group>"; };
+		447F573D2BA21F83009A3694 /* RecipeDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDTO.swift; sourceTree = "<group>"; };
+		447F573F2BA21F8E009A3694 /* HitDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HitDTO.swift; sourceTree = "<group>"; };
+		447F57412BA21F9E009A3694 /* ResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseDTO.swift; sourceTree = "<group>"; };
+		447F57432BA21FAF009A3694 /* Recipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recipe.swift; sourceTree = "<group>"; };
+		447F57452BA21FBD009A3694 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		447F57472BA21FCA009A3694 /* RequestBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestBuilder.swift; sourceTree = "<group>"; };
 		448D5FB42B9CB997005785F8 /* InfoPersonalCaretaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoPersonalCaretaker.swift; sourceTree = "<group>"; };
 		44B8E2312B9595B50067B02B /* RecipeDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeDetail.swift; sourceTree = "<group>"; };
 		44B8E2332B9595C30067B02B /* RecipeDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeDetailViewController.swift; sourceTree = "<group>"; };
@@ -157,6 +169,19 @@
 			path = Terms;
 			sourceTree = "<group>";
 		};
+		447F573C2BA21F65009A3694 /* NetworkService */ = {
+			isa = PBXGroup;
+			children = (
+				447F573D2BA21F83009A3694 /* RecipeDTO.swift */,
+				447F573F2BA21F8E009A3694 /* HitDTO.swift */,
+				447F57412BA21F9E009A3694 /* ResponseDTO.swift */,
+				447F57432BA21FAF009A3694 /* Recipe.swift */,
+				447F57452BA21FBD009A3694 /* NetworkService.swift */,
+				447F57472BA21FCA009A3694 /* RequestBuilder.swift */,
+			);
+			path = NetworkService;
+			sourceTree = "<group>";
+		};
 		44B8E2302B9595880067B02B /* Detail */ = {
 			isa = PBXGroup;
 			children = (
@@ -184,6 +209,7 @@
 		44E37C982B8FB8380047F3A5 /* Recipes */ = {
 			isa = PBXGroup;
 			children = (
+				447F573C2BA21F65009A3694 /* NetworkService */,
 				44E37CA52B90461C0047F3A5 /* Cells */,
 				44E37C992B8FB8610047F3A5 /* RecipesViewController.swift */,
 				44E37C9B2B8FB87C0047F3A5 /* RecipesPresenter.swift */,
@@ -517,6 +543,7 @@
 			files = (
 				7B42E4D52B8E0AF60095C019 /* AuthViewController.swift in Sources */,
 				7B42E4C22B8DF55C0095C019 /* MainTabBarViewController.swift in Sources */,
+				447F57482BA21FCA009A3694 /* RequestBuilder.swift in Sources */,
 				44E37CA02B8FB94F0047F3A5 /* RecipesCoordinator.swift in Sources */,
 				7B42E4EB2B8F366F0095C019 /* BonusesViewController.swift in Sources */,
 				7B42E4E72B8E94C90095C019 /* TermsUseViewController.swift in Sources */,
@@ -525,16 +552,19 @@
 				44E37CA72B9047170047F3A5 /* RecipesCollectionViewCell.swift in Sources */,
 				7B42E4D92B8E0D530095C019 /* Auth.swift in Sources */,
 				7B97113E2B9AF5A0003A0D4E /* AnalyticsLogger.swift in Sources */,
+				447F573E2BA21F83009A3694 /* RecipeDTO.swift in Sources */,
 				7B8129192B91823F00B6459D /* Dish.swift in Sources */,
 				7B97114A2BA2F67D003A0D4E /* TotalDTO.swift in Sources */,
 				7B2312072B931FD10072AA37 /* FavoritePresenter.swift in Sources */,
 				7B97112F2B98672C003A0D4E /* UIFont+Extension.swift in Sources */,
 				7B9711502BA2F99E003A0D4E /* DetailDish.swift in Sources */,
 				7B8129172B91821F00B6459D /* DetailPresenter.swift in Sources */,
+				447F57402BA21F8E009A3694 /* HitDTO.swift in Sources */,
 				44B8E23C2B9595D70067B02B /* DescriptionViewCell.swift in Sources */,
 				7B9711462BA2E85E003A0D4E /* RequestBuilder.swift in Sources */,
 				44E37C9C2B8FB87C0047F3A5 /* RecipesPresenter.swift in Sources */,
 				44B8E23B2B9595D70067B02B /* PictureViewCell.swift in Sources */,
+				447F57422BA21F9E009A3694 /* ResponseDTO.swift in Sources */,
 				7B42E4C42B8DF56E0095C019 /* ProfileViewController.swift in Sources */,
 				7B2312092B9321680072AA37 /* FavoriteCoordinator.swift in Sources */,
 				7B97112D2B986720003A0D4E /* UIColor+Extension.swift in Sources */,
@@ -559,6 +589,7 @@
 				7B2312032B92F5FF0072AA37 /* FavoriteViewController.swift in Sources */,
 				7B9711432BA1A6C3003A0D4E /* DishDTO.swift in Sources */,
 				446A72F32B9A324B003A93E7 /* AuthCaretaker.swift in Sources */,
+				447F57442BA21FAF009A3694 /* Recipe.swift in Sources */,
 				44B8E2322B9595B50067B02B /* RecipeDetail.swift in Sources */,
 				7B42E4D02B8E09AE0095C019 /* AuthCoordinator.swift in Sources */,
 				44B8E23F2B9596360067B02B /* DetailViewController.swift in Sources */,
@@ -569,6 +600,7 @@
 				7B42E4E22B8E4EAD0095C019 /* InfoPersonal.swift in Sources */,
 				7B8129242B919CB600B6459D /* HeaderCell.swift in Sources */,
 				7B42E4DF2B8E4D620095C019 /* BenefitsInfoCell.swift in Sources */,
+				447F57462BA21FBD009A3694 /* NetworkService.swift in Sources */,
 				7B42E4AE2B8DD7180095C019 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

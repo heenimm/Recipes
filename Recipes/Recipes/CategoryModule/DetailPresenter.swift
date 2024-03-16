@@ -12,8 +12,23 @@ final class DetailPresenter {
     private weak var view: DetailViewController?
     weak var detailCoordinator: RecipesCoordinator?
 
+    // TODO: Тест сервиса, убрать
+    var networkService: NetworkService!
+
     init(view: DetailViewController) {
         self.view = view
+
+        // TODO: Тест сервиса, убрать
+        networkService = NetworkService()
+        networkService.getRecipe { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case let .success(recipesCategory):
+                print(recipesCategory)
+            case let .failure(error):
+                print(error)
+            }
+        }
     }
 
     func filterContentForSearchText(_ searchText: String, dishes: [Dish]) -> [Dish] {
