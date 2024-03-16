@@ -59,7 +59,14 @@
 		7B97112D2B986720003A0D4E /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B97112C2B986720003A0D4E /* UIColor+Extension.swift */; };
 		7B97112F2B98672C003A0D4E /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B97112E2B98672C003A0D4E /* UIFont+Extension.swift */; };
 		7B97113E2B9AF5A0003A0D4E /* AnalyticsLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B97113D2B9AF5A0003A0D4E /* AnalyticsLogger.swift */; };
-		7B9711432BA1A6C3003A0D4E /* ServiceDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9711422BA1A6C3003A0D4E /* ServiceDTO.swift */; };
+		7B9711432BA1A6C3003A0D4E /* DishDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9711422BA1A6C3003A0D4E /* DishDTO.swift */; };
+		7B9711462BA2E85E003A0D4E /* RequestBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9711452BA2E85E003A0D4E /* RequestBuilder.swift */; };
+		7B9711482BA2F130003A0D4E /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9711472BA2F130003A0D4E /* NetworkService.swift */; };
+		7B97114A2BA2F67D003A0D4E /* TotalDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9711492BA2F67D003A0D4E /* TotalDTO.swift */; };
+		7B97114C2BA2F771003A0D4E /* RecipeDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B97114B2BA2F771003A0D4E /* RecipeDTO.swift */; };
+		7B97114E2BA2F7D9003A0D4E /* HitDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B97114D2BA2F7D9003A0D4E /* HitDTO.swift */; };
+		7B9711502BA2F99E003A0D4E /* DetailDish.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B97114F2BA2F99E003A0D4E /* DetailDish.swift */; };
+		7B97115E2BA43F45003A0D4E /* NoDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B97115D2BA43F45003A0D4E /* NoDataViewController.swift */; };
 		7BA050882B94830900150148 /* FavoriteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA050872B94830900150148 /* FavoriteTableViewCell.swift */; };
 		7BA0508C2B949B6E00150148 /* NothingYetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA0508B2B949B6E00150148 /* NothingYetView.swift */; };
 /* End PBXBuildFile section */
@@ -119,7 +126,14 @@
 		7B97112C2B986720003A0D4E /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		7B97112E2B98672C003A0D4E /* UIFont+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
 		7B97113D2B9AF5A0003A0D4E /* AnalyticsLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsLogger.swift; sourceTree = "<group>"; };
-		7B9711422BA1A6C3003A0D4E /* ServiceDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceDTO.swift; sourceTree = "<group>"; };
+		7B9711422BA1A6C3003A0D4E /* DishDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishDTO.swift; sourceTree = "<group>"; };
+		7B9711452BA2E85E003A0D4E /* RequestBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestBuilder.swift; sourceTree = "<group>"; };
+		7B9711472BA2F130003A0D4E /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		7B9711492BA2F67D003A0D4E /* TotalDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalDTO.swift; sourceTree = "<group>"; };
+		7B97114B2BA2F771003A0D4E /* RecipeDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDTO.swift; sourceTree = "<group>"; };
+		7B97114D2BA2F7D9003A0D4E /* HitDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HitDTO.swift; sourceTree = "<group>"; };
+		7B97114F2BA2F99E003A0D4E /* DetailDish.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailDish.swift; sourceTree = "<group>"; };
+		7B97115D2BA43F45003A0D4E /* NoDataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoDataViewController.swift; sourceTree = "<group>"; };
 		7BA050872B94830900150148 /* FavoriteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteTableViewCell.swift; sourceTree = "<group>"; };
 		7BA0508B2B949B6E00150148 /* NothingYetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NothingYetView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -146,11 +160,13 @@
 		44B8E2302B9595880067B02B /* Detail */ = {
 			isa = PBXGroup;
 			children = (
+				7B9711442BA2E844003A0D4E /* NetworkService */,
 				44B8E2372B9595CC0067B02B /* Cells */,
 				44B8E2342B9595C40067B02B /* RecipeDetailPresenter.swift */,
 				44B8E2332B9595C30067B02B /* RecipeDetailViewController.swift */,
 				44B8E2312B9595B50067B02B /* RecipeDetail.swift */,
 				44B8E2422B95965D0067B02B /* DetailPicctures.xcassets */,
+				7B97115F2BA43F4B003A0D4E /* ViewControllers */,
 			);
 			path = Detail;
 			sourceTree = "<group>";
@@ -218,7 +234,6 @@
 		7B42E4AA2B8DD7180095C019 /* Recipes */ = {
 			isa = PBXGroup;
 			children = (
-				7B9711412BA1A455003A0D4E /* Service */,
 				7B97112B2B98670D003A0D4E /* Extension */,
 				445B93312B97A8530040B25E /* Terms */,
 				7B2311FF2B92F32E0072AA37 /* FavoriteModule */,
@@ -334,12 +349,34 @@
 			path = Extension;
 			sourceTree = "<group>";
 		};
-		7B9711412BA1A455003A0D4E /* Service */ = {
+		7B9711412BA1A455003A0D4E /* DTO */ = {
 			isa = PBXGroup;
 			children = (
-				7B9711422BA1A6C3003A0D4E /* ServiceDTO.swift */,
+				7B9711422BA1A6C3003A0D4E /* DishDTO.swift */,
+				7B9711492BA2F67D003A0D4E /* TotalDTO.swift */,
+				7B97114B2BA2F771003A0D4E /* RecipeDTO.swift */,
+				7B97114D2BA2F7D9003A0D4E /* HitDTO.swift */,
 			);
-			path = Service;
+			path = DTO;
+			sourceTree = "<group>";
+		};
+		7B9711442BA2E844003A0D4E /* NetworkService */ = {
+			isa = PBXGroup;
+			children = (
+				7B9711412BA1A455003A0D4E /* DTO */,
+				7B9711452BA2E85E003A0D4E /* RequestBuilder.swift */,
+				7B9711472BA2F130003A0D4E /* NetworkService.swift */,
+				7B97114F2BA2F99E003A0D4E /* DetailDish.swift */,
+			);
+			path = NetworkService;
+			sourceTree = "<group>";
+		};
+		7B97115F2BA43F4B003A0D4E /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				7B97115D2BA43F45003A0D4E /* NoDataViewController.swift */,
+			);
+			path = ViewControllers;
 			sourceTree = "<group>";
 		};
 		7BA050892B94830D00150148 /* Cells */ = {
@@ -484,14 +521,18 @@
 				7B42E4EB2B8F366F0095C019 /* BonusesViewController.swift in Sources */,
 				7B42E4E72B8E94C90095C019 /* TermsUseViewController.swift in Sources */,
 				7B42E4AC2B8DD7180095C019 /* AppDelegate.swift in Sources */,
+				7B97114E2BA2F7D9003A0D4E /* HitDTO.swift in Sources */,
 				44E37CA72B9047170047F3A5 /* RecipesCollectionViewCell.swift in Sources */,
 				7B42E4D92B8E0D530095C019 /* Auth.swift in Sources */,
 				7B97113E2B9AF5A0003A0D4E /* AnalyticsLogger.swift in Sources */,
 				7B8129192B91823F00B6459D /* Dish.swift in Sources */,
+				7B97114A2BA2F67D003A0D4E /* TotalDTO.swift in Sources */,
 				7B2312072B931FD10072AA37 /* FavoritePresenter.swift in Sources */,
 				7B97112F2B98672C003A0D4E /* UIFont+Extension.swift in Sources */,
+				7B9711502BA2F99E003A0D4E /* DetailDish.swift in Sources */,
 				7B8129172B91821F00B6459D /* DetailPresenter.swift in Sources */,
 				44B8E23C2B9595D70067B02B /* DescriptionViewCell.swift in Sources */,
+				7B9711462BA2E85E003A0D4E /* RequestBuilder.swift in Sources */,
 				44E37C9C2B8FB87C0047F3A5 /* RecipesPresenter.swift in Sources */,
 				44B8E23B2B9595D70067B02B /* PictureViewCell.swift in Sources */,
 				7B42E4C42B8DF56E0095C019 /* ProfileViewController.swift in Sources */,
@@ -501,19 +542,22 @@
 				7B42E4D72B8E0B060095C019 /* AuthPresenter.swift in Sources */,
 				7BA0508C2B949B6E00150148 /* NothingYetView.swift in Sources */,
 				7B2312012B92F3AB0072AA37 /* Favorite.swift in Sources */,
+				7B97114C2BA2F771003A0D4E /* RecipeDTO.swift in Sources */,
 				7B42E4CE2B8E06D10095C019 /* AppCoordinator.swift in Sources */,
 				44B8E2352B9595C40067B02B /* RecipeDetailViewController.swift in Sources */,
 				7B42E4DD2B8E4CF70095C019 /* PersonalInfoCell.swift in Sources */,
 				448D5FB52B9CB997005785F8 /* InfoPersonalCaretaker.swift in Sources */,
 				7B42E4C92B8DF6210095C019 /* InfoBenefit.swift in Sources */,
 				44B8E23D2B9595D70067B02B /* KBJUViewCell.swift in Sources */,
+				7B9711482BA2F130003A0D4E /* NetworkService.swift in Sources */,
 				7B2311FE2B924B510072AA37 /* SortingButton.swift in Sources */,
 				7BA050882B94830900150148 /* FavoriteTableViewCell.swift in Sources */,
 				7B42E4CC2B8E04D60095C019 /* BaseCoordinator.swift in Sources */,
 				44B8E2412B9596420067B02B /* DetailTableViewCell.swift in Sources */,
 				7B42E4C62B8DF6000095C019 /* ProfilePresenter.swift in Sources */,
+				7B97115E2BA43F45003A0D4E /* NoDataViewController.swift in Sources */,
 				7B2312032B92F5FF0072AA37 /* FavoriteViewController.swift in Sources */,
-				7B9711432BA1A6C3003A0D4E /* ServiceDTO.swift in Sources */,
+				7B9711432BA1A6C3003A0D4E /* DishDTO.swift in Sources */,
 				446A72F32B9A324B003A93E7 /* AuthCaretaker.swift in Sources */,
 				44B8E2322B9595B50067B02B /* RecipeDetail.swift in Sources */,
 				7B42E4D02B8E09AE0095C019 /* AuthCoordinator.swift in Sources */,

@@ -102,6 +102,8 @@ class RecipeDetailViewController: UIViewController {
         recipeDetailTableView.separatorStyle = .none
     }
 
+    func updateState() {}
+
     @objc private func addFavorites() {
         let alertController = UIAlertController(title: nil, message: Constants.developText, preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: Constants.okText, style: .default, handler: nil))
@@ -138,7 +140,12 @@ extension RecipeDetailViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        3
+        switch presenter?.state {
+        case .none:
+            6
+        case .some:
+            <#code#>
+        }
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
