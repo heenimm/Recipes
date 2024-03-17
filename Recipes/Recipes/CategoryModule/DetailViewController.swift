@@ -27,6 +27,8 @@ final class DetailViewController: UIViewController {
 
     // MARK: - Private Properties
 
+    private var imageLoaderService = LoadImageService()
+    private var imageLoaderProxy: ProxyImage?
     private var dishes: [Recipe] = []
     private var state: State<[Recipe]>? {
         didSet {
@@ -66,6 +68,8 @@ final class DetailViewController: UIViewController {
         setupNavigationItem()
         changeState(dishes: dishes)
         updateRecipes()
+
+        imageLoaderProxy = ProxyImage(service: imageLoaderService)
     }
 
     // MARK: - Public Methods
@@ -85,6 +89,16 @@ final class DetailViewController: UIViewController {
                 print(error)
             }
         }
+    }
+
+    func loadImage(url: URL?, completion: @escaping (Data) -> Void) {
+        guard let url else { return }
+        imageLoaderProxy?.loadImage(url: url, completion: { data, _, _ in
+            guard let data else { return }
+            DispatchQueue.main.async {
+                completion(data)
+            }
+        })
     }
 
     // MARK: - Private Methods
@@ -204,6 +218,9 @@ extension DetailViewController: UITableViewDataSource {
                 for: indexPath
             ) as? DetailTableViewCell else { return UITableViewCell() }
             cell.configure(dish: dishes[indexPath.row])
+            loadImage(url: URL(string: dishes[indexPath.row].foodImage), completion: { data in
+                cell.setImage(data: data)
+            })
             cell.delegate = self
             return cell
         case .noData, .error:
