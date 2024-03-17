@@ -30,7 +30,7 @@ final class DetailPresenter {
 
     func filterContentForSearchText(_ searchText: String, dishes: [Recipe]) -> [Recipe] {
         dishes.filter { $0.foodDescription.localizedCaseInsensitiveContains(searchText)
-        } // данный метод ищет подстроку в строке без учета регистра
+        }
     }
 
     func changeState(dishes: [Recipe]) {

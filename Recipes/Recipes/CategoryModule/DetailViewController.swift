@@ -16,7 +16,7 @@ final class DetailViewController: UIViewController {
 
     // MARK: - Public Properties
 
-    var networkService: NetworkService!
+    var networkService = NetworkService()
     var presenter: DetailPresenter?
     let invoker = Invoker()
     var dishType: DishType!
@@ -27,7 +27,6 @@ final class DetailViewController: UIViewController {
 
     // MARK: - Private Properties
 
-//    private var dishes = Dish.allFoods()
     private var dishes: [Recipe] = []
     private var state: State<[Recipe]>? {
         didSet {
@@ -36,6 +35,12 @@ final class DetailViewController: UIViewController {
     }
 
     // MARK: - Visual Components
+
+    private lazy var refreshControl: UIRefreshControl = {
+        let control = UIRefreshControl()
+        control.addTarget(self, action: #selector(refreshControlPulled(_:)), for: .valueChanged)
+        return control
+    }()
 
     private var detailTableView: UITableView!
     private lazy var headerView: HeaderCell = {
@@ -70,7 +75,6 @@ final class DetailViewController: UIViewController {
     }
 
     func updateRecipes() {
-        networkService = NetworkService()
         networkService.dishType = dishType
         networkService.getRecipe { [weak self] result in
             guard let self = self else { return }
@@ -108,6 +112,7 @@ final class DetailViewController: UIViewController {
         detailTableView.delegate = self
         detailTableView.dataSource = self
         detailTableView.backgroundColor = .white
+        detailTableView.refreshControl = refreshControl
         detailTableView.rowHeight = UITableView.automaticDimension
         detailTableView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         detailTableView.separatorStyle = .none
@@ -142,6 +147,12 @@ final class DetailViewController: UIViewController {
             }
         }
         print("нажата \(sender.currentState)")
+    }
+
+    @objc private func refreshControlPulled(_ sender: UIRefreshControl) {
+        changeState(dishes: dishes)
+        updateRecipes()
+        sender.endRefreshing()
     }
 }
 
