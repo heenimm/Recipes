@@ -87,6 +87,7 @@ extension RecipesViewController: RecipesCollectionViewCellDelegate {
     func recipesCellDidTap(_ cell: RecipesCollectionViewCell) {
         if let detailTableView = presenter?.recipesCoordinator?.showDetailScreen() {
             detailTableView.dishType = cell.dishType
+            detailTableView.titleText = cell.footerLabel.text
             navigationController?.pushViewController(detailTableView, animated: true)
         }
     }

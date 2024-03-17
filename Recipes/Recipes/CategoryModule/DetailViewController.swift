@@ -20,7 +20,8 @@ final class DetailViewController: UIViewController {
     var presenter: DetailPresenter?
     let invoker = Invoker()
     var dishType: DishType!
-
+    var titleText: String?
+    
     let switchToFishRecipesCommand =
         LogUserActionCommand(action: "Пользователь перешел на Экран со списком рецептов из Рыбы")
 
@@ -75,7 +76,6 @@ final class DetailViewController: UIViewController {
             guard let self = self else { return }
             switch result {
             case let .success(recipesCategory):
-                print(recipesCategory)
                 dishes = recipesCategory
             case let .failure(error):
                 print(error)
@@ -91,7 +91,7 @@ final class DetailViewController: UIViewController {
 
     private func setupNavigationItem() {
         let button = UIButton(type: .system)
-        button.setTitle(Constants.titleText, for: .normal)
+        button.setTitle(titleText, for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.titleLabel?.font = UIFont(name: Constants.fontVerdanaBold, size: 28)
         button.setImage(

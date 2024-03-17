@@ -9,6 +9,7 @@ struct Recipes {
     let image: UIImage
     /// Название типа
     let name: String
+    /// Тип блюда
     let dishType: DishType
 
     /// Метод возвращающий типы рецептов в коллекции
