@@ -3,6 +3,18 @@
 
 import Foundation
 
+/// Состояния экрана рецептов
+enum State<Model> {
+    /// Загрузка
+    case loading
+    /// Успешная загрузка
+    case data(Model)
+    /// Нет данных
+    case noData
+    /// ошибка
+    case error(_ error: Error)
+}
+
 /// отрабатывает логику сортировки и фильтрации
 final class DetailPresenter {
     private enum Constants {
@@ -12,35 +24,27 @@ final class DetailPresenter {
     private weak var view: DetailViewController?
     weak var detailCoordinator: RecipesCoordinator?
 
-    // TODO: Тест сервиса, убрать
-    var networkService: NetworkService!
-
     init(view: DetailViewController) {
         self.view = view
-
-        // TODO: Тест сервиса, убрать
-        networkService = NetworkService()
-        networkService.getRecipe { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case let .success(recipesCategory):
-                print(recipesCategory)
-            case let .failure(error):
-                print(error)
-            }
-        }
     }
 
-    func filterContentForSearchText(_ searchText: String, dishes: [Dish]) -> [Dish] {
+    func filterContentForSearchText(_ searchText: String, dishes: [Recipe]) -> [Recipe] {
         dishes.filter { $0.foodDescription.localizedCaseInsensitiveContains(searchText)
         } // данный метод ищет подстроку в строке без учета регистра
     }
 
-    func sortTableview(sender: SortingButton, dishes: [Dish], headerView: HeaderCell) -> [Dish] {
+    func changeState(dishes: [Recipe]) {
+        view?.setState(.loading)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
+            self?.view?.setState(.data(dishes))
+        }
+    }
+
+    func sortTableview(sender: SortingButton, dishes: [Recipe], headerView: HeaderCell) -> [Recipe] {
         switch sender.currentState {
         case .none:
             sender.currentState = .none
-            return Dish.allFoods()
+            return dishes
         case .ascending:
             if sender.titleLabel?
                 .text ==
@@ -48,29 +52,27 @@ final class DetailPresenter {
             {
                 headerView.timeStateButton.currentState = .none
                 return dishes
-                    .sorted {
-                        Int($0.caloriesСontent.components(separatedBy: " ").first ?? "") ?? 0 <
-                            Int($1.caloriesСontent.components(separatedBy: " ").first ?? "") ?? 0
+                    .sorted { $0.caloriesСontent <
+                        $1.caloriesСontent
                     }
             } else {
                 headerView.caloriesStateButton.currentState = .none
-                return dishes.sorted {
-                    Int($0.cookingTime.components(separatedBy: " ").first ?? "") ?? 0 <
-                        Int($1.cookingTime.components(separatedBy: " ").first ?? "") ?? 0
+                return dishes.sorted { $0.cookingTime <
+                    $1.cookingTime
                 }
             }
         case .descending:
             if sender.titleLabel?.text == Constants.caloriesText {
                 headerView.timeStateButton.currentState = .none
                 return dishes.sorted {
-                    Int($0.caloriesСontent.components(separatedBy: " ").first ?? "") ?? 0 >
-                        Int($1.caloriesСontent.components(separatedBy: " ").first ?? "") ?? 0
+                    $0.caloriesСontent >
+                        $1.caloriesСontent
                 }
             } else {
                 headerView.caloriesStateButton.currentState = .none
                 return dishes.sorted {
-                    Int($0.cookingTime.components(separatedBy: " ").first ?? "") ?? 0 >
-                        Int($1.cookingTime.components(separatedBy: " ").first ?? "") ?? 0
+                    $0.cookingTime >
+                        $1.cookingTime
                 }
             }
         }
