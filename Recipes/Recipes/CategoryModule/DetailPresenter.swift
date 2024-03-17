@@ -40,44 +40,41 @@ final class DetailPresenter {
         }
     }
 
-//    func sortTableview(sender: SortingButton, dishes: [Recipe], headerView: HeaderCell) -> [Recipe] {
-//        switch sender.currentState {
-//        case .none:
-//            sender.currentState = .none
-    ////            return Dish.allFoods()
-//            return dishes
-//        case .ascending:
-//            if sender.titleLabel?
-//                .text ==
-//                Constants.caloriesText
-//            {
-//                headerView.timeStateButton.currentState = .none
-//                return dishes
-//                    .sorted {
-//                        Int($0.caloriesСontent.components(separatedBy: " ").first ?? "") ?? 0 <
-//                            Int($1.caloriesСontent.components(separatedBy: " ").first ?? "") ?? 0
-//                    }
-//            } else {
-//                headerView.caloriesStateButton.currentState = .none
-//                return dishes.sorted {
-//                    Int($0.cookingTime.components(separatedBy: " ").first ?? "") ?? 0 <
-//                        Int($1.cookingTime.components(separatedBy: " ").first ?? "") ?? 0
-//                }
-//            }
-//        case .descending:
-//            if sender.titleLabel?.text == Constants.caloriesText {
-//                headerView.timeStateButton.currentState = .none
-//                return dishes.sorted {
-//                    Int($0.caloriesСontent.components(separatedBy: " ").first ?? "") ?? 0 >
-//                        Int($1.caloriesСontent.components(separatedBy: " ").first ?? "") ?? 0
-//                }
-//            } else {
-//                headerView.caloriesStateButton.currentState = .none
-//                return dishes.sorted {
-//                    Int($0.cookingTime.components(separatedBy: " ").first ?? "") ?? 0 >
-//                        Int($1.cookingTime.components(separatedBy: " ").first ?? "") ?? 0
-//                }
-//            }
-//        }
-//    }
+    func sortTableview(sender: SortingButton, dishes: [Recipe], headerView: HeaderCell) -> [Recipe] {
+        switch sender.currentState {
+        case .none:
+            sender.currentState = .none
+            return dishes
+        case .ascending:
+            if sender.titleLabel?
+                .text ==
+                Constants.caloriesText
+            {
+                headerView.timeStateButton.currentState = .none
+                return dishes
+                    .sorted { $0.caloriesСontent <
+                        $1.caloriesСontent
+                    }
+            } else {
+                headerView.caloriesStateButton.currentState = .none
+                return dishes.sorted { $0.cookingTime <
+                    $1.cookingTime
+                }
+            }
+        case .descending:
+            if sender.titleLabel?.text == Constants.caloriesText {
+                headerView.timeStateButton.currentState = .none
+                return dishes.sorted {
+                    $0.caloriesСontent >
+                        $1.caloriesСontent
+                }
+            } else {
+                headerView.caloriesStateButton.currentState = .none
+                return dishes.sorted {
+                    $0.cookingTime >
+                        $1.cookingTime
+                }
+            }
+        }
+    }
 }

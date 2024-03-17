@@ -21,7 +21,7 @@ final class DetailViewController: UIViewController {
     let invoker = Invoker()
     var dishType: DishType!
     var titleText: String?
-    
+
     let switchToFishRecipesCommand =
         LogUserActionCommand(action: "Пользователь перешел на Экран со списком рецептов из Рыбы")
 
@@ -135,13 +135,13 @@ final class DetailViewController: UIViewController {
     }
 
     @objc private func tappedSortButton(_ sender: SortingButton) {
-//        if let dishes = presenter?.sortTableview(sender: sender, dishes: dishes, headerView: headerView) {
-//            self.dishes = dishes
-//            DispatchQueue.main.async {
-//                self.detailTableView.reloadData()
-//            }
-//        }
-//        print("нажата \(sender.currentState)")
+        if let dishes = presenter?.sortTableview(sender: sender, dishes: dishes, headerView: headerView) {
+            self.dishes = dishes
+            DispatchQueue.main.async {
+                self.detailTableView.reloadData()
+            }
+        }
+        print("нажата \(sender.currentState)")
     }
 }
 
@@ -222,7 +222,6 @@ extension DetailViewController: UISearchBarDelegate {
                 }
             }
         } else {
-//            dishes = Dish.allFoods()
             DispatchQueue.main.async {
                 self.detailTableView.reloadData()
             }
