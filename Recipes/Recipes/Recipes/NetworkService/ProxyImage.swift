@@ -8,7 +8,7 @@ final class ProxyImage: LoadImageServiceProtocol {
     private var loadImageService: LoadImageServiceProtocol
 
     init(service: LoadImageServiceProtocol) {
-        self.loadImageService = service
+        loadImageService = service
     }
 
     func loadImage(url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> Void) {
