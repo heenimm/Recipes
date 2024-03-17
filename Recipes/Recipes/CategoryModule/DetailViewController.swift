@@ -19,6 +19,7 @@ final class DetailViewController: UIViewController {
     var networkService: NetworkService!
     var presenter: DetailPresenter?
     let invoker = Invoker()
+    var dishType: DishType!
 
     let switchToFishRecipesCommand =
         LogUserActionCommand(action: "Пользователь перешел на Экран со списком рецептов из Рыбы")
@@ -69,6 +70,7 @@ final class DetailViewController: UIViewController {
 
     func updateRecipes() {
         networkService = NetworkService()
+        networkService.dishType = dishType
         networkService.getRecipe { [weak self] result in
             guard let self = self else { return }
             switch result {
