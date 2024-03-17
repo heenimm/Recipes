@@ -29,7 +29,7 @@ final class DetailViewController: UIViewController {
 
 //    private var dishes = Dish.allFoods()
     private var dishes: [Recipe] = []
-    private var state: State? {
+    private var state: State<[Recipe]>? {
         didSet {
             detailTableView.reloadData()
         }
@@ -59,13 +59,13 @@ final class DetailViewController: UIViewController {
         AnalyticsLogger.shared.saveLogToFile()
         setupTableView()
         setupNavigationItem()
-        changeState()
+        changeState(dishes: dishes)
         updateRecipes()
     }
 
     // MARK: - Public Methods
 
-    func setState(_ state: State) {
+    func setState(_ state: State<[Recipe]>?) {
         self.state = state
     }
 
@@ -85,8 +85,8 @@ final class DetailViewController: UIViewController {
 
     // MARK: - Private Methods
 
-    private func changeState() {
-        presenter?.changeState()
+    private func changeState(dishes: [Recipe]) {
+        presenter?.changeState(dishes: dishes)
     }
 
     private func setupNavigationItem() {
@@ -214,7 +214,7 @@ extension DetailViewController: UITableViewDataSource {
 extension DetailViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText.count > 3 {
-            presenter?.changeState()
+            presenter?.changeState(dishes: dishes)
             if let dishes = presenter?.filterContentForSearchText(searchText, dishes: dishes) {
                 self.dishes = dishes
                 DispatchQueue.main.async {

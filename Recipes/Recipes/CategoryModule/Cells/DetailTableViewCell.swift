@@ -247,16 +247,30 @@ final class DetailTableViewCell: UITableViewCell {
 
 extension DetailTableViewCell {
     func configure(dish: Recipe) {
-        if let imageURL = URL(string: dish.foodImage),
-           let imageData = try? Data(contentsOf: imageURL),
-           let image = UIImage(data: imageData)
-        {
-            dishPhotoImageView.image = image
+        if let imageURL = URL(string: dish.foodImage) {
+            URLSession.shared.dataTask(with: imageURL) { data, _, error in
+                if let error = error {
+                    print(error)
+                    DispatchQueue.main.async {
+                        self.dishPhotoImageView.image = nil
+                    }
+                    return
+                }
+
+                if let data = data, let image = UIImage(data: data) {
+                    DispatchQueue.main.async {
+                        self.dishPhotoImageView.image = image
+                    }
+                } else {
+                    DispatchQueue.main.async {
+                        self.dishPhotoImageView.image = nil
+                    }
+                }
+            }.resume()
         } else {
             dishPhotoImageView.image = nil
         }
 
-//        dishPhotoImageView.image = UIImage(named: dish.foodImage)
         dishDescriptionLabel.text = dish.foodDescription
         dishTimeLabel.text = String(dish.cookingTime) + " min"
         dishCaloriesLabel.text = String(dish.caloriesСontent)

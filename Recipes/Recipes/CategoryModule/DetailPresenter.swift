@@ -4,11 +4,11 @@
 import Foundation
 
 /// Состояния экрана рецептов
-enum State {
+enum State<Model> {
     /// Загрузка
     case loading
     /// Успешная загрузка
-    case data
+    case data(Model)
     /// Нет данных
     case noData
     /// ошибка
@@ -33,10 +33,10 @@ final class DetailPresenter {
         } // данный метод ищет подстроку в строке без учета регистра
     }
 
-    func changeState() {
+    func changeState(dishes: [Recipe]) {
         view?.setState(.loading)
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
-            self?.view?.setState(.data)
+            self?.view?.setState(.data(dishes))
         }
     }
 
