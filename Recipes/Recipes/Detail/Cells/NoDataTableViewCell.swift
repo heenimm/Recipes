@@ -1,10 +1,9 @@
-// NoDataViewController.swift
+// NoDataTableViewCell.swift
 // Copyright © RoadMap. All rights reserved.
 
 import UIKit
 
-///
-final class NoDataViewController: UIViewController {
+final class NoDataTableViewCell: UITableViewCell {
     private enum Constants {
         static let fontVerdana = "Verdana"
         static let fontVerdanaBold = "Verdana-Bold"
@@ -17,7 +16,7 @@ final class NoDataViewController: UIViewController {
     // MARK: - Static Constant
 
     typealias VoidHandler = () -> Void
-    static let reuseID = String(describing: PersonalInfoCell.self)
+    static let reuseID = String(describing: NoDataTableViewCell.self)
 
     // MARK: - Visual Components
 
@@ -34,7 +33,6 @@ final class NoDataViewController: UIViewController {
         let button = UIButton()
         button.contentMode = .center
         button.setImage(UIImage(systemName: Constants.xmarkImage), for: .normal)
-        button.addTarget(nil, action: #selector(dismissBottom), for: .touchUpInside)
         return button
     }()
 
@@ -47,7 +45,7 @@ final class NoDataViewController: UIViewController {
 
     // MARK: - Life Cycle
 
-    override func viewDidLoad() {
+    override func didMoveToSuperview() {
         setupSubviews()
         setupTitleLabelConstraints()
         setupCloseButtonConstraints()
@@ -57,18 +55,18 @@ final class NoDataViewController: UIViewController {
     // MARK: - Private Methods
 
     private func setupSubviews() {
-        view.backgroundColor = .white
-        view.addSubview(titleLabel)
-        view.addSubview(closeButton)
-        view.addSubview(termsTextView)
+        contentView.backgroundColor = .white
+        contentView.addSubview(titleLabel)
+        contentView.addSubview(closeButton)
+        contentView.addSubview(termsTextView)
     }
 
     private func setupTitleLabelConstraints() {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 45),
+            titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 45),
             titleLabel.leadingAnchor.constraint(
-                equalTo: view.leadingAnchor,
+                equalTo: contentView.leadingAnchor,
                 constant: 25
             ),
             titleLabel.heightAnchor.constraint(equalToConstant: 20),
@@ -81,11 +79,11 @@ final class NoDataViewController: UIViewController {
         closeButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             closeButton.topAnchor.constraint(
-                equalTo: view.topAnchor,
+                equalTo: contentView.topAnchor,
                 constant: 20
             ),
             closeButton.trailingAnchor.constraint(
-                equalTo: view.trailingAnchor,
+                equalTo: contentView.trailingAnchor,
                 constant: -15
 
             ),
@@ -98,23 +96,19 @@ final class NoDataViewController: UIViewController {
         termsTextView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             termsTextView.topAnchor.constraint(
-                equalTo: view.topAnchor,
+                equalTo: contentView.topAnchor,
                 constant: 65
             ),
             termsTextView.leadingAnchor.constraint(
-                equalTo: view.leadingAnchor,
+                equalTo: contentView.leadingAnchor,
                 constant: 25
             ),
             termsTextView.trailingAnchor.constraint(
-                equalTo: view.trailingAnchor,
+                equalTo: contentView.trailingAnchor,
                 constant: -25
             ),
             termsTextView.heightAnchor.constraint(equalToConstant: 625),
             titleLabel.widthAnchor.constraint(equalToConstant: 340)
         ])
-    }
-
-    @objc func dismissBottom() {
-        dismiss(animated: true, completion: nil)
     }
 }

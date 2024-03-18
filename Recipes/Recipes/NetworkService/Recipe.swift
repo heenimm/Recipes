@@ -1,22 +1,25 @@
-// DetailDish.swift
+// Recipe.swift
 // Copyright © RoadMap. All rights reserved.
 
 import Foundation
 
-final class DishDetail: Codable {
+/// Данные с рецептом
+final class Recipe {
+    // MARK: - Public Properties
+
     /// Идентификатор блюда
     let uri: String
-    /// Изображение блюда
-    let image: String
-    /// Название
-    let name: String
-    /// Калорийность
-    let calories: Double
+    /// Описание блюда
+    let foodDescription: String
+    /// Картинка блюда
+    let foodImage: String
     /// Время приготовления
     let cookingTime: Int
-    /// вес
+    /// Каллорийность
+    let caloriesСontent: Int
+    /// Вес
     let weight: Double
-    // рецепт блюда
+    // Pецепт блюда
     let ingredientLines: [String]
     /// Количество жиров в блюде.
     var fats: Double?
@@ -25,12 +28,13 @@ final class DishDetail: Codable {
     /// Количество углеводов в блюде.
     let carbohydrates: Double?
 
-    init(dto: DishDTO) {
+    init(dto: RecipeDTO) {
         uri = dto.uri
-        image = dto.image
-        name = dto.label
-        calories = dto.calories
-        cookingTime = dto.totalTime
+        foodImage = dto.image
+        foodDescription = dto.label
+        cookingTime = Int(dto.totalTime)
+        caloriesСontent = Int(dto.calories)
+//        cookingTime = dto.totalTime
         weight = dto.totalWeight
         ingredientLines = dto.ingredientLines
         fats = dto.totalNutrients["ENERC_KCAL"]?.quantity

@@ -97,6 +97,8 @@ class RecipeDetailViewController: UIViewController {
         recipeDetailTableView.register(PictureViewCell.self, forCellReuseIdentifier: Constants.pictureCell)
         recipeDetailTableView.register(KBJUViewCell.self, forCellReuseIdentifier: Constants.kbjuCell)
         recipeDetailTableView.register(DescriptionViewCell.self, forCellReuseIdentifier: Constants.descriptionCell)
+        /// Регистрирую ячейку для noData
+        recipeDetailTableView.register(NoDataTableViewCell.self, forCellReuseIdentifier: NoDataTableViewCell.reuseID)
         recipeDetailTableView.rowHeight = UITableView.automaticDimension
         recipeDetailTableView.backgroundColor = .white
         recipeDetailTableView.separatorStyle = .none
@@ -141,10 +143,13 @@ extension RecipeDetailViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch presenter?.state {
-        case .none:
+        case .loading:
             6
-        case .some:
-            <#code#>
+        case let .data(detailDish):
+            6
+//            detailDish.count
+        case .noData, .error(_), .none:
+            1
         }
     }
 

@@ -3,7 +3,7 @@
 
 import UIKit
 
-/// Состояние данных
+/// Состояние данных - общий для всех моделей благодаря дженерику говорит view как отрисоваться
 enum ViewState<Model> {
     /// Загрузка
     case loading
@@ -26,15 +26,25 @@ final class RecipeDetailPresenter {
 
     private weak var view: RecipeDetailViewController?
     private var networkService = NetworkService()
-    var dishDetail: [DishDetail] = []
-    var state: ViewState<DishDetail> = .loading {
+    var dishDetail: [Recipe] = []
+    var state: ViewState<Recipe> = .loading {
+        /// наблюдатель, срабатывает когда изменили значение переменной, то есть каждый раз когда меняем состояние
+        /// перезагружаем нашу таблицу новыми данными
         didSet {
             view?.updateState()
         }
     }
-    
+
     private func updateDishDetail(searchPredicate: String? = nil) {
         state = .loading
+        networkService.getDishDetail { result in
+            switch result {
+            case let .success(dishDetail):
+                print(dishDetail)
+            case let .failure(error):
+                print(error)
+            }
+        }
     }
 
 //    weak var coordinator: FavoriteCoordinator?
