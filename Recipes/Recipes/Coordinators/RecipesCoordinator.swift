@@ -22,6 +22,7 @@ final class RecipesCoordinator: BaseCoordinator {
         let detailViewController = DetailViewController()
         let detailPresenter = DetailPresenter(view: detailViewController)
         detailViewController.presenter = detailPresenter
+        detailViewController.networkService = NetworkService()
         detailPresenter.detailCoordinator = self
         return detailViewController
     }
