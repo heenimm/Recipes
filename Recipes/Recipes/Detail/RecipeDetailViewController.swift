@@ -58,6 +58,7 @@ class RecipeDetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        CoreDataManager.shared.fetchUserProfiles()
         invoker.addCommand(openSalmonRecipeCommand)
         invoker.executeCommands()
         AnalyticsLogger.shared.saveLogToFile()
@@ -97,10 +98,14 @@ class RecipeDetailViewController: UIViewController {
         recipeDetailTableView.register(PictureViewCell.self, forCellReuseIdentifier: Constants.pictureCell)
         recipeDetailTableView.register(KBJUViewCell.self, forCellReuseIdentifier: Constants.kbjuCell)
         recipeDetailTableView.register(DescriptionViewCell.self, forCellReuseIdentifier: Constants.descriptionCell)
+        /// Регистрирую ячейку для noData
+        recipeDetailTableView.register(NoDataTableViewCell.self, forCellReuseIdentifier: NoDataTableViewCell.reuseID)
         recipeDetailTableView.rowHeight = UITableView.automaticDimension
         recipeDetailTableView.backgroundColor = .white
         recipeDetailTableView.separatorStyle = .none
     }
+
+    func updateState() {}
 
     @objc private func addFavorites() {
         let alertController = UIAlertController(title: nil, message: Constants.developText, preferredStyle: .alert)
@@ -138,7 +143,15 @@ extension RecipeDetailViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        3
+        switch presenter?.state {
+        case .loading:
+            6
+        case let .data(detailDish):
+            6
+//            detailDish.count
+        case .noData, .error(_), .none:
+            2
+        }
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

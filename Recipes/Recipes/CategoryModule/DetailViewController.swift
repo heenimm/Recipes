@@ -3,7 +3,7 @@
 
 import UIKit
 
-///
+/// Вью экрана с рецептами
 final class DetailViewController: UIViewController {
     // MARK: - Enums
 
@@ -16,17 +16,33 @@ final class DetailViewController: UIViewController {
 
     // MARK: - Public Properties
 
+    var networkService = NetworkService()
     var presenter: DetailPresenter?
     let invoker = Invoker()
+    var dishType: DishType!
+    var titleText: String?
 
     let switchToFishRecipesCommand =
         LogUserActionCommand(action: "Пользователь перешел на Экран со списком рецептов из Рыбы")
 
     // MARK: - Private Properties
 
-    private var dishes = Dish.allFoods()
+    private var imageLoaderService = LoadImageService()
+    private var imageLoaderProxy: ProxyImage?
+    private var dishes: [Recipe] = []
+    private var state: State<[Recipe]>? {
+        didSet {
+            detailTableView.reloadData()
+        }
+    }
 
     // MARK: - Visual Components
+
+    private lazy var refreshControl: UIRefreshControl = {
+        let control = UIRefreshControl()
+        control.addTarget(self, action: #selector(refreshControlPulled(_:)), for: .valueChanged)
+        return control
+    }()
 
     private var detailTableView: UITableView!
     private lazy var headerView: HeaderCell = {
@@ -50,13 +66,50 @@ final class DetailViewController: UIViewController {
         AnalyticsLogger.shared.saveLogToFile()
         setupTableView()
         setupNavigationItem()
+        changeState(dishes: dishes)
+        updateRecipes()
+
+        imageLoaderProxy = ProxyImage(service: imageLoaderService)
+    }
+
+    // MARK: - Public Methods
+
+    func setState(_ state: State<[Recipe]>?) {
+        self.state = state
+    }
+
+    func updateRecipes() {
+        networkService.dishType = dishType
+        networkService.getRecipe { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case let .success(recipesCategory):
+                dishes = recipesCategory
+            case let .failure(error):
+                print(error)
+            }
+        }
+    }
+
+    func loadImage(url: URL?, completion: @escaping (Data) -> Void) {
+        guard let url else { return }
+        imageLoaderProxy?.loadImage(url: url, completion: { data, _, _ in
+            guard let data else { return }
+            DispatchQueue.main.async {
+                completion(data)
+            }
+        })
     }
 
     // MARK: - Private Methods
 
+    private func changeState(dishes: [Recipe]) {
+        presenter?.changeState(dishes: dishes)
+    }
+
     private func setupNavigationItem() {
         let button = UIButton(type: .system)
-        button.setTitle(Constants.titleText, for: .normal)
+        button.setTitle(titleText, for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.titleLabel?.font = UIFont(name: Constants.fontVerdanaBold, size: 28)
         button.setImage(
@@ -73,10 +126,12 @@ final class DetailViewController: UIViewController {
         detailTableView.delegate = self
         detailTableView.dataSource = self
         detailTableView.backgroundColor = .white
+        detailTableView.refreshControl = refreshControl
         detailTableView.rowHeight = UITableView.automaticDimension
         detailTableView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         detailTableView.separatorStyle = .none
-        detailTableView.register(DetailTableViewCell.self, forCellReuseIdentifier: DetailTableViewCell.reuseID)
+        detailTableView.register(DetailTableViewCell.self, forCellReuseIdentifier: DetailTableViewCell.description())
+        detailTableView.register(ShimmerTableViewCell.self, forCellReuseIdentifier: ShimmerTableViewCell.description())
 
         headerView.searchBar.delegate = self
         detailTableView.tableHeaderView = headerView
@@ -107,6 +162,12 @@ final class DetailViewController: UIViewController {
         }
         print("нажата \(sender.currentState)")
     }
+
+    @objc private func refreshControlPulled(_ sender: UIRefreshControl) {
+        changeState(dishes: dishes)
+        updateRecipes()
+        sender.endRefreshing()
+    }
 }
 
 // MARK: - Extension DetailViewController + UITableViewDelegate
@@ -129,17 +190,50 @@ extension DetailViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        dishes.count
+        switch state {
+        case .loading:
+            6
+        case .data:
+            dishes.count
+        case .noData, .error:
+            0
+        default:
+            6
+        }
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = detailTableView.dequeueReusableCell(
-            withIdentifier: DetailTableViewCell.reuseID,
-            for: indexPath
-        ) as? DetailTableViewCell else { return UITableViewCell() }
-        cell.configure(dish: dishes[indexPath.row])
-        cell.delegate = self
-        return cell
+        switch state {
+        case .loading:
+            guard let shimmerCell = detailTableView
+                .dequeueReusableCell(
+                    withIdentifier: ShimmerTableViewCell.description(),
+                    for: indexPath
+                ) as? ShimmerTableViewCell
+            else { return UITableViewCell() }
+            return shimmerCell
+        case .data:
+            guard let cell = detailTableView.dequeueReusableCell(
+                withIdentifier: DetailTableViewCell.description(),
+                for: indexPath
+            ) as? DetailTableViewCell else { return UITableViewCell() }
+            cell.configure(dish: dishes[indexPath.row])
+            loadImage(url: URL(string: dishes[indexPath.row].foodImage), completion: { data in
+                cell.setImage(data: data)
+            })
+            cell.delegate = self
+            return cell
+        case .noData, .error:
+            return UITableViewCell()
+        default:
+            guard let cell = detailTableView.dequeueReusableCell(
+                withIdentifier: DetailTableViewCell.description(),
+                for: indexPath
+            ) as? DetailTableViewCell else { return UITableViewCell() }
+            cell.configure(dish: dishes[indexPath.row])
+            cell.delegate = self
+            return cell
+        }
     }
 }
 
@@ -148,6 +242,7 @@ extension DetailViewController: UITableViewDataSource {
 extension DetailViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText.count > 3 {
+            presenter?.changeState(dishes: dishes)
             if let dishes = presenter?.filterContentForSearchText(searchText, dishes: dishes) {
                 self.dishes = dishes
                 DispatchQueue.main.async {
@@ -155,7 +250,6 @@ extension DetailViewController: UISearchBarDelegate {
                 }
             }
         } else {
-            dishes = Dish.allFoods()
             DispatchQueue.main.async {
                 self.detailTableView.reloadData()
             }
