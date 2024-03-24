@@ -16,24 +16,33 @@ final class DetailViewController: UIViewController {
 
     // MARK: - Public Properties
 
-    var networkService: NetworkService!
+    var networkService = NetworkService()
     var presenter: DetailPresenter?
     let invoker = Invoker()
+    var dishType: DishType!
+    var titleText: String?
 
     let switchToFishRecipesCommand =
         LogUserActionCommand(action: "Пользователь перешел на Экран со списком рецептов из Рыбы")
 
     // MARK: - Private Properties
 
-//    private var dishes = Dish.allFoods()
+    private var imageLoaderService = LoadImageService()
+    private var imageLoaderProxy: ProxyImage?
     private var dishes: [Recipe] = []
-    private var state: State? {
+    private var state: State<[Recipe]>? {
         didSet {
             detailTableView.reloadData()
         }
     }
 
     // MARK: - Visual Components
+
+    private lazy var refreshControl: UIRefreshControl = {
+        let control = UIRefreshControl()
+        control.addTarget(self, action: #selector(refreshControlPulled(_:)), for: .valueChanged)
+        return control
+    }()
 
     private var detailTableView: UITableView!
     private lazy var headerView: HeaderCell = {
@@ -57,23 +66,24 @@ final class DetailViewController: UIViewController {
         AnalyticsLogger.shared.saveLogToFile()
         setupTableView()
         setupNavigationItem()
-        changeState()
+        changeState(dishes: dishes)
         updateRecipes()
+
+        imageLoaderProxy = ProxyImage(service: imageLoaderService)
     }
 
     // MARK: - Public Methods
 
-    func setState(_ state: State) {
+    func setState(_ state: State<[Recipe]>?) {
         self.state = state
     }
 
     func updateRecipes() {
-        networkService = NetworkService()
+        networkService.dishType = dishType
         networkService.getRecipe { [weak self] result in
             guard let self = self else { return }
             switch result {
             case let .success(recipesCategory):
-                print(recipesCategory)
                 dishes = recipesCategory
             case let .failure(error):
                 print(error)
@@ -81,15 +91,25 @@ final class DetailViewController: UIViewController {
         }
     }
 
+    func loadImage(url: URL?, completion: @escaping (Data) -> Void) {
+        guard let url else { return }
+        imageLoaderProxy?.loadImage(url: url, completion: { data, _, _ in
+            guard let data else { return }
+            DispatchQueue.main.async {
+                completion(data)
+            }
+        })
+    }
+
     // MARK: - Private Methods
 
-    private func changeState() {
-        presenter?.changeState()
+    private func changeState(dishes: [Recipe]) {
+        presenter?.changeState(dishes: dishes)
     }
 
     private func setupNavigationItem() {
         let button = UIButton(type: .system)
-        button.setTitle(Constants.titleText, for: .normal)
+        button.setTitle(titleText, for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.titleLabel?.font = UIFont(name: Constants.fontVerdanaBold, size: 28)
         button.setImage(
@@ -106,6 +126,7 @@ final class DetailViewController: UIViewController {
         detailTableView.delegate = self
         detailTableView.dataSource = self
         detailTableView.backgroundColor = .white
+        detailTableView.refreshControl = refreshControl
         detailTableView.rowHeight = UITableView.automaticDimension
         detailTableView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         detailTableView.separatorStyle = .none
@@ -133,13 +154,19 @@ final class DetailViewController: UIViewController {
     }
 
     @objc private func tappedSortButton(_ sender: SortingButton) {
-//        if let dishes = presenter?.sortTableview(sender: sender, dishes: dishes, headerView: headerView) {
-//            self.dishes = dishes
-//            DispatchQueue.main.async {
-//                self.detailTableView.reloadData()
-//            }
-//        }
-//        print("нажата \(sender.currentState)")
+        if let dishes = presenter?.sortTableview(sender: sender, dishes: dishes, headerView: headerView) {
+            self.dishes = dishes
+            DispatchQueue.main.async {
+                self.detailTableView.reloadData()
+            }
+        }
+        print("нажата \(sender.currentState)")
+    }
+
+    @objc private func refreshControlPulled(_ sender: UIRefreshControl) {
+        changeState(dishes: dishes)
+        updateRecipes()
+        sender.endRefreshing()
     }
 }
 
@@ -191,6 +218,9 @@ extension DetailViewController: UITableViewDataSource {
                 for: indexPath
             ) as? DetailTableViewCell else { return UITableViewCell() }
             cell.configure(dish: dishes[indexPath.row])
+            loadImage(url: URL(string: dishes[indexPath.row].foodImage), completion: { data in
+                cell.setImage(data: data)
+            })
             cell.delegate = self
             return cell
         case .noData, .error:
@@ -212,7 +242,7 @@ extension DetailViewController: UITableViewDataSource {
 extension DetailViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText.count > 3 {
-            presenter?.changeState()
+            presenter?.changeState(dishes: dishes)
             if let dishes = presenter?.filterContentForSearchText(searchText, dishes: dishes) {
                 self.dishes = dishes
                 DispatchQueue.main.async {
@@ -220,7 +250,6 @@ extension DetailViewController: UISearchBarDelegate {
                 }
             }
         } else {
-//            dishes = Dish.allFoods()
             DispatchQueue.main.async {
                 self.detailTableView.reloadData()
             }

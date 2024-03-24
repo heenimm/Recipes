@@ -16,8 +16,10 @@ final class NetworkService: NetworkServiceProtocol {
     private var state: ViewState<[Dish]> = .loading
     private var requestBuilder = RequestBuilder()
 
+    var dishType: DishType!
+
     func getRecipe(completion: @escaping (Result<[Recipe], Error>) -> Void) {
-        guard let request = requestBuilder.getRecipesURL() else { return }
+        guard let request = requestBuilder.getRecipesURL(dishType: dishType) else { return }
         URLSession.shared.dataTask(with: request) { data, _, error in
             if let error = error {
                 completion(.failure(error))

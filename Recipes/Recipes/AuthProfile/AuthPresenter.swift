@@ -1,6 +1,7 @@
 // AuthPresenter.swift
 // Copyright © RoadMap. All rights reserved.
 
+import Keychain
 import UIKit
 
 /// Протокол для view экрана авторизации
@@ -33,6 +34,8 @@ final class AuthPresenter: AuthViewPresenterProtocol {
 
     enum Constants {
         static let emptyText = ""
+        static let loginText = "login"
+        static let passwordText = "password"
     }
 
     // MARK: - Public Properties
@@ -50,7 +53,8 @@ final class AuthPresenter: AuthViewPresenterProtocol {
 
     init(view: AuthViewProtocol) {
         self.view = view
-        auth = authCaretaker.retrieveRecords().first ?? Auth(login: Constants.emptyText, password: Constants.emptyText)
+        auth.validEmail = Keychain.load(Constants.loginText) ?? Constants.emptyText
+        auth.validPassword = Keychain.load(Constants.passwordText) ?? Constants.emptyText
     }
 
     // MARK: - Public Methods
@@ -88,8 +92,8 @@ final class AuthPresenter: AuthViewPresenterProtocol {
         if auth.validEmail == Constants.emptyText || auth.validPassword == Constants.emptyText {
             auth.validEmail = auth.login
             auth.validPassword = auth.password
-            records = [auth]
-            authCaretaker.save(records: records)
+            Keychain.save(auth.login, forKey: Constants.loginText)
+            Keychain.save(auth.password, forKey: Constants.passwordText)
         }
 
         let isValidPassword = isValidPassword(passwordText ?? Constants.emptyText)
@@ -104,15 +108,13 @@ final class AuthPresenter: AuthViewPresenterProtocol {
     private func isValidEmail(_ email: String) -> Bool {
         if auth.validEmail == Constants.emptyText {
             auth.validEmail = email
-            records = [auth]
-            authCaretaker.save(records: records)
+            Keychain.save(auth.login, forKey: Constants.loginText)
+            Keychain.save(auth.password, forKey: Constants.passwordText)
         }
-        records = authCaretaker.retrieveRecords()
-        return email == records.first?.validEmail
+        return email == Keychain.load(Constants.loginText)
     }
 
     private func isValidPassword(_ password: String) -> Bool {
-        records = authCaretaker.retrieveRecords()
-        return password == records.first?.validPassword
+        password == Keychain.load(Constants.passwordText)
     }
 }

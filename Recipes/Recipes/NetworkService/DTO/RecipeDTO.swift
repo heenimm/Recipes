@@ -5,7 +5,6 @@ import Foundation
 
 /// Рецепт
 struct RecipeDTO: Codable {
-
     /// URL
     let url: String
     /// Идентификатор блюда

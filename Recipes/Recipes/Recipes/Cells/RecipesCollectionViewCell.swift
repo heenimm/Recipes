@@ -42,6 +42,8 @@ final class RecipesCollectionViewCell: UICollectionViewCell {
         return label
     }()
 
+    var dishType: DishType!
+
     // MARK: - Initializers
 
     override init(frame: CGRect) {
