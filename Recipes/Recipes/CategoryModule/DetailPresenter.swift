@@ -4,11 +4,11 @@
 import Foundation
 
 /// Состояния экрана рецептов
-enum State {
+enum State<Model> {
     /// Загрузка
     case loading
     /// Успешная загрузка
-    case data
+    case data(Model)
     /// Нет данных
     case noData
     /// ошибка
@@ -24,6 +24,7 @@ final class DetailPresenter {
     private weak var view: DetailViewController?
     weak var detailCoordinator: RecipesCoordinator?
 
+<<<<<<< HEAD
     // TODO: Тест сервиса, убрать
 //    var networkService: NetworkService!
 
@@ -41,58 +42,59 @@ final class DetailPresenter {
 //                print(error)
 //            }
 //        }
+=======
+    init(view: DetailViewController) {
+        self.view = view
+>>>>>>> b53414f2cd1cf85489f319ce2f0059646122efa7
     }
 
     func filterContentForSearchText(_ searchText: String, dishes: [Recipe]) -> [Recipe] {
         dishes.filter { $0.foodDescription.localizedCaseInsensitiveContains(searchText)
-        } // данный метод ищет подстроку в строке без учета регистра
-    }
-
-    func changeState() {
-        view?.setState(.loading)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
-            self?.view?.setState(.data)
         }
     }
 
-//    func sortTableview(sender: SortingButton, dishes: [Recipe], headerView: HeaderCell) -> [Recipe] {
-//        switch sender.currentState {
-//        case .none:
-//            sender.currentState = .none
-    ////            return Dish.allFoods()
-//            return dishes
-//        case .ascending:
-//            if sender.titleLabel?
-//                .text ==
-//                Constants.caloriesText
-//            {
-//                headerView.timeStateButton.currentState = .none
-//                return dishes
-//                    .sorted {
-//                        Int($0.caloriesСontent.components(separatedBy: " ").first ?? "") ?? 0 <
-//                            Int($1.caloriesСontent.components(separatedBy: " ").first ?? "") ?? 0
-//                    }
-//            } else {
-//                headerView.caloriesStateButton.currentState = .none
-//                return dishes.sorted {
-//                    Int($0.cookingTime.components(separatedBy: " ").first ?? "") ?? 0 <
-//                        Int($1.cookingTime.components(separatedBy: " ").first ?? "") ?? 0
-//                }
-//            }
-//        case .descending:
-//            if sender.titleLabel?.text == Constants.caloriesText {
-//                headerView.timeStateButton.currentState = .none
-//                return dishes.sorted {
-//                    Int($0.caloriesСontent.components(separatedBy: " ").first ?? "") ?? 0 >
-//                        Int($1.caloriesСontent.components(separatedBy: " ").first ?? "") ?? 0
-//                }
-//            } else {
-//                headerView.caloriesStateButton.currentState = .none
-//                return dishes.sorted {
-//                    Int($0.cookingTime.components(separatedBy: " ").first ?? "") ?? 0 >
-//                        Int($1.cookingTime.components(separatedBy: " ").first ?? "") ?? 0
-//                }
-//            }
-//        }
-//    }
+    func changeState(dishes: [Recipe]) {
+        view?.setState(.loading)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
+            self?.view?.setState(.data(dishes))
+        }
+    }
+
+    func sortTableview(sender: SortingButton, dishes: [Recipe], headerView: HeaderCell) -> [Recipe] {
+        switch sender.currentState {
+        case .none:
+            sender.currentState = .none
+            return dishes
+        case .ascending:
+            if sender.titleLabel?
+                .text ==
+                Constants.caloriesText
+            {
+                headerView.timeStateButton.currentState = .none
+                return dishes
+                    .sorted { $0.caloriesСontent <
+                        $1.caloriesСontent
+                    }
+            } else {
+                headerView.caloriesStateButton.currentState = .none
+                return dishes.sorted { $0.cookingTime <
+                    $1.cookingTime
+                }
+            }
+        case .descending:
+            if sender.titleLabel?.text == Constants.caloriesText {
+                headerView.timeStateButton.currentState = .none
+                return dishes.sorted {
+                    $0.caloriesСontent >
+                        $1.caloriesСontent
+                }
+            } else {
+                headerView.caloriesStateButton.currentState = .none
+                return dishes.sorted {
+                    $0.cookingTime >
+                        $1.cookingTime
+                }
+            }
+        }
+    }
 }

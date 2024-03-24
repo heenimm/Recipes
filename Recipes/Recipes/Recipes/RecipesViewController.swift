@@ -86,6 +86,8 @@ final class RecipesViewController: UIViewController {
 extension RecipesViewController: RecipesCollectionViewCellDelegate {
     func recipesCellDidTap(_ cell: RecipesCollectionViewCell) {
         if let detailTableView = presenter?.recipesCoordinator?.showDetailScreen() {
+            detailTableView.dishType = cell.dishType
+            detailTableView.titleText = cell.footerLabel.text
             navigationController?.pushViewController(detailTableView, animated: true)
         }
     }
@@ -111,6 +113,7 @@ extension RecipesViewController: UICollectionViewDataSource {
         cell.delegate = self
         cell.recipesImageView.image = presenter?.recipes[indexPath.item].image
         cell.footerLabel.text = presenter?.recipes[indexPath.item].name
+        cell.dishType = presenter?.recipes[indexPath.item].dishType
         cell.layer.cornerRadius = 15.0
         return cell
     }
