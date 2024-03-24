@@ -58,6 +58,7 @@ class RecipeDetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        CoreDataManager.shared.fetchUserProfiles()
         invoker.addCommand(openSalmonRecipeCommand)
         invoker.executeCommands()
         AnalyticsLogger.shared.saveLogToFile()
@@ -149,7 +150,7 @@ extension RecipeDetailViewController: UITableViewDataSource {
             6
 //            detailDish.count
         case .noData, .error(_), .none:
-            1
+            2
         }
     }
 

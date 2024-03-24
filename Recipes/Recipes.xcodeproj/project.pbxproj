@@ -71,6 +71,11 @@
 		7B9711502BA2F99E003A0D4E /* DetailDish.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B97114F2BA2F99E003A0D4E /* DetailDish.swift */; };
 		7B9711612BA592FF003A0D4E /* NoDataTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9711602BA592FF003A0D4E /* NoDataTableViewCell.swift */; };
 		7B97116C2BA834B0003A0D4E /* RecipeModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7B97116A2BA834B0003A0D4E /* RecipeModel.xcdatamodeld */; };
+		7B9711772BA84485003A0D4E /* DetailDishModel+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9711752BA84485003A0D4E /* DetailDishModel+CoreDataClass.swift */; };
+		7B9711782BA84485003A0D4E /* DetailDishModel+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9711762BA84485003A0D4E /* DetailDishModel+CoreDataProperties.swift */; };
+		7B97117A2BA84679003A0D4E /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9711792BA84679003A0D4E /* CoreDataManager.swift */; };
+		7B9711812BA86D77003A0D4E /* UserProfile+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B97117F2BA86D77003A0D4E /* UserProfile+CoreDataClass.swift */; };
+		7B9711822BA86D77003A0D4E /* UserProfile+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9711802BA86D77003A0D4E /* UserProfile+CoreDataProperties.swift */; };
 		7BA050882B94830900150148 /* FavoriteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA050872B94830900150148 /* FavoriteTableViewCell.swift */; };
 		7BA0508C2B949B6E00150148 /* NothingYetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA0508B2B949B6E00150148 /* NothingYetView.swift */; };
 /* End PBXBuildFile section */
@@ -142,6 +147,11 @@
 		7B97114F2BA2F99E003A0D4E /* DetailDish.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailDish.swift; sourceTree = "<group>"; };
 		7B9711602BA592FF003A0D4E /* NoDataTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoDataTableViewCell.swift; sourceTree = "<group>"; };
 		7B97116B2BA834B0003A0D4E /* RecipeModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RecipeModel.xcdatamodel; sourceTree = "<group>"; };
+		7B9711752BA84485003A0D4E /* DetailDishModel+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DetailDishModel+CoreDataClass.swift"; sourceTree = "<group>"; };
+		7B9711762BA84485003A0D4E /* DetailDishModel+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DetailDishModel+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		7B9711792BA84679003A0D4E /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		7B97117F2BA86D77003A0D4E /* UserProfile+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserProfile+CoreDataClass.swift"; sourceTree = "<group>"; };
+		7B9711802BA86D77003A0D4E /* UserProfile+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserProfile+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		7BA050872B94830900150148 /* FavoriteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteTableViewCell.swift; sourceTree = "<group>"; };
 		7BA0508B2B949B6E00150148 /* NothingYetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NothingYetView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -235,6 +245,10 @@
 		7B42E49F2B8DD7180095C019 = {
 			isa = PBXGroup;
 			children = (
+				7B97117F2BA86D77003A0D4E /* UserProfile+CoreDataClass.swift */,
+				7B9711802BA86D77003A0D4E /* UserProfile+CoreDataProperties.swift */,
+				7B9711752BA84485003A0D4E /* DetailDishModel+CoreDataClass.swift */,
+				7B9711762BA84485003A0D4E /* DetailDishModel+CoreDataProperties.swift */,
 				7B97113D2B9AF5A0003A0D4E /* AnalyticsLogger.swift */,
 				7B42E4E82B8EA1530095C019 /* Localizable.strings */,
 				7B42E4AA2B8DD7180095C019 /* Recipes */,
@@ -271,6 +285,7 @@
 				7B42E4B92B8DD7190095C019 /* Info.plist */,
 				7B42E4C12B8DF55C0095C019 /* MainTabBarViewController.swift */,
 				7B97116A2BA834B0003A0D4E /* RecipeModel.xcdatamodeld */,
+				7B9711792BA84679003A0D4E /* CoreDataManager.swift */,
 			);
 			path = Recipes;
 			sourceTree = "<group>";
@@ -521,8 +536,10 @@
 			files = (
 				7B42E4D52B8E0AF60095C019 /* AuthViewController.swift in Sources */,
 				7B42E4C22B8DF55C0095C019 /* MainTabBarViewController.swift in Sources */,
+				7B9711772BA84485003A0D4E /* DetailDishModel+CoreDataClass.swift in Sources */,
 				447F57482BA21FCA009A3694 /* RequestBuilder.swift in Sources */,
 				44E37CA02B8FB94F0047F3A5 /* RecipesCoordinator.swift in Sources */,
+				7B9711782BA84485003A0D4E /* DetailDishModel+CoreDataProperties.swift in Sources */,
 				7B42E4EB2B8F366F0095C019 /* BonusesViewController.swift in Sources */,
 				7B42E4E72B8E94C90095C019 /* TermsUseViewController.swift in Sources */,
 				7B42E4AC2B8DD7180095C019 /* AppDelegate.swift in Sources */,
@@ -542,6 +559,7 @@
 				44B8E23B2B9595D70067B02B /* PictureViewCell.swift in Sources */,
 				447F57422BA21F9E009A3694 /* ResponseDTO.swift in Sources */,
 				7B42E4C42B8DF56E0095C019 /* ProfileViewController.swift in Sources */,
+				7B9711812BA86D77003A0D4E /* UserProfile+CoreDataClass.swift in Sources */,
 				449F471B2BA3614100597429 /* ShimmerTableViewCell.swift in Sources */,
 				7B2312092B9321680072AA37 /* FavoriteCoordinator.swift in Sources */,
 				7B97112D2B986720003A0D4E /* UIColor+Extension.swift in Sources */,
@@ -558,7 +576,9 @@
 				44B8E23D2B9595D70067B02B /* KBJUViewCell.swift in Sources */,
 				7B2311FE2B924B510072AA37 /* SortingButton.swift in Sources */,
 				7BA050882B94830900150148 /* FavoriteTableViewCell.swift in Sources */,
+				7B9711822BA86D77003A0D4E /* UserProfile+CoreDataProperties.swift in Sources */,
 				7B42E4CC2B8E04D60095C019 /* BaseCoordinator.swift in Sources */,
+				7B97117A2BA84679003A0D4E /* CoreDataManager.swift in Sources */,
 				44B8E2412B9596420067B02B /* DetailTableViewCell.swift in Sources */,
 				7B42E4C62B8DF6000095C019 /* ProfilePresenter.swift in Sources */,
 				7B9711612BA592FF003A0D4E /* NoDataTableViewCell.swift in Sources */,
